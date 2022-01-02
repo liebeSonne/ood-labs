@@ -42,11 +42,15 @@ function main() : void
     $modelDuck = ModelDuck::create();
     PlayWithDuck($modelDuck);
 
-    $modelDuck->SetFlyBehavior('FlyWithWings');
+    $modelDuck->SetFlyBehavior(createFlyWithWings());
     PlayWithDuck($modelDuck);
     PlayWithDuck($modelDuck);
 
-    $modelDuck->SetFlyBehavior('FlyWithWings');
+    $modelDuck->SetFlyBehavior('FlyNoWay');
+    PlayWithDuck($modelDuck);
+    PlayWithDuck($modelDuck);
+
+    $modelDuck->SetFlyBehavior(createFlyWithWings());
     PlayWithDuck($modelDuck);
     PlayWithDuck($modelDuck);
 }

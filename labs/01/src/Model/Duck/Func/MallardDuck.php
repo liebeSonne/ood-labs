@@ -7,7 +7,7 @@ class MallardDuck extends Duck
     public static function create(): self
     {
         return new self(
-            $flyBehavior = 'FlyWithWings',
+            $flyBehavior = createFlyWithWings(),
             $quackBehavior = 'QuackBehavior',
             $danceBehavior = 'DanceWaltz'
         );

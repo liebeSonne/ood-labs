@@ -12,9 +12,14 @@ function DanceMinuet() : void
 
 function DanceNoDance () : void {}
 
-function FlyWithWings(int $counter = 0) : void
+function createFlyWithWings() : callable
 {
-    echo "I'm flying № {$counter} with wings!!\n";
+    return static function () : void
+    {
+        static $counter = 0;
+        $counter++;
+        echo "I'm flying № {$counter} with wings!!\n";
+    };
 }
 
 function FlyNoWay () : void {}
@@ -30,3 +35,4 @@ function SqueakBehavior() : void
 }
 
 function MuteQuackBehavior() : void {}
+

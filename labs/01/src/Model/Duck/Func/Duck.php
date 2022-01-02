@@ -8,8 +8,6 @@ class Duck
     private $m_quackBehavior;
     private $m_danceBehavior;
 
-    private int $fly_counter = 0;
-
     public function __construct(
         callable $flyBehavior,
         callable $quackBehavior,
@@ -32,8 +30,7 @@ class Duck
 
     public function Fly() : void
     {
-        $this->fly_counter++;
-        call_user_func($this->m_flyBehavior, $this->fly_counter);
+        call_user_func($this->m_flyBehavior);
     }
 
     public function Dance() : void
@@ -43,7 +40,6 @@ class Duck
 
     public function SetFlyBehavior($flyBehavior) : void
     {
-        $this->fly_counter = 0;
         $this->m_flyBehavior = $flyBehavior;
     }
 

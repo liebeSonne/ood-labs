@@ -9,5 +9,6 @@ services:
     volumes:
       - ./src:/app/src
       - ./public:/app/public
+      - ./lib:/app/lib
       - ./composer.json:/app/composer.json
     command: [ "composer", "run-script", "app" ]
