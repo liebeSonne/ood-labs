@@ -20,7 +20,9 @@ class Duck
 
     public function Quack() : void
     {
-        call_user_func($this->m_quackBehavior);
+        if (is_callable($this->m_quackBehavior)) {
+            call_user_func($this->m_quackBehavior);
+        }
     }
 
     public function Swim() : void
@@ -30,12 +32,16 @@ class Duck
 
     public function Fly() : void
     {
-        call_user_func($this->m_flyBehavior);
+        if (is_callable($this->m_flyBehavior)) {
+            call_user_func($this->m_flyBehavior);
+        }
     }
 
     public function Dance() : void
     {
-        call_user_func($this->m_danceBehavior);
+        if (is_callable($this->m_danceBehavior)) {
+            call_user_func($this->m_danceBehavior);
+        }
     }
 
     public function SetFlyBehavior($flyBehavior) : void
