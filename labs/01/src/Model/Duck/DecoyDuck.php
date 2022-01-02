@@ -17,7 +17,7 @@ class DecoyDuck extends Duck
         );
     }
 
-    public function Display() : void
+    public function display() : void
     {
         echo "I'm decoy duck\n";
     }

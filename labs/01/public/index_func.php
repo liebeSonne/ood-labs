@@ -11,48 +11,48 @@ use App\Model\Duck\Func\RubberDuck;
 use App\Model\Duck\Func\DecoyDuck;
 use App\Model\Duck\Func\ModelDuck;
 
-function DrawDuck(Duck $duck) : void
+function drawDuck(Duck $duck) : void
 {
-    $duck->Display();
+    $duck->display();
 }
 
-function PlayWithDuck(Duck $duck) : void
+function playWithDuck(Duck $duck) : void
 {
-    DrawDuck($duck);
-    $duck->Quack();
-    $duck->Fly();
-    $duck->Dance();
+    drawDuck($duck);
+    $duck->quack();
+    $duck->fly();
+    $duck->dance();
     echo "\n";
 }
 
 function main() : void
 {
     $mallardDuck = MallardDuck::create();
-    PlayWithDuck($mallardDuck);
+    playWithDuck($mallardDuck);
 
     $redheadDuck = RedheadDuck::create();
-    PlayWithDuck($redheadDuck);
+    playWithDuck($redheadDuck);
 
     $rubberDuck = RubberDuck::create();
-    PlayWithDuck($rubberDuck);
+    playWithDuck($rubberDuck);
 
     $decoyDuck = DecoyDuck::create();
-    PlayWithDuck($decoyDuck);
+    playWithDuck($decoyDuck);
 
     $modelDuck = ModelDuck::create();
-    PlayWithDuck($modelDuck);
+    playWithDuck($modelDuck);
 
-    $modelDuck->SetFlyBehavior(createFlyWithWings());
-    PlayWithDuck($modelDuck);
-    PlayWithDuck($modelDuck);
+    $modelDuck->setFlyBehavior(createFlyWithWings());
+    playWithDuck($modelDuck);
+    playWithDuck($modelDuck);
 
-    $modelDuck->SetFlyBehavior('FlyNoWay');
-    PlayWithDuck($modelDuck);
-    PlayWithDuck($modelDuck);
+    $modelDuck->setFlyBehavior('FlyNoWay');
+    playWithDuck($modelDuck);
+    playWithDuck($modelDuck);
 
-    $modelDuck->SetFlyBehavior(createFlyWithWings());
-    PlayWithDuck($modelDuck);
-    PlayWithDuck($modelDuck);
+    $modelDuck->setFlyBehavior(createFlyWithWings());
+    playWithDuck($modelDuck);
+    playWithDuck($modelDuck);
 }
 
 main();

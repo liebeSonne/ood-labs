@@ -2,9 +2,9 @@
 
 namespace App\Behavior\Dance;
 
-class DanceMinuet implements IDanceBehavior
+class DanceMinuet implements DanceBehaviorInterface
 {
-    public function Dance() : void
+    public function dance() : void
     {
         echo "I'm dance Minuet!!\n";
     }

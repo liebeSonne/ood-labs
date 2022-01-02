@@ -2,7 +2,7 @@
 
 namespace App\Behavior\Dance;
 
-class DanceNoDance implements IDanceBehavior
+class DanceNoDance implements DanceBehaviorInterface
 {
-    public function Dance() : void {}
+    public function dance() : void {}
 }

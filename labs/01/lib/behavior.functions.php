@@ -1,16 +1,16 @@
 <?php
 
-function DanceWaltz() : void
+function danceWaltz() : void
 {
     echo "I'm dance Waltz!!\n";
 }
 
-function DanceMinuet() : void
+function danceMinuet() : void
 {
     echo "I'm dance Minuet!!\n";
 }
 
-function DanceNoDance () : void {}
+function danceNoDance () : void {}
 
 function createFlyWithWings() : callable
 {
@@ -22,17 +22,17 @@ function createFlyWithWings() : callable
     };
 }
 
-function FlyNoWay () : void {}
+function flyNoWay () : void {}
 
-function QuackBehavior() : void
+function quackBehavior() : void
 {
     echo "Quack Quack!!!\n";
 }
 
-function SqueakBehavior() : void
+function squeakBehavior() : void
 {
     echo "Squeek!!!\n";
 }
 
-function MuteQuackBehavior() : void {}
+function muteQuackBehavior() : void {}
 

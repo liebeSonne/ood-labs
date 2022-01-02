@@ -7,13 +7,13 @@ class RedheadDuck extends Duck
     public static function create() : self
     {
         return new self(
-            $flyBehavior = 'FlyNoWay',
-            $quackBehavior = 'MuteQuackBehavior',
-            $danceBehavior = 'DanceNoDance'
+            $flyBehavior = 'flyNoWay',
+            $quackBehavior = 'muteQuackBehavior',
+            $danceBehavior = 'danceNoDance'
         );
     }
 
-    public function Display() : void
+    public function display() : void
     {
         echo "I'm decoy duck\n";
     }

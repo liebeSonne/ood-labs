@@ -2,9 +2,9 @@
 
 namespace App\Behavior\Quack;
 
-class QuackBehavior implements IQuackBehavior
+class QuackBehavior implements QuackBehaviorInterface
 {
-    public function Quack() : void
+    public function quack() : void
     {
         echo "Quack Quack!!!\n";
     }

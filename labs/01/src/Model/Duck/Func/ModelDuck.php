@@ -7,13 +7,13 @@ class ModelDuck extends Duck
     public static function create() : self
     {
         return new self(
-            $flyBehavior = 'FlyNoWay',
-            $quackBehavior = 'QuackBehavior',
-            $danceBehavior = 'DanceNoDance'
+            $flyBehavior = 'flyNoWay',
+            $quackBehavior = 'quackBehavior',
+            $danceBehavior = 'danceNoDance'
         );
     }
 
-    public function Display() : void
+    public function display() : void
     {
         echo "I'm model duck\n";
     }

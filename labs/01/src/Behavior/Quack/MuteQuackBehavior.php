@@ -2,7 +2,7 @@
 
 namespace App\Behavior\Quack;
 
-class MuteQuackBehavior implements IQuackBehavior
+class MuteQuackBehavior implements QuackBehaviorInterface
 {
-    public function Quack() : void {}
+    public function quack() : void {}
 }

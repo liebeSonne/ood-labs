@@ -10,40 +10,40 @@ use App\Model\Duck\DecoyDuck;
 use App\Model\Duck\ModelDuck;
 use App\Behavior\Fly\FlyWithWings;
 
-function DrawDuck(Duck $duck) : void
+function drawDuck(Duck $duck) : void
 {
-    $duck->Display();
+    $duck->display();
 }
 
-function PlayWithDuck(Duck $duck) : void
+function playWithDuck(Duck $duck) : void
 {
-    DrawDuck($duck);
-    $duck->Quack();
-    $duck->Fly();
-    $duck->Dance();
+    drawDuck($duck);
+    $duck->quack();
+    $duck->fly();
+    $duck->dance();
     echo "\n";
 }
 
 function main() : void
 {
     $mallardDuck = MallardDuck::create();
-    PlayWithDuck($mallardDuck);
+    playWithDuck($mallardDuck);
 
     $redheadDuck = RedheadDuck::create();
-    PlayWithDuck($redheadDuck);
+    playWithDuck($redheadDuck);
 
     $rubberDuck = RubberDuck::create();
-    PlayWithDuck($rubberDuck);
+    playWithDuck($rubberDuck);
 
     $decoyDuck = DecoyDuck::create();
-    PlayWithDuck($decoyDuck);
+    playWithDuck($decoyDuck);
 
     $modelDuck = ModelDuck::create();
-    PlayWithDuck($modelDuck);
+    playWithDuck($modelDuck);
 
-    $modelDuck->SetFlyBehavior(new FlyWithWings());
-    PlayWithDuck($modelDuck);
-    PlayWithDuck($modelDuck);
+    $modelDuck->setFlyBehavior(new FlyWithWings());
+    playWithDuck($modelDuck);
+    playWithDuck($modelDuck);
 }
 
 main();

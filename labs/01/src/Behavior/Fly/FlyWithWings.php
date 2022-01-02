@@ -2,11 +2,11 @@
 
 namespace App\Behavior\Fly;
 
-class FlyWithWings implements IFlyBehavior
+class FlyWithWings implements FlyBehaviorInterface
 {
     protected int $counter = 0;
 
-    public function Fly() : void
+    public function fly() : void
     {
         $this->counter++;
         echo "I'm flying № {$this->counter} with wings!!\n";

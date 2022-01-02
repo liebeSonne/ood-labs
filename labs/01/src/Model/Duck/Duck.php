@@ -2,56 +2,60 @@
 
 namespace App\Model\Duck;
 
-use App\Behavior\Dance\IDanceBehavior;
-use App\Behavior\Fly\IFlyBehavior;
-use App\Behavior\Quack\IQuackBehavior;
+use App\Behavior\Dance\DanceBehaviorInterface;
+use App\Behavior\Fly\FlyBehaviorInterface;
+use App\Behavior\Quack\QuackBehaviorInterface;
 
 class Duck
 {
-    private IFlyBehavior $m_flyBehavior;
-    private IQuackBehavior $m_quackBehavior;
-    private IDanceBehavior $m_danceBehavior;
+    private FlyBehaviorInterface $flyBehavior;
+    private QuackBehaviorInterface $quackBehavior;
+    private DanceBehaviorInterface $danceBehavior;
 
     public function __construct(
-        IFlyBehavior $flyBehavior,
-        IQuackBehavior $quackBehavior,
-        IDanceBehavior $danceBehavior
+        FlyBehaviorInterface $flyBehavior,
+        QuackBehaviorInterface $quackBehavior,
+        DanceBehaviorInterface $danceBehavior
     ) {
-        $this->m_flyBehavior = $flyBehavior;
-        $this->m_quackBehavior = $quackBehavior;
-        $this->m_danceBehavior = $danceBehavior;
+        $this->setFlyBehavior($flyBehavior);
+        $this->setQuackBehavior($quackBehavior);
+        $this->setDanceBehavior($danceBehavior);
     }
 
-    public function Quack() : void
+    public function quack() : void
     {
-        $this->m_quackBehavior->Quack();
+        $this->quackBehavior->quack();
     }
 
-    public function Swim() : void
+    public function swim() : void
     {
         echo "I'm swimming\n";
     }
 
-    public function Fly() : void
+    public function fly() : void
     {
-        $this->m_flyBehavior->Fly();
+        $this->flyBehavior->fly();
     }
 
-    public function Dance() : void
+    public function dance() : void
     {
-        $this->m_danceBehavior->Dance();
+        $this->danceBehavior->dance();
     }
 
-    public function SetFlyBehavior(IFlyBehavior $flyBehavior) : void
+    public function setFlyBehavior(FlyBehaviorInterface $flyBehavior) : void
     {
-        $this->m_flyBehavior = $flyBehavior;
+        $this->flyBehavior = $flyBehavior;
     }
 
-    public function SetDanceBehavior(IDanceBehavior $danceBehavior) : void
+    public function setQuackBehavior(QuackBehaviorInterface $quackBehavior) : void
     {
-        $this->m_danceBehavior = $danceBehavior;
+        $this->quackBehavior = $quackBehavior;
     }
 
-    public function Display() : void {}
+    public function setDanceBehavior(DanceBehaviorInterface $danceBehavior) : void
+    {
+        $this->danceBehavior = $danceBehavior;
+    }
 
+    public function display() : void {}
 }

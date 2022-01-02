@@ -4,56 +4,71 @@ namespace App\Model\Duck\Func;
 
 class Duck
 {
-    private $m_flyBehavior;
-    private $m_quackBehavior;
-    private $m_danceBehavior;
+    /**
+     * @var callable
+     */
+    private $flyBehavior;
+
+    /**
+     * @var callable
+     */
+    private $quackBehavior;
+
+    /**
+     * @var callable
+     */
+    private $danceBehavior;
 
     public function __construct(
         callable $flyBehavior,
         callable $quackBehavior,
         callable $danceBehavior
     ) {
-        $this->m_flyBehavior = $flyBehavior;
-        $this->m_quackBehavior = $quackBehavior;
-        $this->m_danceBehavior = $danceBehavior;
+        $this->setFlyBehavior($flyBehavior);
+        $this->setQuackBehavior($quackBehavior);
+        $this->setDanceBehavior($danceBehavior);
     }
 
-    public function Quack() : void
+    public function quack() : void
     {
-        if (is_callable($this->m_quackBehavior)) {
-            call_user_func($this->m_quackBehavior);
+        if (is_callable($this->quackBehavior)) {
+            call_user_func($this->quackBehavior);
         }
     }
 
-    public function Swim() : void
+    public function swim() : void
     {
         echo "I'm swimming\n";
     }
 
-    public function Fly() : void
+    public function fly() : void
     {
-        if (is_callable($this->m_flyBehavior)) {
-            call_user_func($this->m_flyBehavior);
+        if (is_callable($this->flyBehavior)) {
+            call_user_func($this->flyBehavior);
         }
     }
 
-    public function Dance() : void
+    public function dance() : void
     {
-        if (is_callable($this->m_danceBehavior)) {
-            call_user_func($this->m_danceBehavior);
+        if (is_callable($this->danceBehavior)) {
+            call_user_func($this->danceBehavior);
         }
     }
 
-    public function SetFlyBehavior($flyBehavior) : void
+    public function setFlyBehavior($flyBehavior) : void
     {
-        $this->m_flyBehavior = $flyBehavior;
+        $this->flyBehavior = $flyBehavior;
     }
 
-    public function SetDanceBehavior($danceBehavior) : void
+    public function setQuackBehavior($quackBehavior) : void
     {
-        $this->m_danceBehavior = $danceBehavior;
+        $this->quackBehavior = $quackBehavior;
     }
 
-    public function Display() : void {}
+    public function setDanceBehavior($danceBehavior) : void
+    {
+        $this->danceBehavior = $danceBehavior;
+    }
 
+    public function display() : void {}
 }

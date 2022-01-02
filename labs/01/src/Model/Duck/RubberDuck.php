@@ -17,7 +17,7 @@ class RubberDuck extends Duck
         );
     }
 
-    public function Display() : void
+    public function display() : void
     {
         echo "I'm model duck\n";
     }

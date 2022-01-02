@@ -8,12 +8,12 @@ class MallardDuck extends Duck
     {
         return new self(
             $flyBehavior = createFlyWithWings(),
-            $quackBehavior = 'QuackBehavior',
-            $danceBehavior = 'DanceWaltz'
+            $quackBehavior = 'quackBehavior',
+            $danceBehavior = 'danceWaltz'
         );
     }
 
-    public function Display() : void
+    public function display() : void
     {
         echo "I'm mallard duck\n";
     }

@@ -2,7 +2,7 @@
 
 namespace App\Behavior\Fly;
 
-class FlyNoWay implements IFlyBehavior
+class FlyNoWay implements FlyBehaviorInterface
 {
-    public function Fly() : void {}
+    public function fly() : void {}
 }
