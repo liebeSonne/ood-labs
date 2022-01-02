@@ -2,7 +2,7 @@
 
 namespace App\Model\Weather;
 
-class SWeatherInfo extends \StdClass
+class WeatherInfo extends \StdClass
 {
     public float $temperature = 0;
     public float $humidity = 0;

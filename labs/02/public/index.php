@@ -2,27 +2,27 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use App\Model\Weather\CWeatherData;
-use App\Model\Display\CDisplay;
-use App\Model\Display\CStatsDisplay;
+use App\Model\Weather\WeatherData;
+use App\Model\Display\Display;
+use App\Model\Display\StatsDisplay;
 
 function main() : void
 {
-    $wd = new CWeatherData();
+    $wd = new WeatherData();
 
-    $display = new CDisplay();
-    $wd->RegisterObserver($display);
+    $display = new Display();
+    $wd->registerObserver($display);
 
-    $statsDisplay = new CStatsDisplay();
-    $wd->RegisterObserver($statsDisplay);
+    $statsDisplay = new StatsDisplay();
+    $wd->registerObserver($statsDisplay);
 
-    $wd->SetMeasurements(3, 0.7, 760);
-    $wd->SetMeasurements(4, 0.8, 761);
+    $wd->setMeasurements(3, 0.7, 760);
+    $wd->setMeasurements(4, 0.8, 761);
 
-    $wd->RemoveObserver($statsDisplay);
+    $wd->removeObserver($statsDisplay);
 
-    $wd->SetMeasurements(10,0.8,761);
-    $wd->SetMeasurements(-10,0.8,761);
+    $wd->setMeasurements(10,0.8,761);
+    $wd->setMeasurements(-10,0.8,761);
 
 }
 

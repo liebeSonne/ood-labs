@@ -2,11 +2,11 @@
 
 namespace App\Model\Display;
 
-use App\Observer\IObserver;
+use App\Observer\ObserverInterface;
 
-class CDisplay implements IObserver
+class Display implements ObserverInterface
 {
-    public function Update(\StdClass $data) : void
+    public function update(\StdClass $data) : void
     {
         echo "Current Temp " . $data->temperature . "\n";
         echo "Current Hum  " . $data->humidity . "\n";
