@@ -46,7 +46,7 @@ function main() : void
     playWithDuck($modelDuck);
     playWithDuck($modelDuck);
 
-    $modelDuck->setFlyBehavior('FlyNoWay');
+    $modelDuck->setFlyBehavior('flyNoWay');
     playWithDuck($modelDuck);
     playWithDuck($modelDuck);
 
