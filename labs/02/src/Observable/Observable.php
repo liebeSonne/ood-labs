@@ -25,7 +25,8 @@ abstract class Observable implements ObservableInterface
     public function removeObserver(ObserverInterface $observer) : void
     {
         $key = array_search($observer, $this->observers, true);
-        if($key){
+        if ($key !== false)
+        {
             unset($this->observers[$key]);
         }
     }
