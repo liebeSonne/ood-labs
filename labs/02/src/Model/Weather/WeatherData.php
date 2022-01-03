@@ -10,6 +10,18 @@ class WeatherData extends Observable
     private float $humidity = 0.0;
     private float $pressure = 760.0;
 
+    private string $type;
+
+    public function __construct(string $type = '')
+    {
+        $this->type = $type;
+    }
+
+    public function getType() : string
+    {
+        return $this->type;
+    }
+
     public function getTemperature() : float
     {
         return $this->temperature;
@@ -45,6 +57,7 @@ class WeatherData extends Observable
         $info->temperature = $this->getTemperature();
         $info->humidity = $this->getHumidity();
         $info->pressure = $this->getPressure();
+        $info->type = $this->getType();
         return $info;
     }
 }

@@ -8,6 +8,10 @@ use App\Model\Display\StatsDisplay;
 
 function main() : void
 {
+    echo "\n~~~~~~~~~~~~~~~~~~~~~\n";
+    echo "\n~~ Weather Station ~~\n";
+    echo "\n~~~~~~~~~~~~~~~~~~~~~\n";
+
     $wd = new WeatherData();
 
     $display = new Display();
