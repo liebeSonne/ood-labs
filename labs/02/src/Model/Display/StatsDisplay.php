@@ -2,30 +2,37 @@
 
 namespace App\Model\Display;
 
+use App\Model\Display\Stats\AvgStats;
 use App\Observer\ObserverInterface;
 
 class StatsDisplay implements ObserverInterface
 {
-    private float $minTemperature = PHP_FLOAT_MAX;
-    private float $maxTemperature = PHP_FLOAT_MIN;
-    private float $accTemperature = 0;
-    private int $countAcc = 0;
+    private AvgStats $tempStats;
+    private AvgStats $humStats;
+    private AvgStats $presStats;
+
+    public function __construct()
+    {
+        $this->tempStats = new AvgStats('Temperature');
+        $this->humStats = new AvgStats('Humidity');
+        $this->presStats = new AvgStats('Pressure');
+    }
 
     public function update(\StdClass $data) : void
     {
-        if ($this->minTemperature > $data->temperature) {
-            $this->minTemperature = $data->temperature;
-        }
-        if ($this->maxTemperature < $data->temperature) {
-            $this->maxTemperature = $data->temperature;
-        }
+        $this->tempStats->update($data->temperature);
+        $this->humStats->update($data->humidity);
+        $this->presStats->update($data->pressure);
 
-        $this->accTemperature += $data->temperature;
-        ++$this->countAcc;
+        $this->display();
+    }
 
-        echo "Max Temp " . $this->maxTemperature . "\n";
-        echo "Min Temp  " . $this->minTemperature . "\n";
-        echo "Average Temp  " . $this->accTemperature . "\n";
-        echo "----------------\n";
+    public function display() : void
+    {
+        echo "================\n";
+        $this->tempStats->display();
+        $this->humStats->display();
+        $this->presStats->display();
+        echo "================\n";
     }
 }
