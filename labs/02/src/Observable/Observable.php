@@ -8,23 +8,50 @@ abstract class Observable implements ObservableInterface
 {
     protected array $observers = [];
 
-    public function registerObserver(ObserverInterface $observer) : void
+    public function registerObserver(ObserverInterface $observer, int $priority = 0) : void
     {
-        $this->observers[] = $observer;
+        $item = new \StdClass;
+        $item->observer = $observer;
+        $item->priority = $priority;
+
+        $this->observers[] = $item;
+        $this->sortObservers();
+    }
+
+    protected function sortObservers() : void
+    {
+        usort($this->observers, static function ($a, $b) {
+            if ($a->priority < $b->priority)
+            {
+                return 1;
+            }
+            if ($a->priority > $b->priority)
+            {
+                return -1;
+            }
+            return 0;
+        });
     }
 
     public function notifyObservers() :void
     {
         $data = $this->getChangedData();
 
-        foreach ($this->observers as $observer) {
-            $observer->update($data);
+        foreach ($this->observers as $item) {
+            $item->observer->update($data);
         }
     }
 
     public function removeObserver(ObserverInterface $observer) : void
     {
-        $key = array_search($observer, $this->observers, true);
+        $key = false;
+        foreach ($this->observers as $k => $item) {
+            if ($item->observer === $observer) {
+                $key = $k;
+                break;
+            }
+        }
+
         if ($key !== false)
         {
             unset($this->observers[$key]);
