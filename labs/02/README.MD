@@ -15,4 +15,6 @@ Run by php:
 composer install
 php ./public/index.php
 php ./public/index_duo.php
+php ./public/index_pro.php
+php ./public/index_duo_pro.php
 ```
