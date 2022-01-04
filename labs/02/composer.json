@@ -24,7 +24,8 @@
     "app": [
       "@test",
       "php ./public/index.php",
-      "php ./public/index_duo.php"
+      "php ./public/index_duo.php",
+      "php ./public/index_pro.php"
     ]
   }
 }
