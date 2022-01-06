@@ -14,4 +14,5 @@ Run by php:
 ```bash
 composer install
 php ./public/index.php
+php ./public/index_stream.php
 ```

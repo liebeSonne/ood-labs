@@ -10,7 +10,8 @@
   },
   "scripts": {
     "app": [
-      "php ./public/index.php"
+      "php ./public/index.php",
+      "php ./public/index_stream.php"
     ]
   }
 }
