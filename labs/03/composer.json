@@ -11,7 +11,7 @@
   "scripts": {
     "app": [
       "php ./public/index.php",
-      "php ./public/index_stream.php"
+      "php ./public/index_stream.php --encrypt 3 --encrypt 100500 --compress --encrypt 0 input.dat output.dat"
     ]
   }
 }

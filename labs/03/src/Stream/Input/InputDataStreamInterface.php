@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Stream;
+namespace App\Stream\Input;
 
 interface InputDataStreamInterface
 {
@@ -8,6 +8,7 @@ interface InputDataStreamInterface
      * Возвращает признак достижения конца данных потока.
      * Выбрасывает исключение в случае ошибки.
      * @return bool
+     * @throws \Exception
      */
     public function isEOF() : bool;
 
@@ -15,6 +16,7 @@ interface InputDataStreamInterface
      * Считывает байт из потока.
      * Выбрасывает исключение в случае ошибки.
      * @return string
+     * @throws \Exception
      */
     public function readByte() : string;
 
@@ -24,7 +26,8 @@ interface InputDataStreamInterface
      * Выбрасывает исключение в случае ошибки.
      * @param resource $dstBuffer
      * @param int $size
-     * @return string
+     * @return int
+     * @throws \Exception
      */
     public function readBlock($dstBuffer, int $size) : int;
 }

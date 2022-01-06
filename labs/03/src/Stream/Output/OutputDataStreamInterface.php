@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Stream;
+namespace App\Stream\Output;
 
 interface OutputDataStreamInterface
 {
@@ -9,6 +9,7 @@ interface OutputDataStreamInterface
      * Выбрасывает исключение в случае ошибки.
      * @param string $data
      * @return void
+     * @throws \Exception
      */
     public function writeByte(string $data) : void;
 
@@ -18,6 +19,7 @@ interface OutputDataStreamInterface
      * @param resource $srcData
      * @param int $size
      * @return void
+     * @throws \Exception
      */
     public function writeBlock($srcData, int $size) : void;
 }
