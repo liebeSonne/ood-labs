@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: ./../docker/Dockerfile
+    working_dir: /app
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
+      - ./lib:/app/lib
+      - ./composer.json:/app/composer.json
+    command: [ "composer", "run-script", "app" ]
+    #command: [ "php", "./public/index.php" ]
+    #stdin_open: true
+    #tty: true
