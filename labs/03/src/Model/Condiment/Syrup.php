@@ -7,9 +7,12 @@ use App\Model\Beverage\BeverageInterface;
 // Добавка "Сироп"
 class Syrup extends CondimentDecorator
 {
+    const CHOCOLATE = 'Chocolate'; // Шоколадный
+    const MAPLE = 'Maple'; // Кленовый
+
     private string $type;
 
-    public function __construct(BeverageInterface $beverage, string $type = SyrupType::MAPLE)
+    public function __construct(BeverageInterface $beverage, string $type = self::MAPLE)
     {
         parent::__construct($beverage);
         $this->type = $type;
@@ -17,7 +20,7 @@ class Syrup extends CondimentDecorator
 
     public function getCondimentDescription() : string
     {
-        return ($this->type === SyrupType::CHOCOLATE ? 'Chocolate' : 'Maple') . ' syrup';
+        return ($this->type === self::CHOCOLATE ? 'Chocolate' : 'Maple') . ' syrup';
     }
 
     public function getCondimentCost() : float

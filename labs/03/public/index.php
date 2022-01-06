@@ -73,7 +73,7 @@ function main() : void
         // добавляем пару долек лимона
         $lemon = new Lemon($cinnamon, 2);
         // добавляем пару кубиков льда
-        $iceCubes = new IceCubes($lemon, 2, IceCubeType::DRY);
+        $iceCubes = new IceCubes($lemon, 2, IceCubes::DRY);
         // добавляем 2 грамма шоколадной крошки
         $beverage = new ChocolateCrumbs($iceCubes, 2);
 
@@ -89,7 +89,7 @@ function main() : void
                         new Latte()       // | | |   в самом сердце - Латте
                     ),
         2),                       // | | 2 дольки лимона
-    2, IceCubeType::DRY),    // | 2 кубика сухого льда
+    2, IceCubes::DRY),    // | 2 кубика сухого льда
     2);                              // 2 грамма шоколадной крошки
 
         echo $beverage->getDescription() . ' costs ' . $beverage->getCost() . "\n";
@@ -100,7 +100,7 @@ function main() : void
         // lemon - функция, добавляющая "2 дольки лимона" к любому напитку
         $lemon2 = makeCondiment(\App\Model\Condiment\Lemon::class, 2);
         // iceCubes - функция, добавляющая "3 кусочка льда" к любому напитку
-        $iceCubes3 = makeCondiment(\App\Model\Condiment\IceCubes::class, 3, IceCubeType::WATER);
+        $iceCubes3 = makeCondiment(\App\Model\Condiment\IceCubes::class, 3, IceCubes::WATER);
 
         $tea = new Tea();
 
@@ -112,7 +112,7 @@ function main() : void
                 Leamon(
                     $tea,
                 2),
-            2, IceCubeType::WATER);
+            2, IceCube::WATER);
         */
 
         echo $lemonIceTea->getDescription() . ' costs ' . $lemonIceTea->getCost() . "\n";

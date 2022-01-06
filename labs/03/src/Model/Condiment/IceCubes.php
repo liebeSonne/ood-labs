@@ -7,10 +7,13 @@ use App\Model\Beverage\BeverageInterface;
 // Добавка "Кубики льда". Определяется типом и количеством кубиков, что влияет на стоимость и описание
 class IceCubes extends CondimentDecorator
 {
+    const DRY = 'dry'; // Сухой лед (для суровых сибирских мужиков)
+    const WATER = 'water'; // Обычные кубики из воды
+
     private int $quantity;
     private string $type;
 
-    public function __construct(BeverageInterface $beverage, int $quantity = 1, string $type = IceCubeType::WATER)
+    public function __construct(BeverageInterface $beverage, int $quantity = 1, string $type = self::WATER)
     {
         parent::__construct($beverage);
         $this->quantity = $quantity;
@@ -19,13 +22,13 @@ class IceCubes extends CondimentDecorator
 
     public function getCondimentDescription() : string
     {
-        return ($this->type === IceCubeType::DRY ? 'Dry' : 'Water') . ' ice cubes x ' . $this->quantity;
+        return ($this->type === self::DRY ? 'Dry' : 'Water') . ' ice cubes x ' . $this->quantity;
     }
 
     public function getCondimentCost() : float
     {
         // Чем больше кубиков, тем больше стоимость.
         // Сухой лед стоит дороже
-        return ($this->type === IceCubeType::DRY ? 10 : 5) * $this->quantity;
+        return ($this->type === self::DRY ? 10 : 5) * $this->quantity;
     }
 }
