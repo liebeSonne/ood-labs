@@ -48,7 +48,6 @@ class WeatherDataSignal extends Observable implements SignalInterface
 
     public function setMeasurements(float $temp, float $humidity, float $pressure) : void
     {
-        echo "begin";
         $this->humidity = $humidity;
         $this->temperature = $temp;
         $this->pressure = $pressure;
@@ -58,8 +57,6 @@ class WeatherDataSignal extends Observable implements SignalInterface
         $this->emit('temp', $this->temperature);
         $this->emit('humidity', $this->humidity);
         $this->emit('pressure', $this->pressure);
-
-        echo "end";
     }
 
     protected function getChangedData() : \StdClass
