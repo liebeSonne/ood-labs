@@ -21,54 +21,36 @@ function main($argv)
     echo "output: " . file_get_contents($fileOutput) . "\n";
     echo "\n";
 
+    $input = new FileInputStream($fileInput);
+    $output = new FileOutputStream($fileOutput);
+
     for ($i = 1; $i < $countArg - 2; $i++) {
 
         switch ($argv[$i]) {
             case '--encrypt':
                 $seed = (int)$argv[++$i];
                 echo "--encrypt $seed\n";
-                $input = new FileInputStream($fileInput);
-                $output = new FileOutputStream($fileOutput);
-                $encrypt = new EncryptOutputStream($output, $seed);
-                while (!$input->isEOF()) {
-                    $byte = $input->readByte();
-                    $encrypt->writeByte($byte);
-                }
-                unset($input);
-                unset($output);
+                $output = new EncryptOutputStream($output, $seed);
                 break;
             case '--decrypt':
                 $seed = $argv[++$i];
                 echo "--decrypt $seed\n";
-                $input = new FileInputStream($fileInput);
-                $output = new FileOutputStream($fileOutput);
-                $decrypt = new DecryptInputStream($input, $seed);
-                while (!$decrypt->isEOF()) {
-                    $byte = $decrypt->readByte();
-                    $output->writeByte($byte);
-                }
+                $input = new DecryptInputStream($input, $seed);
                 break;
             case '--compress':
                 echo "--compress\n";
-                $input = new FileInputStream($fileInput);
-                $output = new FileOutputStream($fileOutput);
-                $compress = new CompressOutputStream($output);
-                while (!$input->isEOF()) {
-                    $byte = $input->readByte();
-                    $compress->writeByte($byte);
-                }
+                $output = new CompressOutputStream($output);
                 break;
             case '--decompress':
                 echo "--decompress\n";
-                $input = new FileInputStream($fileInput);
-                $output = new FileOutputStream($fileOutput);
-                $decompress = new DecompressInputStream($input);
-                while (!$decompress->isEOF()) {
-                    $byte = $decompress->readByte();
-                    $output->writeByte($byte);
-                }
+                $input = new DecompressInputStream($input);
                 break;
         }
+    }
+
+    while (!$input->isEOF()) {
+        $byte = $input->readByte();
+        $output->writeByte($byte);
     }
 
     echo "\n";
