@@ -2,3 +2,4 @@ rectangle 0 0 10 10 blue
 triangle 0 0 10 10 20 20 yellow
 ellipse 0 0 10 5 red
 polygon 0 0 10 5 white
+ellipse 300 300 100 50 red

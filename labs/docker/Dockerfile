@@ -4,6 +4,11 @@ RUN apt-get update
 RUN apt-get install -y curl
 RUN apt-get install -y zip unzip
 
+RUN apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev
+
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+RUN docker-php-ext-install -j$(nproc) gd
+
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer

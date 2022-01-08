@@ -13,6 +13,6 @@ compose run-script app
 Run by php:
 ```bash
 composer install
-php ./public/index.php ./data/test.txt
+php ./public/index.php ./data/test.txt ./data/out.png
 php ./public/index.php
 ```
