@@ -4,13 +4,12 @@ namespace App\Model\Duck\Func;
 
 class MallardDuck extends Duck
 {
-    public static function create(): self
+    public function __construct()
     {
-        return new self(
-            $flyBehavior = createFlyWithWings(),
-            $quackBehavior = 'quackBehavior',
-            $danceBehavior = 'danceWaltz'
-        );
+        $flyBehavior = createFlyWithWings();
+        $quackBehavior = 'quackBehavior';
+        $danceBehavior = 'danceWaltz';
+        parent::__construct($flyBehavior, $quackBehavior, $danceBehavior);
     }
 
     public function display() : void

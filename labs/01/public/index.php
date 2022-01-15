@@ -26,19 +26,19 @@ function playWithDuck(Duck $duck) : void
 
 function main() : void
 {
-    $mallardDuck = MallardDuck::create();
+    $mallardDuck = new MallardDuck();
     playWithDuck($mallardDuck);
 
-    $redheadDuck = RedheadDuck::create();
+    $redheadDuck = new RedheadDuck();
     playWithDuck($redheadDuck);
 
-    $rubberDuck = RubberDuck::create();
+    $rubberDuck = new RubberDuck();
     playWithDuck($rubberDuck);
 
-    $decoyDuck = DecoyDuck::create();
+    $decoyDuck = new DecoyDuck();
     playWithDuck($decoyDuck);
 
-    $modelDuck = ModelDuck::create();
+    $modelDuck = new ModelDuck();
     playWithDuck($modelDuck);
 
     $modelDuck->setFlyBehavior(new FlyWithWings());

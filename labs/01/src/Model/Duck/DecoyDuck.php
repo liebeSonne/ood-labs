@@ -8,13 +8,12 @@ use App\Behavior\Quack\MuteQuackBehavior;
 
 class DecoyDuck extends Duck
 {
-    public static function create() : self
+    public function __construct()
     {
-        return new self(
-            $flyBehavior = new FlyNoWay(),
-            $quackBehavior = new MuteQuackBehavior(),
-            $danceBehavior = new DanceNoDance()
-        );
+        $flyBehavior = new FlyNoWay();
+        $quackBehavior = new MuteQuackBehavior();
+        $danceBehavior = new DanceNoDance();
+        parent::__construct($flyBehavior, $quackBehavior, $danceBehavior);
     }
 
     public function display() : void

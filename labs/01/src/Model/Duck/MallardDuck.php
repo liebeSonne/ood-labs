@@ -8,13 +8,12 @@ use App\Behavior\Quack\QuackBehavior;
 
 class MallardDuck extends Duck
 {
-    public static function create(): self
+    public function __construct()
     {
-        return new self(
-            $flyBehavior = new FlyWithWings(),
-            $quackBehavior = new QuackBehavior(),
-            $danceBehavior = new DanceWaltz()
-        );
+        $flyBehavior = new FlyWithWings();
+        $quackBehavior = new QuackBehavior();
+        $danceBehavior = new DanceWaltz();
+        parent::__construct($flyBehavior, $quackBehavior, $danceBehavior);
     }
 
     public function display() : void

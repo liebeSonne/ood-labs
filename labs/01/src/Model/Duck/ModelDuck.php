@@ -8,13 +8,12 @@ use App\Behavior\Quack\QuackBehavior;
 
 class ModelDuck extends Duck
 {
-    public static function create() : self
+    public function __construct()
     {
-        return new self(
-            $flyBehavior = new FlyNoWay(),
-            $quackBehavior = new QuackBehavior(),
-            $danceBehavior = new DanceNoDance()
-        );
+        $flyBehavior = new FlyNoWay();
+        $quackBehavior = new QuackBehavior();
+        $danceBehavior = new DanceNoDance();
+        parent::__construct($flyBehavior, $quackBehavior, $danceBehavior);
     }
 
     public function display() : void

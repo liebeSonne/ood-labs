@@ -4,13 +4,12 @@ namespace App\Model\Duck\Func;
 
 class RedheadDuck extends Duck
 {
-    public static function create() : self
+    public function __construct()
     {
-        return new self(
-            $flyBehavior = 'flyNoWay',
-            $quackBehavior = 'muteQuackBehavior',
-            $danceBehavior = 'danceNoDance'
-        );
+        $flyBehavior = 'flyNoWay';
+        $quackBehavior = 'muteQuackBehavior';
+        $danceBehavior = 'danceNoDance';
+        parent::__construct($flyBehavior, $quackBehavior, $danceBehavior);
     }
 
     public function display() : void
