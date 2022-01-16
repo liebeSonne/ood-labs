@@ -3,7 +3,9 @@
 namespace App\Model\Document;
 
 use App\Command\Document\ChangeStringCommand;
+use App\Command\Document\InsertParagraphCommand;
 use App\Model\History\History;
+use App\Model\Paragraph\ParagraphInterface;
 
 class Document implements DocumentInterface
 {
@@ -11,16 +13,29 @@ class Document implements DocumentInterface
 
     private History $history;
 
+    /**
+     * @var DocumentItem[]
+     */
+    private array $items = [];
+
     public function __construct()
     {
         $this->history = new History();
     }
 
-    //public function insertParagraph(string $text, ?int $position = null): ParagraphInterface;
+    public function insertParagraph(string $text, ?int $position = null): ParagraphInterface
+    {
+        $paragraph = null;
+        $this->history->addAndExecuteCommand(new InsertParagraphCommand($this->items, $text, $position, $paragraph));
+        return $paragraph;
+    }
 
     //public function insertImage(string $path, int $width, int $height, ?int $position = null): ImageInterface;
 
-    //public function getItemCount(): int;
+    public function getItemCount(): int
+    {
+        return count($this->items);
+    }
 
     //public function getItem(int $index): ConstDocumentItem;
 

@@ -2,6 +2,7 @@
 
 namespace App\Editor;
 
+use App\Command\Editor\EditorInsertParagraph;
 use App\Command\Editor\EditorListCommand;
 use App\Command\Editor\EditorRedoCommand;
 use App\Command\Editor\EditorSetTitleCommand;
@@ -30,6 +31,8 @@ class Editor
         $this->menu->addItem('list', 'Show document', new EditorListCommand($this));
         $this->menu->addItem('undo', 'Undo command', new EditorUndoCommand($this));
         $this->menu->addItem('redo', 'Redo command', new EditorRedoCommand($this));
+
+        $this->menu->addItem('insertParagraph', 'Insert paragraph. Args: <position>|end <text>', new EditorInsertParagraph($this));
     }
 
     public function start(): void
@@ -68,5 +71,26 @@ class Editor
         $title = stream_get_line($this->stream, 65535, "\n");
         $title = trim($title);
         $this->document->setTitle($title);
+    }
+
+    public function insertParagraph(): void
+    {
+        $str = stream_get_line($this->stream, 65535, "\n");
+
+        $position = null;
+        $text = '';
+
+        if (sscanf($str, "end%s", $text) < 1) {
+            if (sscanf($str, "%d%s", $position, $text) < 1) {
+                return;
+            }
+        }
+
+        if ($position !== null && $position > $this->document->getItemCount()) {
+            echo "Error: Position more then document items count\n";
+            return;
+        }
+
+        $this->document->insertParagraph($text, $position);
     }
 }

@@ -4,7 +4,7 @@ namespace App\Model\Paragraph;
 
 interface ParagraphInterface
 {
-    //public function getText(): string;
+    public function getText(): string;
 
-    //public function setText(string $text): void;
+    public function setText(string $text): void;
 }

@@ -2,13 +2,15 @@
 
 namespace App\Model\Document;
 
+use App\Model\Paragraph\ParagraphInterface;
+
 interface DocumentInterface
 {
-    //public function insertParagraph(string $text, ?int $position = null): ParagraphInterface;
+    public function insertParagraph(string $text, ?int $position = null): ParagraphInterface;
 
     //public function insertImage(string $path, int $width, int $height, ?int $position = null): ImageInterface;
 
-    //public function getItemCount(): int;
+    public function getItemCount(): int;
 
     //public function getItem(int $index): ConstDocumentItem;
 
