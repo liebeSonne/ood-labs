@@ -7,7 +7,7 @@ docker-compose up
 Run by php composer:
 ```bash
 composer install
-compose run-script app
+composer run-script app
 ```
 
 Run by php:
