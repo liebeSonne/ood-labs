@@ -7,7 +7,7 @@ class RubberDuck extends Duck
     public function __construct()
     {
         $flyBehavior = 'flyNoWay';
-        $quackBehavior = 'quackBehavior';
+        $quackBehavior = 'squeakBehavior';
         $danceBehavior = 'danceNoDance';
         parent::__construct($flyBehavior, $quackBehavior, $danceBehavior);
     }

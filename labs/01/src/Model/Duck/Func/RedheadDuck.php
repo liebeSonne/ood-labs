@@ -6,9 +6,9 @@ class RedheadDuck extends Duck
 {
     public function __construct()
     {
-        $flyBehavior = 'flyNoWay';
-        $quackBehavior = 'muteQuackBehavior';
-        $danceBehavior = 'danceNoDance';
+        $flyBehavior = createFlyWithWings();
+        $quackBehavior = 'quackBehavior';
+        $danceBehavior = 'danceMinuet';
         parent::__construct($flyBehavior, $quackBehavior, $danceBehavior);
     }
 

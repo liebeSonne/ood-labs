@@ -2,17 +2,17 @@
 
 namespace App\Model\Duck;
 
-use App\Behavior\Dance\DanceNoDance;
-use App\Behavior\Fly\FlyNoWay;
-use App\Behavior\Quack\MuteQuackBehavior;
+use App\Behavior\Dance\DanceMinuet;
+use App\Behavior\Fly\FlyWithWings;
+use App\Behavior\Quack\QuackBehavior;
 
 class RedheadDuck extends Duck
 {
     public function __construct()
     {
-        $flyBehavior = new FlyNoWay();
-        $quackBehavior = new MuteQuackBehavior();
-        $danceBehavior = new DanceNoDance();
+        $flyBehavior = new FlyWithWings();
+        $quackBehavior = new QuackBehavior();
+        $danceBehavior = new DanceMinuet();
         parent::__construct($flyBehavior, $quackBehavior, $danceBehavior);
     }
 

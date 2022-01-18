@@ -4,14 +4,14 @@ namespace App\Model\Duck;
 
 use App\Behavior\Dance\DanceNoDance;
 use App\Behavior\Fly\FlyNoWay;
-use App\Behavior\Quack\QuackBehavior;
+use App\Behavior\Quack\SqueakBehavior;
 
 class RubberDuck extends Duck
 {
     public function __construct()
     {
         $flyBehavior = new FlyNoWay();
-        $quackBehavior = new QuackBehavior();
+        $quackBehavior = new SqueakBehavior();
         $danceBehavior = new DanceNoDance();
         parent::__construct($flyBehavior, $quackBehavior, $danceBehavior);
     }
