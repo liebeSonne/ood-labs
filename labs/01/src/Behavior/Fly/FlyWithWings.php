@@ -4,7 +4,7 @@ namespace App\Behavior\Fly;
 
 class FlyWithWings implements FlyBehaviorInterface
 {
-    protected int $counter = 0;
+    private int $counter = 0;
 
     public function fly() : void
     {
