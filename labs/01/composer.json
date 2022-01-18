@@ -6,7 +6,12 @@
   "autoload": {
     "psr-4": {
       "App\\":"src/"
-    }
+    },
+    "files": [
+      "src/Behavior/Dance/functions.php",
+      "src/Behavior/Quack/functions.php",
+      "src/Behavior/Fly/functions.php"
+    ]
   },
   "scripts": {
     "app": [
