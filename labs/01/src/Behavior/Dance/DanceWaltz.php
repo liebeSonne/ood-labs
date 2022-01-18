@@ -6,6 +6,6 @@ class DanceWaltz implements DanceBehaviorInterface
 {
     public function dance() : void
     {
-        echo "I'm dance Waltz!!\n";
+        echo "I'm dancing Waltz!!\n";
     }
 }

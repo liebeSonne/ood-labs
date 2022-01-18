@@ -2,12 +2,12 @@
 
 function danceWaltz() : void
 {
-    echo "I'm dance Waltz!!\n";
+    echo "I'm dancing Waltz!!\n";
 }
 
 function danceMinuet() : void
 {
-    echo "I'm dance Minuet!!\n";
+    echo "I'm dancing a Minuet!!\n";
 }
 
 function danceNoDance () : void {}

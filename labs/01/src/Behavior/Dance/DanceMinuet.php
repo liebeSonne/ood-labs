@@ -6,6 +6,6 @@ class DanceMinuet implements DanceBehaviorInterface
 {
     public function dance() : void
     {
-        echo "I'm dance Minuet!!\n";
+        echo "I'm dancing a Minuet!!\n";
     }
 }
