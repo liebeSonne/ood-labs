@@ -2,8 +2,6 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-require_once __DIR__ . '/../lib/make.functions.php';
-
 use App\Model\Beverage\BeverageInterface;
 use App\Model\Beverage\Coffee;
 use App\Model\Beverage\Tea;
@@ -11,7 +9,6 @@ use App\Model\Condiment\Lemon;
 use App\Model\Condiment\Cinnamon;
 use App\Model\Beverage\Latte;
 use App\Model\Condiment\IceCubes;
-use App\Model\Condiment\IceCubeType;
 use App\Model\Condiment\ChocolateCrumbs;
 
 function dialogWithUser() : void
