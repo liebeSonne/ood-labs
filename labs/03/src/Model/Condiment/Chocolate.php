@@ -14,7 +14,7 @@ class Chocolate extends CondimentDecorator
     public function __construct(BeverageInterface $beverage, int $quantity = 1)
     {
         parent::__construct($beverage);
-        $this->quantity = $quantity > self::MAX_QUANTITY ? self::MAX_QUANTITY : $quantity;
+        $this->quantity = min($quantity, self::MAX_QUANTITY);
     }
 
     public function getCondimentDescription() : string
