@@ -14,10 +14,10 @@ class DecompressInputStream extends InputStreamDecoration
 
     public function readByte(): string
     {
-        if ($this->counter !== 0) {
+        if ($this->counter > 0) {
             $this->counter--;
             return $this->byte;
-        } else {
+        } elseif ($this->counter === 0) {
             $this->readByteAndCounter();
             $this->counter--;
             return $this->byte;
