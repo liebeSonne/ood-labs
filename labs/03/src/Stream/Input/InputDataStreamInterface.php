@@ -24,10 +24,10 @@ interface InputDataStreamInterface
      * Считывает из потока блок данных размером size байт, записывая его в память по адресу dstBuffer.
      * Возвращает количество реально прочитанных байт.
      * Выбрасывает исключение в случае ошибки.
-     * @param resource $dstBuffer
+     * @param \SplFileObject $dstBuffer
      * @param int $size
      * @return int
      * @throws \Exception
      */
-    public function readBlock($dstBuffer, int $size) : int;
+    public function readBlock(\SplFileObject $dstBuffer, int $size) : int;
 }

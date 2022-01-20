@@ -16,10 +16,10 @@ interface OutputDataStreamInterface
     /**
      * Записывает в поток блок данных размером size байт, располагающийся по адресу srcData.
      * Выбрасывает исключение в случае ошибки.
-     * @param resource $srcData
+     * @param \SplFileObject $srcData
      * @param int $size
      * @return void
      * @throws \Exception
      */
-    public function writeBlock($srcData, int $size) : void;
+    public function writeBlock(\SplFileObject $srcData, int $size) : void;
 }

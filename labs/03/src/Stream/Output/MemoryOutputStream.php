@@ -4,28 +4,22 @@ namespace App\Stream\Output;
 
 class MemoryOutputStream implements OutputDataStreamInterface
 {
-    private $stream;
+    private \SplFileObject $stream;
 
     public function __construct()
     {
         $filename = 'php://memory';
-        $this->stream = fopen($filename, 'ab');
+        $this->stream = new \SplFileObject($filename, 'ab');
     }
 
     public function writeByte(string $data) : void
     {
-        fwrite($this->stream, $data);
+        $this->stream->fwrite($data);
     }
 
-    public function writeBlock($srcData, int $size) : void
+    public function writeBlock(\SplFileObject $srcData, int $size) : void
     {
-        $f = fopen($srcData, 'rb');
-        $str = fread($f, $size);
-        fwrite($this->stream, $str);
-    }
-
-    public function __destruct()
-    {
-        fclose($this->stream);
+        $str = $srcData->fread($size);
+        $this->stream->fwrite($str);
     }
 }

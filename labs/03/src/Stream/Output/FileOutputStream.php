@@ -4,34 +4,29 @@ namespace App\Stream\Output;
 
 class FileOutputStream implements OutputDataStreamInterface
 {
-    private $stream;
+    private \SplFileObject $stream;
 
     public function __construct(string $filename)
     {
-        $this->stream = fopen($filename, 'ab');
+        $this->stream = new \SplFileObject($filename, 'ab');
     }
 
     public function writeByte(string $data) : void
     {
-        $result = fwrite($this->stream, $data);
+        $result = $this->stream->fwrite($data);
         if ($result === false)
         {
             throw new \Exception('Failure to write');
         }
     }
 
-    public function writeBlock($srcData, int $size) : void
+    public function writeBlock(\SplFileObject $srcData, int $size) : void
     {
-        $str = fread($srcData, $size);
-        $result = fwrite($this->stream, $str);
+        $str = $srcData->fread($size);
+        $result = $this->stream->fwrite($str);
         if ($result === false)
         {
             throw new \Exception('Failure to write');
         }
-    }
-
-    public function __destruct()
-    {
-        fclose($this->stream);
     }
 }

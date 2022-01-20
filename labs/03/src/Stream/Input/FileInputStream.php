@@ -4,9 +4,9 @@ namespace App\Stream\Input;
 
 class FileInputStream implements InputDataStreamInterface
 {
-    private $stream;
+    private \SplFileObject $stream;
     private $pos;
-    private $filesize;
+
     public function __construct(string $filename)
     {
         if (!file_exists($filename)) {
@@ -17,39 +17,31 @@ class FileInputStream implements InputDataStreamInterface
             throw new \Exception('File is not readable');
         }
 
-        $this->filesize = filesize($filename);
-        $this->stream = fopen($filename, 'rb');
+        $this->stream = new \SplFileObject($filename, 'rb');
     }
 
     public function isEOF() : bool
     {
-        return feof($this->stream) || $this->pos === $this->filesize;
+        return $this->stream->eof() || $this->pos >= $this->stream->getSize();
     }
 
     public function readByte() : string
     {
-        $str = fread($this->stream, 1);
-        $this->pos = ftell($this->stream);
+        $str = $this->stream->fread(1);
+        $this->pos = $this->stream->ftell();
         if ($str === false) {
             throw new \Exception('Failure to read next byte');
         }
         return $str;
     }
 
-    public function readBlock($dstBuffer, int $size) : int
+    public function readBlock(\SplFileObject $dstBuffer, int $size) : int
     {
-        $str = fread($this->stream, $size);
+        $str = $this->stream->fread($size);
         if ($str === false) {
             throw new \Exception('Failure to read next byte');
         }
-        if ($dstBuffer) {
-            fwrite($dstBuffer, $str);
-        }
+        $dstBuffer->fwrite($str);
         return $size;
-    }
-
-    public function __destruct()
-    {
-        fclose($this->stream);
     }
 }
