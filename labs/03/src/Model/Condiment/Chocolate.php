@@ -7,7 +7,7 @@ use App\Model\Beverage\BeverageInterface;
 
 class Chocolate extends CondimentDecorator
 {
-    const MAX_QUANTITY = 5;
+    private const MAX_QUANTITY = 5;
 
     private int $quantity;
 

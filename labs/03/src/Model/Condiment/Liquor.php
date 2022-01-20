@@ -7,8 +7,8 @@ use App\Model\Beverage\BeverageInterface;
 
 class Liquor extends CondimentDecorator
 {
-    const NUTTY = 'nutty';
-    const CHOCOLATE = 'chocolate';
+    public const NUTTY = 'nutty';
+    public const CHOCOLATE = 'chocolate';
 
     private string $type;
 

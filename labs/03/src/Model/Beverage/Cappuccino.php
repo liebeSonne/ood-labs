@@ -4,8 +4,8 @@ namespace App\Model\Beverage;
 
 class Cappuccino extends Coffee
 {
-    const STANDART = 'standart';
-    const DOUBLE = 'double';
+    public const STANDART = 'standart';
+    public const DOUBLE = 'double';
 
     private string $type;
 

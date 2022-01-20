@@ -7,8 +7,8 @@ use App\Model\Beverage\BeverageInterface;
 // Добавка "Сироп"
 class Syrup extends CondimentDecorator
 {
-    const CHOCOLATE = 'Chocolate'; // Шоколадный
-    const MAPLE = 'Maple'; // Кленовый
+    public const CHOCOLATE = 'Chocolate'; // Шоколадный
+    public const MAPLE = 'Maple'; // Кленовый
 
     private string $type;
 

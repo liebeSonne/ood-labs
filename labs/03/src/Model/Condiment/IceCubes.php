@@ -7,8 +7,8 @@ use App\Model\Beverage\BeverageInterface;
 // Добавка "Кубики льда". Определяется типом и количеством кубиков, что влияет на стоимость и описание
 class IceCubes extends CondimentDecorator
 {
-    const DRY = 'dry'; // Сухой лед (для суровых сибирских мужиков)
-    const WATER = 'water'; // Обычные кубики из воды
+    public const DRY = 'dry'; // Сухой лед (для суровых сибирских мужиков)
+    public const WATER = 'water'; // Обычные кубики из воды
 
     private int $quantity;
     private string $type;

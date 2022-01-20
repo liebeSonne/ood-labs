@@ -4,10 +4,10 @@ namespace App\Model\Beverage;
 
 class Tea extends Beverage
 {
-    const GREEN = 'green';
-    const BLACK = 'black';
-    const WHITE = 'white';
-    const CITRUS = 'citrus';
+    public const GREEN = 'green';
+    public const BLACK = 'black';
+    public const WHITE = 'white';
+    public const CITRUS = 'citrus';
 
     private string $type;
 

@@ -4,9 +4,9 @@ namespace App\Model\Beverage;
 
 class Milkshake extends Beverage
 {
-    const SMALL = 'small';
-    const MEDIUM = 'medium';
-    const LARGE = 'large';
+    public const SMALL = 'small';
+    public const MEDIUM = 'medium';
+    public const LARGE = 'large';
 
     private string $type;
 
