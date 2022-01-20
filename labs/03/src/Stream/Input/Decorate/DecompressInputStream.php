@@ -19,6 +19,7 @@ class DecompressInputStream extends InputStreamDecoration
             return $this->byte;
         } else {
             $this->readByteAndCounter();
+            $this->counter--;
             return $this->byte;
         }
     }
