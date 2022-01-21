@@ -22,6 +22,7 @@ class DecompressInputStream extends InputStreamDecoration
             $this->counter--;
             return $this->byte;
         }
+        return '';
     }
 
     public function readBlock($dstBuffer, int $size): int

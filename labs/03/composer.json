@@ -18,13 +18,13 @@
       "php ./public/index.php"
     ],
     "stream": [
-      "rm input.dat",
-      "rm output.dat",
-      "rm input.dat.restored",
-      "echo 'zz11aa123' >> input.dat",
+      "rm -f input.dat",
+      "rm -f output.dat",
+      "rm -f input.dat.restored",
+      "printf 'zz11aa123' > input.dat",
       "cat input.dat",
       "php ./public/index_stream.php --encrypt 100500 --encrypt 3 --compress input.dat output.dat",
-      "php ./public/index_stream.php --decompress --decrypt 100500 --decrypt 3 output.dat input.dat.restored",
+      "php ./public/index_stream.php --decompress  --decrypt 3  --decrypt 100500 output.dat input.dat.restored",
       "cat input.dat.restored"
     ]
   }
