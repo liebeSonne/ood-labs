@@ -33,7 +33,7 @@ class DisplayDuoProSlot implements ObserverInterface, SlotDuoWeatherInterface
         $this->display();
     }
 
-    protected function display() : void
+    private function display() : void
     {
         echo "----------------\n";
         $this->inIndicator->display();

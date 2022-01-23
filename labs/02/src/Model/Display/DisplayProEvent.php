@@ -8,7 +8,7 @@ use App\Model\Weather\WeatherInfoPro;
 
 class DisplayProEvent implements EventListenerInterface
 {
-    protected \StdClass $data;
+    private \StdClass $data;
 
     public function __construct()
     {

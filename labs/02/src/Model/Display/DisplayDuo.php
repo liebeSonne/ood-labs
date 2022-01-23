@@ -31,7 +31,7 @@ class DisplayDuo implements ObserverInterface
         $this->display();
     }
 
-    protected function display() : void
+    private function display() : void
     {
         echo "----------------\n";
         $this->inIndicator->display();
