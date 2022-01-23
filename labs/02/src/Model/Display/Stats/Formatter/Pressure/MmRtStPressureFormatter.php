@@ -2,24 +2,14 @@
 
 namespace App\Model\Display\Stats\Formatter\Pressure;
 
-use App\Model\Display\Stats\AvgStatsInterface;
-use App\Model\Display\Stats\Formatter\AvgStatsFormatterInterface;
-use App\Model\Format\PressureFormat;
+use App\Model\Display\Stats\Formatter\Formatter;
+use App\Model\Weather\Format\Pressure\MmRtStFormat;
 
-class MmRtStPressureFormatter implements AvgStatsFormatterInterface
+class MmRtStPressureFormatter extends Formatter
 {
-    public function display(AvgStatsInterface $stats): void
+    public function __construct()
     {
-        $format = PressureFormat::K_PASCAL;
-        echo "--- " . $stats->getName() . ":\n";
-        echo "Max: " . $this->prepareValue($stats->getMax()) . " " . $format . "\n";
-        echo "Min: " . $this->prepareValue($stats->getMin()) . " " . $format . "\n";
-        echo "Average: " . $this->prepareValue($stats->getAvg()) . " " . $format . "\n";
-        echo "----------------\n";
-    }
-
-    private function prepareValue(float $value): float
-    {
-        return round($value, 2);
+        $format = new MmRtStFormat();
+        parent::__construct($format);
     }
 }

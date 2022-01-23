@@ -2,24 +2,14 @@
 
 namespace App\Model\Display\Stats\Formatter\Wind\Speed;
 
-use App\Model\Display\Stats\AvgStatsInterface;
-use App\Model\Display\Stats\Formatter\AvgStatsFormatterInterface;
-use App\Model\Format\Speed;
+use App\Model\Display\Stats\Formatter\Formatter;
+use App\Model\Weather\Format\Wind\Speed\MsSpeedFormat;
 
-class WindSpeedFormatter implements AvgStatsFormatterInterface
+class WindSpeedFormatter extends Formatter
 {
-    public function display(AvgStatsInterface $stats): void
+    public function __construct()
     {
-        $format = Speed::MS;
-        echo "--- " . $stats->getName() . ":\n";
-        echo "Max: " . $this->prepareValue($stats->getMax()) . " " . $format . "\n";
-        echo "Min: " . $this->prepareValue($stats->getMin()) . " " . $format . "\n";
-        echo "Average: " . $this->prepareValue($stats->getAvg()) . " " . $format . "\n";
-        echo "----------------\n";
-    }
-
-    private function prepareValue(float $value): float
-    {
-        return round($value, 2);
+        $format = new MsSpeedFormat();
+        parent::__construct($format);
     }
 }

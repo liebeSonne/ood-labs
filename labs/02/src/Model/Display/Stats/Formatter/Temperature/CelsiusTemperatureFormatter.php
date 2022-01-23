@@ -2,24 +2,14 @@
 
 namespace App\Model\Display\Stats\Formatter\Temperature;
 
-use App\Model\Display\Stats\AvgStatsInterface;
-use App\Model\Display\Stats\Formatter\AvgStatsFormatterInterface;
-use App\Model\Format\TemperatureFormat;
+use App\Model\Display\Stats\Formatter\Formatter;
+use App\Model\Weather\Format\Temperature\CelsiusFormat;
 
-class CelsiusTemperatureFormatter implements AvgStatsFormatterInterface
+class CelsiusTemperatureFormatter extends Formatter
 {
-    public function display(AvgStatsInterface $stats): void
+    public function __construct()
     {
-        $format = TemperatureFormat::CELSIUS;
-        echo "--- " . $stats->getName() . ":\n";
-        echo "Max: " . $this->prepareValue($stats->getMax()) . " " . $format . "\n";
-        echo "Min: " . $this->prepareValue($stats->getMin()) . " " . $format . "\n";
-        echo "Average: " . $this->prepareValue($stats->getAvg()) . " " . $format . "\n";
-        echo "----------------\n";
-    }
-
-    private function prepareValue(float $value): float
-    {
-        return round($value, 2);
+        $format = new CelsiusFormat();
+        parent::__construct($format);
     }
 }
