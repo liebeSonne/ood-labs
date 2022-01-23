@@ -6,7 +6,7 @@ use App\Model\Display\Stats\AvgStatsInterface;
 use App\Model\Display\Stats\Formatter\AvgStatsFormatterInterface;
 use App\Model\Format\PressureFormat;
 
-class KPaskaclPressureFormatter implements AvgStatsFormatterInterface
+class KPascalPressureFormatter implements AvgStatsFormatterInterface
 {
     public function display(AvgStatsInterface $stats): void
     {
