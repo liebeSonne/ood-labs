@@ -6,14 +6,14 @@ class EventManager implements EventManagerInterface
 {
     private array $eventListeners = [];
 
-    public function addEventListener(EventListenerInterface $listener, array $events) : void
+    final public function addEventListener(EventListenerInterface $listener, array $events) : void
     {
         foreach ($events as $event) {
             $this->eventListeners[$event][] = $listener;
         }
     }
 
-    public function removeEventListener(EventListenerInterface $listener, array $events) : void
+    final public function removeEventListener(EventListenerInterface $listener, array $events) : void
     {
         foreach ($events as $event) {
             if (isset($this->eventListeners[$event])) {
@@ -25,7 +25,7 @@ class EventManager implements EventManagerInterface
         }
     }
 
-    public function notifyEventListener(string $event, $data) : void
+    final public function notifyEventListener(string $event, $data) : void
     {
         foreach (($this->eventListeners[$event] ?? []) as $listener)
         {

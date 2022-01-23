@@ -8,7 +8,7 @@ abstract class Observable implements ObservableInterface
 {
     private array $observers = [];
 
-    public function registerObserver(ObserverInterface $observer, int $priority = 0) : void
+    final public function registerObserver(ObserverInterface $observer, int $priority = 0) : void
     {
         $item = new \StdClass;
         $item->observer = $observer;
@@ -33,7 +33,7 @@ abstract class Observable implements ObservableInterface
         });
     }
 
-    public function notifyObservers() :void
+    final public function notifyObservers() :void
     {
         $data = $this->getChangedData();
 
@@ -42,7 +42,7 @@ abstract class Observable implements ObservableInterface
         }
     }
 
-    public function removeObserver(ObserverInterface $observer) : void
+    final public function removeObserver(ObserverInterface $observer) : void
     {
         $key = false;
         foreach ($this->observers as $k => $item) {
