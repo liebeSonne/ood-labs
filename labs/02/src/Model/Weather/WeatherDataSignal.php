@@ -2,7 +2,7 @@
 
 namespace App\Model\Weather;
 
-use App\Observable\Observable;
+use App\Observer\Observable;
 use Fluffy\Connector\Signal\SignalInterface;
 use Fluffy\Connector\Signal\SignalTrait;
 

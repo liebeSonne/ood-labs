@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Observable\Observable;
+use App\Observer\Observable;
 use App\Observer\ObserverInterface;
 use PHPUnit\Framework\TestCase;
 

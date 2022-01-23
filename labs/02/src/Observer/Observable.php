@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Observable;
-
-use App\Observer\ObserverInterface;
+namespace App\Observer;
 
 abstract class Observable implements ObservableInterface
 {
