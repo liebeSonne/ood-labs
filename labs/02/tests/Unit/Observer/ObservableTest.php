@@ -32,4 +32,24 @@ class ObservableTest extends TestCase
 
         $observable->notifyObservers();
     }
+
+    public function testSelfRemoveOnUpdate() : void
+    {
+        $observable = $this->createMock(WeatherData::class);
+        $observer = $this->createMock(ObserverInterface::class);
+
+        $observer->method('update')->willReturnCallback(
+            static function () use ($observable, $observer) {
+                $observable->removeObserver($observer);
+            }
+        );
+
+        $observer->expects($this->once())->method('update');
+
+        $observable->registerObserver($observer);
+
+        $observable->notifyObservers();
+        $observable->notifyObservers();
+        $observable->notifyObservers();
+    }
 }
