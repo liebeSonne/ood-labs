@@ -2,7 +2,7 @@
 
 namespace App\Model\Display\Stats;
 
-class WindDirectionStat
+class AvgWindDirectionStats implements AvgStatsInterface
 {
     private float $min = PHP_FLOAT_MAX;
     private float $max = PHP_FLOAT_MIN;
@@ -46,14 +46,5 @@ class WindDirectionStat
     public function getMax(): float
     {
         return $this->max;
-    }
-
-    public function display() : void
-    {
-        echo "--- " . $this->getName() . ":\n";
-        echo "Max: " . $this->getMax() . "\n";
-        echo "Min: " . $this->getMin() . "\n";
-        echo "Average: " . $this->getAvg() . "\n";
-        echo "----------------\n";
     }
 }

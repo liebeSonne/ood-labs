@@ -2,6 +2,7 @@
 
 namespace App\Model\Display\Indicator;
 
+use App\Model\Display\Info\Formatter\InfoFormatterInterface;
 use App\Model\Weather\WeatherInfo;
 
 class CurrentWeatherIndicator implements IndicatorInterface, WeatherIndicatorInterface
@@ -10,10 +11,18 @@ class CurrentWeatherIndicator implements IndicatorInterface, WeatherIndicatorInt
 
     private string $name;
 
-    public function __construct(string $name)
+    private InfoFormatterInterface $formatter;
+
+    public function __construct(string $name, InfoFormatterInterface $formatter)
     {
         $this->name = $name;
         $this->data = new WeatherInfo();
+        $this->setFormatter($formatter);
+    }
+
+    public function setFormatter(InfoFormatterInterface $formatter) : void
+    {
+        $this->formatter = $formatter;
     }
 
     public function setData(\StdClass $data) : void
@@ -24,9 +33,7 @@ class CurrentWeatherIndicator implements IndicatorInterface, WeatherIndicatorInt
     public function display() : void
     {
         echo "-[" . $this->name . "]: \n";
-        echo "Current Temp " . $this->data->temperature . "\n";
-        echo "Current Hum  " . $this->data->humidity . "\n";
-        echo "Current Pressure  " . $this->data->pressure . "\n";
+        $this->formatter->display($this->data);
     }
 
     public function setTemp($data) : void

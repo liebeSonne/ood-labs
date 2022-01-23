@@ -2,18 +2,29 @@
 
 namespace App\Model\Display;
 
+use App\Model\Display\Info\Formatter\DefaultInfoProFormatter;
+use App\Model\Display\Info\Formatter\InfoFormatterInterface;
 use App\Observer\Observable;
 use App\Observer\ObserverInterface;
 
 class DisplayPro implements ObserverInterface
 {
+    private InfoFormatterInterface $formatter;
+
+    public function __construct()
+    {
+        $formatter = new DefaultInfoProFormatter();
+        $this->setFormatter($formatter);
+    }
+
+    public function setFormatter(InfoFormatterInterface $formatter) : void
+    {
+        $this->formatter = $formatter;
+    }
+
     public function update(\StdClass $data, Observable $subject) : void
     {
-        echo "Current Temp " . $data->temperature . "\n";
-        echo "Current Hum  " . $data->humidity . "\n";
-        echo "Current Pressure  " . $data->pressure . "\n";
-        echo "Current Wind Speed  " . $data->windSpeed . "\n";
-        echo "Current Wind Direction  " . $data->windDirection . "\n";
+        $this->formatter->display($data);
         echo "----------------\n";
     }
 }

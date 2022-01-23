@@ -5,6 +5,9 @@ namespace App\Model\Display;
 use App\Model\Display\Indicator\CurrentWeatherIndicatorPro;
 use App\Model\Display\Indicator\CurrentWeatherIndicator;
 use App\Model\Display\Indicator\IndicatorInterface;
+use App\Model\Display\Info\Formatter\DefaultInfoFormatter;
+use App\Model\Display\Info\Formatter\DefaultInfoProFormatter;
+use App\Model\Display\Info\Formatter\InfoFormatterInterface;
 use App\Model\Display\Slot\SlotDuoWeatherInterface;
 use App\Observer\Observable;
 use App\Observer\ObserverInterface;
@@ -17,13 +20,34 @@ class DisplayDuoProSlot implements ObserverInterface, SlotDuoWeatherInterface
     private IndicatorInterface $inIndicator;
     private IndicatorInterface $outIndicator;
 
+    private InfoFormatterInterface $formatter;
+    private InfoFormatterInterface $formatterPro;
+
     public function __construct(Observable $weatherDataIn, Observable $weatherDataOut)
     {
         $this->weatherDataIn = $weatherDataIn;
         $this->weatherDataOut = $weatherDataOut;
 
-        $this->inIndicator = new CurrentWeatherIndicator('In');
-        $this->outIndicator = new CurrentWeatherIndicatorPro('Out');
+        $formatter = new DefaultInfoFormatter();
+        $formatterPro = new DefaultInfoProFormatter();
+
+        $this->inIndicator = new CurrentWeatherIndicator('In', $formatter);
+        $this->outIndicator = new CurrentWeatherIndicatorPro('Out', $formatterPro);
+
+        $this->setFormatter($formatter);
+        $this->setFormatterPro($formatterPro);
+    }
+
+    public function setFormatter(InfoFormatterInterface $formatter) : void
+    {
+        $this->formatter = $formatter;
+        $this->inIndicator->setFormatter($this->formatter);
+    }
+
+    public function setFormatterPro(InfoFormatterInterface $formatterPro) : void
+    {
+        $this->formatterPro = $formatterPro;
+        $this->outIndicator->setFormatter($this->formatterPro);
     }
 
     public function update(\StdClass $data, Observable $subject) : void

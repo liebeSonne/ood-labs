@@ -4,16 +4,29 @@ namespace App\Model\Display;
 
 use App\Event\EventListenerInterface;
 use App\Model\Display\Stats\AvgStats;
-use App\Model\Display\Stats\WindDirectionStat;
+use App\Model\Display\Stats\AvgStatsInterface;
+use App\Model\Display\Stats\AvgWindDirectionStats;
+use App\Model\Display\Stats\Formatter\AvgStatsFormatterInterface;
+use App\Model\Display\Stats\Formatter\Humidity\PercentHumidityFormatter;
+use App\Model\Display\Stats\Formatter\Pressure\MmRtStPressureFormatter;
+use App\Model\Display\Stats\Formatter\Temperature\CelsiusTemperatureFormatter;
+use App\Model\Display\Stats\Formatter\Wind\Direction\WindDirectionFormatter;
+use App\Model\Display\Stats\Formatter\Wind\Speed\WindSpeedFormatter;
 use App\Model\Weather\WeatherDataProEvent;
 
 class StatsDisplayProEvent implements EventListenerInterface
 {
-    private AvgStats $tempStats;
-    private AvgStats $humStats;
-    private AvgStats $presStats;
-    private AvgStats $windSpeedStats;
-    private WindDirectionStat $windDirectionStat;
+    private AvgStatsInterface $tempStats;
+    private AvgStatsInterface $humStats;
+    private AvgStatsInterface $presStats;
+    private AvgStatsInterface $windSpeedStats;
+    private AvgStatsInterface $windDirectionStat;
+
+    private AvgStatsFormatterInterface $tempFormatter;
+    private AvgStatsFormatterInterface $humFormatter;
+    private AvgStatsFormatterInterface $pressFormatter;
+    private AvgStatsFormatterInterface $windSpeedFormatter;
+    private AvgStatsFormatterInterface $windDirectionFormatter;
 
     public function __construct()
     {
@@ -21,7 +34,13 @@ class StatsDisplayProEvent implements EventListenerInterface
         $this->humStats = new AvgStats('Humidity');
         $this->presStats = new AvgStats('Pressure');
         $this->windSpeedStats = new AvgStats('Wind Speed');
-        $this->windDirectionStat = new WindDirectionStat('Wind Direction');
+        $this->windDirectionStat = new AvgWindDirectionStats('Wind Direction');
+
+        $this->setTemperatureFormatter(new CelsiusTemperatureFormatter());
+        $this->setPressureFormatter(new MmRtStPressureFormatter());
+        $this->setHumidityFormatter(new PercentHumidityFormatter());
+        $this->setWindSpeedFormatter(new WindSpeedFormatter());
+        $this->setWindDirectionFormatter(new WindDirectionFormatter());
     }
 
     public function update(string $event, $data)  : void
@@ -51,11 +70,36 @@ class StatsDisplayProEvent implements EventListenerInterface
     public function display() : void
     {
         echo "================\n";
-        $this->tempStats->display();
-        $this->humStats->display();
-        $this->presStats->display();
-        //$this->windSpeedStats->display();
-        //$this->windDirectionStat->display();
+        $this->tempFormatter->display($this->tempStats);
+        $this->humFormatter->display($this->humStats);
+        $this->pressFormatter->display($this->presStats);
+        // $this->windSpeedFormatter->display($this->windSpeedStats);
+        // $this->windDirectionFormatter->display($this->windDirectionStat);
         echo "================\n";
+    }
+
+    public function setTemperatureFormatter(AvgStatsFormatterInterface $tempFormatter): void
+    {
+        $this->tempFormatter = $tempFormatter;
+    }
+
+    public function setHumidityFormatter(AvgStatsFormatterInterface $humFormatter): void
+    {
+        $this->humFormatter = $humFormatter;
+    }
+
+    public function setPressureFormatter(AvgStatsFormatterInterface $pressFormatter): void
+    {
+        $this->pressFormatter = $pressFormatter;
+    }
+
+    public function setWindSpeedFormatter(AvgStatsFormatterInterface $windSpeedFormatter): void
+    {
+        $this->windSpeedFormatter = $windSpeedFormatter;
+    }
+
+    public function setWindDirectionFormatter(AvgStatsFormatterInterface $windDirectionFormatter): void
+    {
+        $this->windDirectionFormatter = $windDirectionFormatter;
     }
 }

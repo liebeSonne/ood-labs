@@ -3,6 +3,8 @@
 namespace App\Model\Display;
 
 use App\Event\EventListenerInterface;
+use App\Model\Display\Info\Formatter\DefaultInfoFormatter;
+use App\Model\Display\Info\Formatter\InfoFormatterInterface;
 use App\Model\Weather\WeatherDataProEvent;
 use App\Model\Weather\WeatherInfoPro;
 
@@ -10,9 +12,18 @@ class DisplayProEvent implements EventListenerInterface
 {
     private \StdClass $data;
 
+    private InfoFormatterInterface $formatter;
+
     public function __construct()
     {
         $this->data = new WeatherInfoPro();
+        $formatter = new DefaultInfoFormatter();
+        $this->setFormatter($formatter);
+    }
+
+    public function setFormatter(InfoFormatterInterface $formatter) : void
+    {
+        $this->formatter = $formatter;
     }
 
     public function update(string $event, $data)  : void
@@ -41,11 +52,7 @@ class DisplayProEvent implements EventListenerInterface
 
     public function display() : void
     {
-        echo "Current Temp " . $this->data->temperature . "\n";
-        echo "Current Hum  " . $this->data->humidity . "\n";
-        echo "Current Pressure  " . $this->data->pressure . "\n";
-        //echo "Current Wind Speed  " . $this->data->windSpeed . "\n";
-        //echo "Current Wind Direction  " . $this->data->windDirection . "\n";
+        $this->formatter->display($this->data);
         echo "----------------\n";
     }
 }
