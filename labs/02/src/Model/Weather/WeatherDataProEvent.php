@@ -13,24 +13,12 @@ class WeatherDataProEvent extends EventManager implements EventManagerInterface
     public float $windSpeed = 0;
     public int $windDirection = 0;
 
-    private string $type;
-
     const EVENT_ALL = '*';
     const EVENT_TEMP = 'temp';
     const EVENT_HUMIDITY = 'humidity';
     const EVENT_PRESSURE = 'pressure';
     const EVENT_WIND_SPEED = 'wind_speed';
     const EVENT_WIND_DIRECTION = 'wind_direction';
-
-    public function __construct(string $type = '')
-    {
-        $this->type = $type;
-    }
-
-    public function getType() : string
-    {
-        return $this->type;
-    }
 
     public function getTemperature() : float
     {
@@ -109,7 +97,6 @@ class WeatherDataProEvent extends EventManager implements EventManagerInterface
         $info->pressure = $this->getPressure();
         $info->windSpeed = $this->getWindSpeed();
         $info->windDirection = $this->getWindDirection();
-        $info->type = $this->getType();
         return $info;
     }
 }

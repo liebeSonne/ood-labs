@@ -13,14 +13,14 @@ function main() : void
     echo "\n~~ Weather Station Duo Pro ~~\n";
     echo "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
 
-    $wdIn = new WeatherData('in');
-    $wdOut = new WeatherDataPro('out');
+    $wdIn = new WeatherData();
+    $wdOut = new WeatherDataPro();
 
-    $display = new DisplayDuoPro();
+    $display = new DisplayDuoPro($wdIn, $wdOut);
     $wdIn->registerObserver($display);
     $wdOut->registerObserver($display);
 
-    $statsDisplay = new StatsDisplayDuoPro();
+    $statsDisplay = new StatsDisplayDuoPro($wdIn, $wdOut);
     $wdIn->registerObserver($statsDisplay);
     $wdOut->registerObserver($statsDisplay);
 

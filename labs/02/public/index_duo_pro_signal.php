@@ -14,10 +14,10 @@ function main() : void
     echo "\n~~ Weather Station Duo Pro Signal ~~\n";
     echo "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
 
-    $wdIn = new WeatherDataSignal('in');
-    $wdOut = new WeatherDataProSignal('out');
+    $wdIn = new WeatherDataSignal();
+    $wdOut = new WeatherDataProSignal();
 
-    $display = new DisplayDuoProSlot();
+    $display = new DisplayDuoProSlot($wdIn, $wdOut);
 
     ConnectionManager::connect($wdIn, 'temp', $display, 'slotInTemp');
     ConnectionManager::connect($wdIn, 'humidity', $display, 'slotInHumidity');
@@ -29,7 +29,7 @@ function main() : void
     ConnectionManager::connect($wdOut, 'windSpeed', $display, 'slotOutWindSpeed');
     ConnectionManager::connect($wdOut, 'windDirection', $display, 'slotOutWindDirection');
 
-    $statsDisplay = new StatsDisplayDuoPro();
+    $statsDisplay = new StatsDisplayDuoPro($wdIn, $wdOut);
 
     ConnectionManager::connect($wdIn, 'temp', $statsDisplay, 'slotInTemp');
     ConnectionManager::connect($wdIn, 'humidity', $statsDisplay, 'slotInHumidity');

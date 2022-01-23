@@ -12,18 +12,6 @@ class WeatherDataPro extends Observable
     public float $windSpeed = 0;
     public int $windDirection = 0;
 
-    private string $type;
-
-    public function __construct(string $type = '')
-    {
-        $this->type = $type;
-    }
-
-    public function getType() : string
-    {
-        return $this->type;
-    }
-
     public function getTemperature() : float
     {
         return $this->temperature;
@@ -73,7 +61,6 @@ class WeatherDataPro extends Observable
         $info->pressure = $this->getPressure();
         $info->windSpeed = $this->getWindSpeed();
         $info->windDirection = $this->getWindDirection();
-        $info->type = $this->getType();
         return $info;
     }
 }

@@ -6,27 +6,34 @@ use App\Model\Display\Indicator\IndicatorInterface;
 use App\Model\Display\Indicator\StatWeatherIndicatorPro;
 use App\Model\Display\Indicator\StatWeatherIndicator;
 use App\Model\Display\Slot\SlotDuoWeatherInterface;
+use App\Model\Weather\WeatherData;
 use App\Observer\Observable;
 use App\Observer\ObserverInterface;
 
 class StatsDisplayDuoProSlot implements ObserverInterface, SlotDuoWeatherInterface
 {
+    private WeatherData $weatherDataIn;
+    private WeatherData $weatherDataOut;
+
     private IndicatorInterface $inIndicator;
     private IndicatorInterface $outIndicator;
 
-    public function __construct()
+    public function __construct(WeatherData $weatherDataIn, WeatherData $weatherDataOut)
     {
+        $this->weatherDataIn = $weatherDataIn;
+        $this->weatherDataOut = $weatherDataOut;
+
         $this->inIndicator = new StatWeatherIndicator('In');
         $this->outIndicator = new StatWeatherIndicatorPro('Out');
     }
 
     public function update(\StdClass $data, Observable $subject) : void
     {
-        if ($data->type == 'in')
+        if ($subject === $this->weatherDataIn)
         {
             $this->inIndicator->setData($data);
         }
-        if ($data->type == 'out')
+        if ($subject === $this->weatherDataOut)
         {
             $this->outIndicator->setData($data);
         }

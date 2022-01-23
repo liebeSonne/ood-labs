@@ -10,22 +10,28 @@ use App\Observer\ObserverInterface;
 
 class DisplayDuoPro implements ObserverInterface
 {
+    private Observable $weatherDataIn;
+    private Observable $weatherDataOut;
+
     private IndicatorInterface $inIndicator;
     private IndicatorInterface $outIndicator;
 
-    public function __construct()
+    public function __construct(Observable $weatherDataIn, Observable $weatherDataOut)
     {
+        $this->weatherDataIn = $weatherDataIn;
+        $this->weatherDataOut = $weatherDataOut;
+
         $this->inIndicator = new CurrentIndicator('In');
         $this->outIndicator = new CurrentIndicatorPro('Out');
     }
 
     public function update(\StdClass $data, Observable $subject) : void
     {
-        if ($data->type == 'in')
+        if ($subject === $this->weatherDataIn)
         {
             $this->inIndicator->setData($data);
         }
-        if ($data->type == 'out')
+        if ($subject === $this->weatherDataOut)
         {
             $this->outIndicator->setData($data);
         }
