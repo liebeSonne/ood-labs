@@ -5,6 +5,7 @@ namespace App\Model\Display;
 use App\Model\Display\Indicator\IndicatorInterface;
 use App\Model\Display\Indicator\StatIndicator;
 use App\Model\Display\Indicator\StatIndicatorPro;
+use App\Observer\Observable;
 use App\Observer\ObserverInterface;
 
 class StatsDisplayDuoPro implements ObserverInterface
@@ -18,7 +19,7 @@ class StatsDisplayDuoPro implements ObserverInterface
         $this->outIndicator = new StatIndicatorPro('Out');
     }
 
-    public function update(\StdClass $data) : void
+    public function update(\StdClass $data, Observable $subject) : void
     {
         if ($data->type == 'in')
         {

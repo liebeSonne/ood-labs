@@ -4,6 +4,7 @@ namespace App\Model\Display;
 
 use App\Model\Display\Stats\AvgStats;
 use App\Model\Display\Stats\WindDirectionStat;
+use App\Observer\Observable;
 use App\Observer\ObserverInterface;
 
 class StatsDisplayPro implements ObserverInterface
@@ -23,7 +24,7 @@ class StatsDisplayPro implements ObserverInterface
         $this->windDirectionStat = new WindDirectionStat('Wind Direction');
     }
 
-    public function update(\StdClass $data) : void
+    public function update(\StdClass $data, Observable $subject) : void
     {
         $this->tempStats->update($data->temperature);
         $this->humStats->update($data->humidity);

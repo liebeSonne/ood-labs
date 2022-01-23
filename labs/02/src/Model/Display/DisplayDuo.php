@@ -4,6 +4,7 @@ namespace App\Model\Display;
 
 use App\Model\Display\Indicator\CurrentIndicator;
 use App\Model\Display\Indicator\IndicatorInterface;
+use App\Observer\Observable;
 use App\Observer\ObserverInterface;
 
 class DisplayDuo implements ObserverInterface
@@ -17,7 +18,7 @@ class DisplayDuo implements ObserverInterface
         $this->outIndicator = new CurrentIndicator('Out');
     }
 
-    public function update(\StdClass $data) : void
+    public function update(\StdClass $data, Observable $subject) : void
     {
         if ($data->type == 'in')
         {

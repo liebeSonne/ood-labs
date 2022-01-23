@@ -4,5 +4,5 @@ namespace App\Observer;
 
 interface ObserverInterface
 {
-    public function update(\StdClass $data) : void;
+    public function update(\StdClass $data, Observable $subject) : void;
 }

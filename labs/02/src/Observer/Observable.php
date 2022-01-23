@@ -36,7 +36,7 @@ abstract class Observable implements ObservableInterface
         $data = $this->getChangedData();
 
         foreach ($this->observers as $item) {
-            $item->observer->update($data);
+            $item->observer->update($data, $this);
         }
     }
 

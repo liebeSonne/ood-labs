@@ -6,6 +6,7 @@ use App\Model\Display\Indicator\IndicatorInterface;
 use App\Model\Display\Indicator\StatWeatherIndicatorPro;
 use App\Model\Display\Indicator\StatWeatherIndicator;
 use App\Model\Display\Slot\SlotDuoWeatherInterface;
+use App\Observer\Observable;
 use App\Observer\ObserverInterface;
 
 class StatsDisplayDuoProSlot implements ObserverInterface, SlotDuoWeatherInterface
@@ -19,7 +20,7 @@ class StatsDisplayDuoProSlot implements ObserverInterface, SlotDuoWeatherInterfa
         $this->outIndicator = new StatWeatherIndicatorPro('Out');
     }
 
-    public function update(\StdClass $data) : void
+    public function update(\StdClass $data, Observable $subject) : void
     {
         if ($data->type == 'in')
         {
