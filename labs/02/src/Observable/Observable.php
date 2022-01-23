@@ -6,7 +6,7 @@ use App\Observer\ObserverInterface;
 
 abstract class Observable implements ObservableInterface
 {
-    protected array $observers = [];
+    private array $observers = [];
 
     public function registerObserver(ObserverInterface $observer, int $priority = 0) : void
     {
@@ -18,7 +18,7 @@ abstract class Observable implements ObservableInterface
         $this->sortObservers();
     }
 
-    protected function sortObservers() : void
+    private function sortObservers() : void
     {
         usort($this->observers, static function ($a, $b) {
             if ($a->priority < $b->priority)
