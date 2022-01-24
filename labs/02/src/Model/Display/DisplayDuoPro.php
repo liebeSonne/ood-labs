@@ -3,7 +3,6 @@
 namespace App\Model\Display;
 
 use App\Model\Display\Indicator\CurrentIndicator;
-use App\Model\Display\Indicator\CurrentIndicatorPro;
 use App\Model\Display\Indicator\IndicatorInterface;
 use App\Model\Display\Info\Formatter\DefaultInfoFormatter;
 use App\Model\Display\Info\Formatter\DefaultInfoProFormatter;
@@ -31,7 +30,7 @@ class DisplayDuoPro implements ObserverInterface
         $formatterPro = new DefaultInfoProFormatter();
 
         $this->inIndicator = new CurrentIndicator('In', $formatter);
-        $this->outIndicator = new CurrentIndicatorPro('Out', $formatterPro);
+        $this->outIndicator = new CurrentIndicator('Out', $formatterPro);
 
         $this->setFormatter($formatter);
         $this->setFormatterPro($formatterPro);
