@@ -25,7 +25,7 @@ class DecompressInputStream extends InputStreamDecoration
         return '';
     }
 
-    public function readBlock($dstBuffer, int $size): int
+    public function readBlock(\SplFileObject $dstBuffer, int $size): int
     {
         $count = 0;
         for ($i = 0; $i++; $i < $size)

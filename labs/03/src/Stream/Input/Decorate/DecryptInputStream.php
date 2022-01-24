@@ -43,20 +43,20 @@ class DecryptInputStream extends InputStreamDecoration
         return $byte;
     }
 
-    public function readBlock($dstBuffer, int $size) : int
+    public function readBlock(\SplFileObject $dstBuffer, int $size) : int
     {
-        $position = ftell($dstBuffer);
+        $position = $dstBuffer->ftell();
         $count = parent::readBlock($dstBuffer, $size);
         $buffer = [];
         for ($i = 0; $i < $count; $i++) {
-            $ch = fread($dstBuffer, 1);
+            $ch = $dstBuffer->fread(1);
             $ch = $this->getDecryptedByte($ch);
             $buffer[$i] = $ch;
         }
-        fseek($dstBuffer, $position);
+        $dstBuffer->fseek($position);
         for ($i = 0; $i < $count; $i++) {
             $ch = $buffer[$i];
-            fwrite($dstBuffer, $ch);
+            $dstBuffer->fwrite($ch);
         }
         return count;
     }

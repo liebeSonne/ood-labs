@@ -36,9 +36,9 @@ class EncryptOutputStream extends OutputStreamDecoration
         parent::writeByte($data);
     }
 
-    public function writeBlock($srcData, int $size) : void
+    public function writeBlock(\SplFileObject $srcData, int $size) : void
     {
-        $data = fread($srcData, $size);
+        $data = $srcData->fread($size);
         $f = fopen('php://tmp', 'wb');
         foreach ($data as $ch) {
             $ch = $this->getEncryptedByte($ch);

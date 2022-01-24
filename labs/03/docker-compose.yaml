@@ -10,6 +10,7 @@ services:
       - ./src:/app/src
       - ./public:/app/public
       - ./composer.json:/app/composer.json
+      - ./tests:/app/tests
     command: [ "composer", "run-script", "app" ]
     #command: [ "php", "./public/index.php" ]
     #stdin_open: true

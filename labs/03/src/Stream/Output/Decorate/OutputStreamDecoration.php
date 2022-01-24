@@ -18,7 +18,7 @@ class OutputStreamDecoration implements OutputDataStreamInterface
         $this->stream->writeByte($data);
     }
 
-    public function writeBlock($srcData, int $size) : void
+    public function writeBlock(\SplFileObject $srcData, int $size) : void
     {
         $this->stream->writeBlock($srcData, $size);
     }

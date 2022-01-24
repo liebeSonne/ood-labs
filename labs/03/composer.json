@@ -9,7 +9,19 @@
     },
     "files": ["src/Model/Maker/functions.php"]
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.5"
+  },
   "scripts": {
+    "phpunit": "./vendor/bin/phpunit",
+    "test": [
+      "@phpunit"
+    ],
     "app": [
       "@coffee",
       "@stream"

@@ -23,7 +23,7 @@ class InputStreamDecoration implements InputDataStreamInterface
         return $this->stream->readByte();
     }
 
-    public function readBlock($dstBuffer, int $size) : int
+    public function readBlock(\SplFileObject $dstBuffer, int $size) : int
     {
         return $this->stream->readBlock($dstBuffer, $size);
     }
