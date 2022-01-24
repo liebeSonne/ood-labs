@@ -23,6 +23,7 @@
       "@phpunit"
     ],
     "app": [
+      "@test",
       "@coffee",
       "@stream"
     ],
