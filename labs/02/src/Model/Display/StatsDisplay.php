@@ -8,6 +8,7 @@ use App\Model\Display\Stats\Formatter\AvgStatsFormatterInterface;
 use App\Model\Display\Stats\Formatter\Temperature\CelsiusTemperatureFormatter;
 use App\Model\Display\Stats\Formatter\Pressure\MmRtStPressureFormatter;
 use App\Model\Display\Stats\Formatter\Humidity\PercentHumidityFormatter;
+use App\Model\Weather\WeatherInfo;
 use App\Observer\Observable;
 use App\Observer\ObserverInterface;
 
@@ -34,9 +35,11 @@ class StatsDisplay implements ObserverInterface
 
     public function update(\StdClass $data, Observable $subject) : void
     {
-        $this->tempStats->update($data->temperature);
-        $this->humStats->update($data->humidity);
-        $this->presStats->update($data->pressure);
+        $info = WeatherInfo::createInfo($data);
+
+        $this->tempStats->update($info->temperature);
+        $this->humStats->update($info->humidity);
+        $this->presStats->update($info->pressure);
 
         $this->display();
     }

@@ -3,10 +3,15 @@
 namespace App\Model\Display;
 
 use App\Model\Display\Indicator\CurrentIndicator;
+use App\Model\Display\Indicator\CurrentIndicatorPro;
 use App\Model\Display\Indicator\IndicatorInterface;
+use App\Model\Display\Indicator\IndicatorProInterface;
 use App\Model\Display\Info\Formatter\DefaultInfoFormatter;
 use App\Model\Display\Info\Formatter\DefaultInfoProFormatter;
 use App\Model\Display\Info\Formatter\InfoFormatterInterface;
+use App\Model\Display\Info\Formatter\InfoProFormatterInterface;
+use App\Model\Weather\WeatherInfo;
+use App\Model\Weather\WeatherInfoPro;
 use App\Observer\Observable;
 use App\Observer\ObserverInterface;
 
@@ -16,10 +21,10 @@ class DisplayDuoPro implements ObserverInterface
     private Observable $weatherDataOut;
 
     private IndicatorInterface $inIndicator;
-    private IndicatorInterface $outIndicator;
+    private IndicatorProInterface $outIndicator;
 
     private InfoFormatterInterface $formatter;
-    private InfoFormatterInterface $formatterPro;
+    private InfoProFormatterInterface $formatterPro;
 
     public function __construct(Observable $weatherDataIn, Observable $weatherDataOut)
     {
@@ -30,7 +35,7 @@ class DisplayDuoPro implements ObserverInterface
         $formatterPro = new DefaultInfoProFormatter();
 
         $this->inIndicator = new CurrentIndicator('In', $formatter);
-        $this->outIndicator = new CurrentIndicator('Out', $formatterPro);
+        $this->outIndicator = new CurrentIndicatorPro('Out', $formatterPro);
 
         $this->setFormatter($formatter);
         $this->setFormatterPro($formatterPro);
@@ -42,7 +47,7 @@ class DisplayDuoPro implements ObserverInterface
         $this->inIndicator->setFormatter($this->formatter);
     }
 
-    public function setFormatterPro(InfoFormatterInterface $formatterPro) : void
+    public function setFormatterPro(InfoProFormatterInterface $formatterPro) : void
     {
         $this->formatterPro = $formatterPro;
         $this->outIndicator->setFormatter($this->formatterPro);
@@ -52,11 +57,13 @@ class DisplayDuoPro implements ObserverInterface
     {
         if ($subject === $this->weatherDataIn)
         {
-            $this->inIndicator->setData($data);
+            $info = WeatherInfo::createInfo($data);
+            $this->inIndicator->setData($info);
         }
         if ($subject === $this->weatherDataOut)
         {
-            $this->outIndicator->setData($data);
+            $info = WeatherInfoPro::createInfo($data);
+            $this->outIndicator->setData($info);
         }
 
         $this->display();

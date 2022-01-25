@@ -3,6 +3,7 @@
 namespace App\Model\Display\Info\Formatter;
 
 use App\Model\Weather\Format\FormatInterface;
+use App\Model\Weather\WeatherInfo;
 
 class InfoFormatter implements InfoFormatterInterface
 {
@@ -32,7 +33,7 @@ class InfoFormatter implements InfoFormatterInterface
         $this->pressFormat = $pressFormat;
     }
 
-    public function display(\StdClass $data): void
+    public function display(WeatherInfo $data): void
     {
         echo "Current Temp " . $this->tempFormat->format((float) $data->temperature) . "\n";
         echo "Current Hum  " . $this->humFormat->format((float) $data->humidity) . "\n";

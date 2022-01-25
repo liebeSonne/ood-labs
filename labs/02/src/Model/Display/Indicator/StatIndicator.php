@@ -8,10 +8,11 @@ use App\Model\Display\Stats\Formatter\AvgStatsFormatterInterface;
 use App\Model\Display\Stats\Formatter\Humidity\PercentHumidityFormatter;
 use App\Model\Display\Stats\Formatter\Pressure\MmRtStPressureFormatter;
 use App\Model\Display\Stats\Formatter\Temperature\CelsiusTemperatureFormatter;
+use App\Model\Weather\WeatherInfo;
 
 class StatIndicator implements IndicatorInterface
 {
-    private \StdClass $data;
+    private WeatherInfo $data;
 
     private string $name;
 
@@ -26,7 +27,7 @@ class StatIndicator implements IndicatorInterface
     public function __construct(string $name)
     {
         $this->name = $name;
-        $this->data = new \StdClass();
+        $this->data = new WeatherInfo();
         $this->tempStats = new AvgStats('Temperature');
         $this->humStats = new AvgStats('Humidity');
         $this->presStats = new AvgStats('Pressure');
@@ -36,7 +37,7 @@ class StatIndicator implements IndicatorInterface
         $this->setHumidityFormatter(new PercentHumidityFormatter());
     }
 
-    public function setData(\StdClass $data) : void
+    public function setData(WeatherInfo $data) : void
     {
         $this->data = $data;
         $this->tempStats->update($this->data->temperature);

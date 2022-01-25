@@ -3,10 +3,11 @@
 namespace App\Model\Display\Indicator;
 
 use App\Model\Display\Info\Formatter\InfoFormatterInterface;
+use App\Model\Weather\WeatherInfo;
 
 class CurrentIndicator implements IndicatorInterface
 {
-    private \StdClass $data;
+    private WeatherInfo $data;
 
     private string $name;
 
@@ -15,7 +16,7 @@ class CurrentIndicator implements IndicatorInterface
     public function __construct(string $name, InfoFormatterInterface $formatter)
     {
         $this->name = $name;
-        $this->data = new \StdClass();
+        $this->data = new WeatherInfo();
         $this->setFormatter($formatter);
     }
 
@@ -24,7 +25,7 @@ class CurrentIndicator implements IndicatorInterface
         $this->formatter = $formatter;
     }
 
-    public function setData(\StdClass $data) : void
+    public function setData(WeatherInfo $data) : void
     {
         $this->data = $data;
     }

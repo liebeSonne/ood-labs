@@ -5,10 +5,14 @@ namespace App\Model\Display;
 use App\Model\Display\Indicator\CurrentWeatherIndicatorPro;
 use App\Model\Display\Indicator\CurrentWeatherIndicator;
 use App\Model\Display\Indicator\IndicatorInterface;
+use App\Model\Display\Indicator\IndicatorProInterface;
 use App\Model\Display\Info\Formatter\DefaultInfoFormatter;
 use App\Model\Display\Info\Formatter\DefaultInfoProFormatter;
 use App\Model\Display\Info\Formatter\InfoFormatterInterface;
+use App\Model\Display\Info\Formatter\InfoProFormatterInterface;
 use App\Model\Display\Slot\SlotDuoWeatherInterface;
+use App\Model\Weather\WeatherInfo;
+use App\Model\Weather\WeatherInfoPro;
 use App\Observer\Observable;
 use App\Observer\ObserverInterface;
 
@@ -18,10 +22,10 @@ class DisplayDuoProSlot implements ObserverInterface, SlotDuoWeatherInterface
     private Observable $weatherDataOut;
 
     private IndicatorInterface $inIndicator;
-    private IndicatorInterface $outIndicator;
+    private IndicatorProInterface $outIndicator;
 
     private InfoFormatterInterface $formatter;
-    private InfoFormatterInterface $formatterPro;
+    private InfoProFormatterInterface $formatterPro;
 
     public function __construct(Observable $weatherDataIn, Observable $weatherDataOut)
     {
@@ -44,7 +48,7 @@ class DisplayDuoProSlot implements ObserverInterface, SlotDuoWeatherInterface
         $this->inIndicator->setFormatter($this->formatter);
     }
 
-    public function setFormatterPro(InfoFormatterInterface $formatterPro) : void
+    public function setFormatterPro(InfoProFormatterInterface $formatterPro) : void
     {
         $this->formatterPro = $formatterPro;
         $this->outIndicator->setFormatter($this->formatterPro);
@@ -54,11 +58,13 @@ class DisplayDuoProSlot implements ObserverInterface, SlotDuoWeatherInterface
     {
         if ($subject === $this->weatherDataIn)
         {
-            $this->inIndicator->setData($data);
+            $info = WeatherInfo::createInfo($data);
+            $this->inIndicator->setData($info);
         }
         if ($subject === $this->weatherDataOut)
         {
-            $this->outIndicator->setData($data);
+            $info = WeatherInfoPro::createInfo($data);
+            $this->outIndicator->setData($info);
         }
 
         $this->display();

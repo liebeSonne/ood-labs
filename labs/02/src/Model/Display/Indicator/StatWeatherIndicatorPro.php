@@ -11,10 +11,11 @@ use App\Model\Display\Stats\Formatter\Pressure\MmRtStPressureFormatter;
 use App\Model\Display\Stats\Formatter\Temperature\CelsiusTemperatureFormatter;
 use App\Model\Display\Stats\Formatter\Wind\Direction\WindDirectionFormatter;
 use App\Model\Display\Stats\Formatter\Wind\Speed\WindSpeedFormatter;
+use App\Model\Weather\WeatherInfoPro;
 
-class StatWeatherIndicatorPro implements IndicatorInterface, WeatherProIndicatorInterface
+class StatWeatherIndicatorPro implements IndicatorProInterface, WeatherProIndicatorInterface
 {
-    private \StdClass $data;
+    private WeatherInfoPro $data;
 
     private string $name;
 
@@ -33,7 +34,7 @@ class StatWeatherIndicatorPro implements IndicatorInterface, WeatherProIndicator
     public function __construct(string $name)
     {
         $this->name = $name;
-        $this->data = new \StdClass();
+        $this->data = new WeatherInfoPro();
         $this->tempStats = new AvgStats('Temperature');
         $this->humStats = new AvgStats('Humidity');
         $this->presStats = new AvgStats('Pressure');
@@ -47,7 +48,7 @@ class StatWeatherIndicatorPro implements IndicatorInterface, WeatherProIndicator
         $this->setWindDirectionFormatter(new WindDirectionFormatter());
     }
 
-    public function setData(\StdClass $data) : void
+    public function setData(WeatherInfoPro $data) : void
     {
         $this->data = $data;
         $this->tempStats->update($data->temperature);
@@ -67,31 +68,31 @@ class StatWeatherIndicatorPro implements IndicatorInterface, WeatherProIndicator
         $this->windDirectionFormatter->display($this->windDirection);
     }
 
-    public function setTemp($data) : void
+    public function setTemp(float $data) : void
     {
         $this->data->temperature = $data;
         $this->tempStats->update($this->data->temperature);
     }
 
-    public function setHumidity($data) : void
+    public function setHumidity(float $data) : void
     {
         $this->data->humidity = $data;
         $this->humStats->update($this->data->humidity);
     }
 
-    public function setPressure($data) : void
+    public function setPressure(float $data) : void
     {
         $this->data->pressure = $data;
         $this->presStats->update($this->data->pressure);
     }
 
-    public function setWindSpeed($data) : void
+    public function setWindSpeed(float $data) : void
     {
         $this->data->windSpeed = $data;
         $this->windSpeed->update($this->data->windSpeed);
     }
 
-    public function setWindDirection($data) : void
+    public function setWindDirection(float $data) : void
     {
         $this->data->windDirection = $data;
         $this->windDirection->update($this->data->windDirection);

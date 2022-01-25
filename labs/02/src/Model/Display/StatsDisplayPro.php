@@ -11,6 +11,7 @@ use App\Model\Display\Stats\Formatter\Pressure\MmRtStPressureFormatter;
 use App\Model\Display\Stats\Formatter\Temperature\CelsiusTemperatureFormatter;
 use App\Model\Display\Stats\Formatter\Wind\Direction\WindDirectionFormatter;
 use App\Model\Display\Stats\Formatter\Wind\Speed\WindSpeedFormatter;
+use App\Model\Weather\WeatherInfoPro;
 use App\Observer\Observable;
 use App\Observer\ObserverInterface;
 
@@ -45,11 +46,13 @@ class StatsDisplayPro implements ObserverInterface
 
     public function update(\StdClass $data, Observable $subject) : void
     {
-        $this->tempStats->update($data->temperature);
-        $this->humStats->update($data->humidity);
-        $this->presStats->update($data->pressure);
-        $this->windSpeedStats->update($data->windSpeed);
-        $this->windDirectionStat->update($data->windDirection);
+        $info = WeatherInfoPro::createInfo($data);
+
+        $this->tempStats->update($info->temperature);
+        $this->humStats->update($info->humidity);
+        $this->presStats->update($info->pressure);
+        $this->windSpeedStats->update($info->windSpeed);
+        $this->windDirectionStat->update($info->windDirection);
 
         $this->display();
     }

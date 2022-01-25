@@ -11,10 +11,11 @@ use App\Model\Display\Stats\Formatter\Pressure\MmRtStPressureFormatter;
 use App\Model\Display\Stats\Formatter\Temperature\CelsiusTemperatureFormatter;
 use App\Model\Display\Stats\Formatter\Wind\Direction\WindDirectionFormatter;
 use App\Model\Display\Stats\Formatter\Wind\Speed\WindSpeedFormatter;
+use App\Model\Weather\WeatherInfoPro;
 
-class StatIndicatorPro implements IndicatorInterface
+class StatIndicatorPro implements IndicatorProInterface
 {
-    private \StdClass $data;
+    private WeatherInfoPro $data;
 
     private string $name;
 
@@ -33,7 +34,7 @@ class StatIndicatorPro implements IndicatorInterface
     public function __construct(string $name)
     {
         $this->name = $name;
-        $this->data = new \StdClass();
+        $this->data = new WeatherInfoPro();
         $this->tempStats = new AvgStats('Temperature');
         $this->humStats = new AvgStats('Humidity');
         $this->presStats = new AvgStats('Pressure');
@@ -47,7 +48,7 @@ class StatIndicatorPro implements IndicatorInterface
         $this->setWindDirectionFormatter(new WindDirectionFormatter());
     }
 
-    public function setData(\StdClass $data) : void
+    public function setData(WeatherInfoPro $data) : void
     {
         $this->data = $data;
         $this->tempStats->update($data->temperature);

@@ -3,8 +3,9 @@
 namespace App\Model\Display\Info\Formatter;
 
 use App\Model\Weather\Format\FormatInterface;
+use App\Model\Weather\WeatherInfoPro;
 
-class InfoProFormatter implements InfoFormatterInterface
+class InfoProFormatter implements InfoProFormatterInterface
 {
     private FormatInterface $tempFormat;
     private FormatInterface $humFormat;
@@ -51,7 +52,7 @@ class InfoProFormatter implements InfoFormatterInterface
         $this->windDirectionFormat = $windDirectionFormat;
     }
 
-    public function display(\StdClass $data): void
+    public function display(WeatherInfoPro $data): void
     {
         echo "Current Temp " . $this->tempFormat->format((float) $data->temperature) . "\n";
         echo "Current Hum  " . $this->humFormat->format((float) $data->humidity) . "\n";

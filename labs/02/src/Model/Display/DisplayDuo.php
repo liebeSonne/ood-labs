@@ -6,6 +6,7 @@ use App\Model\Display\Indicator\CurrentIndicator;
 use App\Model\Display\Indicator\IndicatorInterface;
 use App\Model\Display\Info\Formatter\DefaultInfoFormatter;
 use App\Model\Display\Info\Formatter\InfoFormatterInterface;
+use App\Model\Weather\WeatherInfo;
 use App\Observer\Observable;
 use App\Observer\ObserverInterface;
 
@@ -41,13 +42,15 @@ class DisplayDuo implements ObserverInterface
 
     public function update(\StdClass $data, Observable $subject) : void
     {
+        $info = WeatherInfo::createInfo($data);
+
         if ($subject === $this->weatherDataIn)
         {
-            $this->inIndicator->setData($data);
+            $this->inIndicator->setData($info);
         }
         if ($subject === $this->weatherDataOut)
         {
-            $this->outIndicator->setData($data);
+            $this->outIndicator->setData($info);
         }
 
         $this->display();

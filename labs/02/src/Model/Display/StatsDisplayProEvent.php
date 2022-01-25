@@ -48,19 +48,19 @@ class StatsDisplayProEvent implements EventListenerInterface
         switch ($event)
         {
             case WeatherDataProEvent::EVENT_TEMP:
-                $this->tempStats->update($data);
+                $this->tempStats->update((float) $data);
                 break;
             case WeatherDataProEvent::EVENT_HUMIDITY:
-                $this->humStats->update($data);
+                $this->humStats->update((float) $data);
                 break;
             case WeatherDataProEvent::EVENT_PRESSURE:
-                $this->presStats->update($data);
+                $this->presStats->update((float) $data);
                 break;
             case WeatherDataProEvent::EVENT_WIND_SPEED:
-                $this->windSpeedStats->update($data);
+                $this->windSpeedStats->update((float) $data);
                 break;
             case WeatherDataProEvent::EVENT_WIND_DIRECTION:
-                $this->windDirectionStat->update($data);
+                $this->windDirectionStat->update((float) $data);
                 break;
         }
 

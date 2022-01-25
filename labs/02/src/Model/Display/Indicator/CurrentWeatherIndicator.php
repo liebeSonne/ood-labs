@@ -7,7 +7,7 @@ use App\Model\Weather\WeatherInfo;
 
 class CurrentWeatherIndicator implements IndicatorInterface, WeatherIndicatorInterface
 {
-    private \StdClass $data;
+    private WeatherInfo $data;
 
     private string $name;
 
@@ -25,7 +25,7 @@ class CurrentWeatherIndicator implements IndicatorInterface, WeatherIndicatorInt
         $this->formatter = $formatter;
     }
 
-    public function setData(\StdClass $data) : void
+    public function setData(WeatherInfo $data) : void
     {
         $this->data = $data;
     }
@@ -36,17 +36,17 @@ class CurrentWeatherIndicator implements IndicatorInterface, WeatherIndicatorInt
         $this->formatter->display($this->data);
     }
 
-    public function setTemp($data) : void
+    public function setTemp(float $data) : void
     {
         $this->data->temperature = $data;
     }
 
-    public function setHumidity($data) : void
+    public function setHumidity(float $data) : void
     {
         $this->data->humidity = $data;
     }
 
-    public function setPressure($data) : void
+    public function setPressure(float $data) : void
     {
         $this->data->pressure = $data;
     }

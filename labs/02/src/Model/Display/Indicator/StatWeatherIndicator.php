@@ -8,10 +8,11 @@ use App\Model\Display\Stats\Formatter\AvgStatsFormatterInterface;
 use App\Model\Display\Stats\Formatter\Humidity\PercentHumidityFormatter;
 use App\Model\Display\Stats\Formatter\Pressure\MmRtStPressureFormatter;
 use App\Model\Display\Stats\Formatter\Temperature\CelsiusTemperatureFormatter;
+use App\Model\Weather\WeatherInfo;
 
 class StatWeatherIndicator implements IndicatorInterface, WeatherIndicatorInterface
 {
-    private \StdClass $data;
+    private WeatherInfo $data;
 
     private string $name;
 
@@ -26,7 +27,7 @@ class StatWeatherIndicator implements IndicatorInterface, WeatherIndicatorInterf
     public function __construct(string $name)
     {
         $this->name = $name;
-        $this->data = new \StdClass();
+        $this->data = new WeatherInfo();
         $this->tempStats = new AvgStats('Temperature');
         $this->humStats = new AvgStats('Humidity');
         $this->presStats = new AvgStats('Pressure');
@@ -36,7 +37,7 @@ class StatWeatherIndicator implements IndicatorInterface, WeatherIndicatorInterf
         $this->setHumidityFormatter(new PercentHumidityFormatter());
     }
 
-    public function setData(\StdClass $data) : void
+    public function setData(WeatherInfo $data) : void
     {
         $this->data = $data;
         $this->tempStats->update($data->temperature);
@@ -52,19 +53,19 @@ class StatWeatherIndicator implements IndicatorInterface, WeatherIndicatorInterf
         $this->pressFormatter->display($this->presStats);
     }
 
-    public function setTemp($data) : void
+    public function setTemp(float $data) : void
     {
         $this->data->temperature = $data;
         $this->tempStats->update($this->data->temperature);
     }
 
-    public function setHumidity($data) : void
+    public function setHumidity(float $data) : void
     {
         $this->data->humidity = $data;
         $this->humStats->update($this->data->humidity);
     }
 
-    public function setPressure($data) : void
+    public function setPressure(float $data) : void
     {
         $this->data->pressure = $data;
         $this->presStats->update($this->data->pressure);

@@ -5,7 +5,7 @@ namespace App\Model\Display\Indicator;
 use App\Model\Display\Info\Formatter\InfoProFormatterInterface;
 use App\Model\Weather\WeatherInfoPro;
 
-class CurrentWeatherIndicatorPro implements IndicatorProInterface, WeatherProIndicatorInterface
+class CurrentIndicatorPro implements IndicatorProInterface
 {
     private WeatherInfoPro $data;
 
@@ -34,30 +34,5 @@ class CurrentWeatherIndicatorPro implements IndicatorProInterface, WeatherProInd
     {
         echo "-[" . $this->name . "]: \n";
         $this->formatter->display($this->data);
-    }
-
-    public function setTemp(float $data) : void
-    {
-        $this->data->temperature = $data;
-    }
-
-    public function setHumidity(float $data) : void
-    {
-        $this->data->humidity = $data;
-    }
-
-    public function setPressure(float $data) : void
-    {
-        $this->data->pressure = $data;
-    }
-
-    public function setWindSpeed(float $data) : void
-    {
-        $this->data->windSpeed = $data;
-    }
-
-    public function setWindDirection(float $data) : void
-    {
-        $this->data->windDirection = $data;
     }
 }

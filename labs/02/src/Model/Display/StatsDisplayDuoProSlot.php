@@ -3,6 +3,7 @@
 namespace App\Model\Display;
 
 use App\Model\Display\Indicator\IndicatorInterface;
+use App\Model\Display\Indicator\IndicatorProInterface;
 use App\Model\Display\Indicator\StatWeatherIndicatorPro;
 use App\Model\Display\Indicator\StatWeatherIndicator;
 use App\Model\Display\Slot\SlotDuoWeatherInterface;
@@ -13,6 +14,8 @@ use App\Model\Display\Stats\Formatter\Temperature\CelsiusTemperatureFormatter;
 use App\Model\Display\Stats\Formatter\Wind\Direction\WindDirectionFormatter;
 use App\Model\Display\Stats\Formatter\Wind\Speed\WindSpeedFormatter;
 use App\Model\Weather\WeatherData;
+use App\Model\Weather\WeatherInfo;
+use App\Model\Weather\WeatherInfoPro;
 use App\Observer\Observable;
 use App\Observer\ObserverInterface;
 
@@ -22,7 +25,7 @@ class StatsDisplayDuoProSlot implements ObserverInterface, SlotDuoWeatherInterfa
     private WeatherData $weatherDataOut;
 
     private IndicatorInterface $inIndicator;
-    private IndicatorInterface $outIndicator;
+    private IndicatorProInterface $outIndicator;
 
     private AvgStatsFormatterInterface $tempFormatter;
     private AvgStatsFormatterInterface $humFormatter;
@@ -49,11 +52,13 @@ class StatsDisplayDuoProSlot implements ObserverInterface, SlotDuoWeatherInterfa
     {
         if ($subject === $this->weatherDataIn)
         {
-            $this->inIndicator->setData($data);
+            $info = WeatherInfo::createInfo($data);
+            $this->inIndicator->setData($info);
         }
         if ($subject === $this->weatherDataOut)
         {
-            $this->outIndicator->setData($data);
+            $info = WeatherInfoPro::createInfo($data);
+            $this->outIndicator->setData($info);
         }
 
        $this->display();

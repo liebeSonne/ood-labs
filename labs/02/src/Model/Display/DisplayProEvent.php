@@ -3,25 +3,25 @@
 namespace App\Model\Display;
 
 use App\Event\EventListenerInterface;
-use App\Model\Display\Info\Formatter\DefaultInfoFormatter;
-use App\Model\Display\Info\Formatter\InfoFormatterInterface;
+use App\Model\Display\Info\Formatter\DefaultInfoProFormatter;
+use App\Model\Display\Info\Formatter\InfoProFormatterInterface;
 use App\Model\Weather\WeatherDataProEvent;
 use App\Model\Weather\WeatherInfoPro;
 
 class DisplayProEvent implements EventListenerInterface
 {
-    private \StdClass $data;
+    private WeatherInfoPro $data;
 
-    private InfoFormatterInterface $formatter;
+    private InfoProFormatterInterface $formatter;
 
     public function __construct()
     {
         $this->data = new WeatherInfoPro();
-        $formatter = new DefaultInfoFormatter();
+        $formatter = new DefaultInfoProFormatter();
         $this->setFormatter($formatter);
     }
 
-    public function setFormatter(InfoFormatterInterface $formatter) : void
+    public function setFormatter(InfoProFormatterInterface $formatter) : void
     {
         $this->formatter = $formatter;
     }

@@ -3,13 +3,14 @@
 namespace App\Model\Display;
 
 use App\Model\Display\Info\Formatter\DefaultInfoProFormatter;
-use App\Model\Display\Info\Formatter\InfoFormatterInterface;
+use App\Model\Display\Info\Formatter\InfoProFormatterInterface;
+use App\Model\Weather\WeatherInfoPro;
 use App\Observer\Observable;
 use App\Observer\ObserverInterface;
 
 class DisplayPro implements ObserverInterface
 {
-    private InfoFormatterInterface $formatter;
+    private InfoProFormatterInterface $formatter;
 
     public function __construct()
     {
@@ -17,14 +18,15 @@ class DisplayPro implements ObserverInterface
         $this->setFormatter($formatter);
     }
 
-    public function setFormatter(InfoFormatterInterface $formatter) : void
+    public function setFormatter(InfoProFormatterInterface $formatter) : void
     {
         $this->formatter = $formatter;
     }
 
     public function update(\StdClass $data, Observable $subject) : void
     {
-        $this->formatter->display($data);
+        $info = WeatherInfoPro::createInfo($data);
+        $this->formatter->display($info);
         echo "----------------\n";
     }
 }
