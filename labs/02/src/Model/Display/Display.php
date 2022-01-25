@@ -5,7 +5,7 @@ namespace App\Model\Display;
 use App\Model\Display\Info\Formatter\DefaultInfoFormatter;
 use App\Model\Display\Info\Formatter\InfoFormatterInterface;
 use App\Model\Weather\WeatherInfo;
-use App\Observer\Observable;
+use App\Observer\ObservableInterface;
 use App\Observer\ObserverInterface;
 
 class Display implements ObserverInterface
@@ -23,7 +23,7 @@ class Display implements ObserverInterface
         $this->formatter = $formatter;
     }
 
-    public function update(\StdClass $data, Observable $subject) : void
+    public function update(\StdClass $data, ObservableInterface $subject) : void
     {
         $info = WeatherInfo::createInfo($data);
         $this->formatter->display($info);

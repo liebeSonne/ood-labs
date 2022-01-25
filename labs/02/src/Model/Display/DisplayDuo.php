@@ -7,20 +7,20 @@ use App\Model\Display\Indicator\IndicatorInterface;
 use App\Model\Display\Info\Formatter\DefaultInfoFormatter;
 use App\Model\Display\Info\Formatter\InfoFormatterInterface;
 use App\Model\Weather\WeatherInfo;
-use App\Observer\Observable;
+use App\Observer\ObservableInterface;
 use App\Observer\ObserverInterface;
 
 class DisplayDuo implements ObserverInterface
 {
-    private Observable $weatherDataIn;
-    private Observable $weatherDataOut;
+    private ObservableInterface $weatherDataIn;
+    private ObservableInterface $weatherDataOut;
 
     private IndicatorInterface $inIndicator;
     private IndicatorInterface $outIndicator;
 
     private InfoFormatterInterface $formatter;
 
-    public function __construct(Observable $weatherDataIn, Observable $weatherDataOut)
+    public function __construct(ObservableInterface $weatherDataIn, ObservableInterface $weatherDataOut)
     {
         $this->weatherDataIn = $weatherDataIn;
         $this->weatherDataOut = $weatherDataOut;
@@ -40,7 +40,7 @@ class DisplayDuo implements ObserverInterface
         $this->outIndicator->setFormatter($this->formatter);
     }
 
-    public function update(\StdClass $data, Observable $subject) : void
+    public function update(\StdClass $data, ObservableInterface $subject) : void
     {
         $info = WeatherInfo::createInfo($data);
 

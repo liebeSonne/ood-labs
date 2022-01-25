@@ -12,7 +12,7 @@ use App\Model\Display\Stats\Formatter\Temperature\CelsiusTemperatureFormatter;
 use App\Model\Display\Stats\Formatter\Wind\Direction\WindDirectionFormatter;
 use App\Model\Display\Stats\Formatter\Wind\Speed\WindSpeedFormatter;
 use App\Model\Weather\WeatherInfoPro;
-use App\Observer\Observable;
+use App\Observer\ObservableInterface;
 use App\Observer\ObserverInterface;
 
 class StatsDisplayPro implements ObserverInterface
@@ -44,7 +44,7 @@ class StatsDisplayPro implements ObserverInterface
         $this->setWindDirectionFormatter(new WindDirectionFormatter());
     }
 
-    public function update(\StdClass $data, Observable $subject) : void
+    public function update(\StdClass $data, ObservableInterface $subject) : void
     {
         $info = WeatherInfoPro::createInfo($data);
 

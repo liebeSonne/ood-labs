@@ -16,7 +16,7 @@ use App\Model\Display\Stats\Formatter\Wind\Speed\WindSpeedFormatter;
 use App\Model\Weather\WeatherData;
 use App\Model\Weather\WeatherInfo;
 use App\Model\Weather\WeatherInfoPro;
-use App\Observer\Observable;
+use App\Observer\ObservableInterface;
 use App\Observer\ObserverInterface;
 
 class StatsDisplayDuoProSlot implements ObserverInterface, SlotDuoWeatherInterface
@@ -48,7 +48,7 @@ class StatsDisplayDuoProSlot implements ObserverInterface, SlotDuoWeatherInterfa
         $this->setWindDirectionFormatter(new WindDirectionFormatter());
     }
 
-    public function update(\StdClass $data, Observable $subject) : void
+    public function update(\StdClass $data, ObservableInterface $subject) : void
     {
         if ($subject === $this->weatherDataIn)
         {

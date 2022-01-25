@@ -9,13 +9,13 @@ use App\Model\Display\Stats\Formatter\Humidity\PercentHumidityFormatter;
 use App\Model\Display\Stats\Formatter\Pressure\MmRtStPressureFormatter;
 use App\Model\Display\Stats\Formatter\Temperature\CelsiusTemperatureFormatter;
 use App\Model\Weather\WeatherInfo;
-use App\Observer\Observable;
+use App\Observer\ObservableInterface;
 use App\Observer\ObserverInterface;
 
 class StatsDisplayDuo implements ObserverInterface
 {
-    private Observable $weatherDataIn;
-    private Observable $weatherDataOut;
+    private ObservableInterface $weatherDataIn;
+    private ObservableInterface $weatherDataOut;
 
     private IndicatorInterface $inIndicator;
     private IndicatorInterface $outIndicator;
@@ -24,7 +24,7 @@ class StatsDisplayDuo implements ObserverInterface
     private AvgStatsFormatterInterface $humFormatter;
     private AvgStatsFormatterInterface $pressFormatter;
 
-    public function __construct(Observable $weatherDataIn, Observable $weatherDataOut)
+    public function __construct(ObservableInterface $weatherDataIn, ObservableInterface $weatherDataOut)
     {
         $this->weatherDataIn = $weatherDataIn;
         $this->weatherDataOut = $weatherDataOut;
@@ -37,7 +37,7 @@ class StatsDisplayDuo implements ObserverInterface
         $this->setHumidityFormatter(new PercentHumidityFormatter());
     }
 
-    public function update(\StdClass $data, Observable $subject) : void
+    public function update(\StdClass $data, ObservableInterface $subject) : void
     {
         $info = WeatherInfo::createInfo($data);
 

@@ -13,13 +13,13 @@ use App\Model\Display\Info\Formatter\InfoProFormatterInterface;
 use App\Model\Display\Slot\SlotDuoWeatherInterface;
 use App\Model\Weather\WeatherInfo;
 use App\Model\Weather\WeatherInfoPro;
-use App\Observer\Observable;
+use App\Observer\ObservableInterface;
 use App\Observer\ObserverInterface;
 
 class DisplayDuoProSlot implements ObserverInterface, SlotDuoWeatherInterface
 {
-    private Observable $weatherDataIn;
-    private Observable $weatherDataOut;
+    private ObservableInterface $weatherDataIn;
+    private ObservableInterface $weatherDataOut;
 
     private IndicatorInterface $inIndicator;
     private IndicatorProInterface $outIndicator;
@@ -27,7 +27,7 @@ class DisplayDuoProSlot implements ObserverInterface, SlotDuoWeatherInterface
     private InfoFormatterInterface $formatter;
     private InfoProFormatterInterface $formatterPro;
 
-    public function __construct(Observable $weatherDataIn, Observable $weatherDataOut)
+    public function __construct(ObservableInterface $weatherDataIn, ObservableInterface $weatherDataOut)
     {
         $this->weatherDataIn = $weatherDataIn;
         $this->weatherDataOut = $weatherDataOut;
@@ -54,7 +54,7 @@ class DisplayDuoProSlot implements ObserverInterface, SlotDuoWeatherInterface
         $this->outIndicator->setFormatter($this->formatterPro);
     }
 
-    public function update(\StdClass $data, Observable $subject) : void
+    public function update(\StdClass $data, ObservableInterface $subject) : void
     {
         if ($subject === $this->weatherDataIn)
         {
