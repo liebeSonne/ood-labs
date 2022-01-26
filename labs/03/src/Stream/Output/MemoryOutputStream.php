@@ -6,9 +6,8 @@ class MemoryOutputStream implements OutputDataStreamInterface
 {
     private \SplFileObject $stream;
 
-    public function __construct()
+    public function __construct($filename = 'php://memory')
     {
-        $filename = 'php://memory';
         $this->stream = new \SplFileObject($filename, 'ab');
     }
 
