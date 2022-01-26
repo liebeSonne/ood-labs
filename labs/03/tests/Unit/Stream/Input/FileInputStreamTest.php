@@ -7,8 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class FileInputStreamTest extends TestCase
 {
-    private $filename;
-
     public function testIsEOFFalse(): void
     {
         $filename = 'file.tmp';
