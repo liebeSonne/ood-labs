@@ -24,7 +24,7 @@ class EncryptOutputStream extends OutputStreamDecoration
         $this->table = $data;
     }
 
-    protected function getEncryptedByte(string $byte) : string
+    private function getEncryptedByte(string $byte) : string
     {
         $index = ord($byte);
         return $this->table[$index];

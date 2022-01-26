@@ -28,13 +28,13 @@ class CompressOutputStream extends OutputStreamDecoration
         }
     }
 
-    protected function setNextByte(string $byte)
+    private function setNextByte(string $byte)
     {
         $this->byte = $byte;
         $this->counter = 1;
     }
 
-    protected function writeChunk()
+    private function writeChunk()
     {
         if ($this->counter > 255) {
             $counter = $this->counter;

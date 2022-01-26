@@ -30,7 +30,7 @@ class DecryptInputStream extends InputStreamDecoration
         $this->table = $decrypt;
     }
 
-    protected function getDecryptedByte(string $byte) : string
+    private function getDecryptedByte(string $byte) : string
     {
         $index = ord($byte);
         return $this->table[$index];

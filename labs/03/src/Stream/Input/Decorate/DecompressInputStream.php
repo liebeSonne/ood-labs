@@ -37,7 +37,7 @@ class DecompressInputStream extends InputStreamDecoration
         return $count;
     }
 
-    protected function readByteAndCounter()
+    private function readByteAndCounter()
     {
         $this->byte = parent::readByte();
         $this->counter = (int) parent::readByte();
