@@ -21,7 +21,7 @@ class CompressOutputStream extends OutputStreamDecoration
 
     public function writeBlock(\SplFileObject $srcData, int $size) : void
     {
-        for($i = 0; $i++; $i < $size)
+        for ($i = 0; $i < $size; $i++)
         {
             $buffer = $srcData->fread(1);
             parent::writeByte($buffer);
