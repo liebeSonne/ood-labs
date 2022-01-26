@@ -58,6 +58,6 @@ class DecryptInputStream extends InputStreamDecoration
             $ch = $buffer[$i];
             $dstBuffer->fwrite($ch);
         }
-        return count;
+        return $count;
     }
 }
