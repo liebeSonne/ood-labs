@@ -28,9 +28,10 @@ class DecompressInputStream extends InputStreamDecoration
     public function readBlock(\SplFileObject $dstBuffer, int $size): int
     {
         $count = 0;
-        for ($i = 0; $i++; $i < $size)
+        for ($i = 0; $i < $size; $i++)
         {
-            $buffer[$i] = $this->readByte();
+            $byte = $this->readByte();
+            $dstBuffer->fwrite($byte);
             $count++;
         }
         return $count;
