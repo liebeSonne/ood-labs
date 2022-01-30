@@ -13,7 +13,10 @@ class Painter
         for ($index = 0; $index < $count; $index++)
         {
             $shape = $draft->getShape($index);
-            $shape->draw($canvas);
+            if ($shape !== null)
+            {
+                $shape->draw($canvas);
+            }
         }
     }
 }

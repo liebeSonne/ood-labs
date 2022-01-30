@@ -8,10 +8,26 @@
       "App\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.5"
+  },
   "scripts": {
-    "app": [
+    "phpunit": "./vendor/bin/phpunit",
+    "test": [
+      "@phpunit"
+    ],
+    "editor": [
       "php ./public/index.php ./data/test.txt ./data/out.png",
       "php ./public/index.php"
+    ],
+    "app": [
+      "@test",
+      "@editor"
     ]
   }
 }

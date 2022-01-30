@@ -16,9 +16,9 @@ class PictureDraft
         return count($this->shapes);
     }
 
-    public function getShape(int $index) : Shape
+    public function getShape(int $index) : ?Shape
     {
-        return $this->shapes[$index];
+        return $this->shapes[$index] ?? null;
     }
 
     public function add(Shape $shape) : void
