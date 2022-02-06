@@ -18,7 +18,7 @@ class InsertParagraphCommandTest extends TestCase
 
         $command = new InsertParagraphCommand($items, $text, $position, $paragraph);
 
-        $command->doExecute();
+        $command->execute();
 
         $this->assertArrayHasKey(0, $items);
         $this->assertInstanceOf(DocumentItem::class, $items[0]);
@@ -39,7 +39,7 @@ class InsertParagraphCommandTest extends TestCase
 
         $command = new InsertParagraphCommand($items, $text, $position, $paragraph);
 
-        $command->doExecute();
+        $command->execute();
 
         $this->assertArrayHasKey($position, $items);
         $this->assertInstanceOf(DocumentItem::class, $items[0]);
@@ -60,9 +60,10 @@ class InsertParagraphCommandTest extends TestCase
 
         $command = new InsertParagraphCommand($items, $text, $position, $paragraph);
 
-        $command->doUnexecute();
+        $command->execute();
+        $command->unexecute();
 
-        $this->assertCount(1, $items);
+        $this->assertCount(2, $items);
     }
 
     public function testDoUnexecuteNotNullPosition(): void
@@ -77,9 +78,9 @@ class InsertParagraphCommandTest extends TestCase
 
         $command = new InsertParagraphCommand($items, $text, $position, $paragraph);
 
-        $command->doUnexecute();
+        $command->execute();
 
-        $this->assertCount(1, $items);
+        $this->assertCount(3, $items);
     }
 
     public function testDoUnexecuteNotNullPositionMoreThenCount(): void
@@ -94,7 +95,7 @@ class InsertParagraphCommandTest extends TestCase
 
         $command = new InsertParagraphCommand($items, $text, $position, $paragraph);
 
-        $command->doUnexecute();
+        $command->unexecute();
 
         $this->assertCount(2, $items);
     }

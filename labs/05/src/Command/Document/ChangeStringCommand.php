@@ -17,12 +17,12 @@ class ChangeStringCommand extends AbstractCommand
         $this->oldValue = $target;
     }
 
-    public function doExecute(): void
+    protected function doExecute(): void
     {
         $this->target = $this->newValue;
     }
 
-    public function doUnexecute(): void
+    protected function doUnexecute(): void
     {
         $this->target = $this->oldValue;
     }

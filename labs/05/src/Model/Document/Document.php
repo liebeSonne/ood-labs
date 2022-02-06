@@ -3,8 +3,10 @@
 namespace App\Model\Document;
 
 use App\Command\Document\ChangeStringCommand;
+use App\Command\Document\InsertImageCommand;
 use App\Command\Document\InsertParagraphCommand;
 use App\Model\History\History;
+use App\Model\Image\ImageInterface;
 use App\Model\Paragraph\ParagraphInterface;
 
 class Document implements DocumentInterface
@@ -30,7 +32,12 @@ class Document implements DocumentInterface
         return $paragraph;
     }
 
-    //public function insertImage(string $path, int $width, int $height, ?int $position = null): ImageInterface;
+    public function insertImage(string $path, int $width, int $height, ?int $position = null): ImageInterface
+    {
+        $image = null;
+        $this->history->addAndExecuteCommand(new InsertImageCommand($this->items, $path, $width, $height, $position, $image));
+        return $image;
+    }
 
     public function getItemCount(): int
     {

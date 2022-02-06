@@ -2,6 +2,7 @@
 
 namespace App\Editor;
 
+use App\Command\Editor\EditorInsertImage;
 use App\Command\Editor\EditorInsertParagraph;
 use App\Command\Editor\EditorListCommand;
 use App\Command\Editor\EditorRedoCommand;
@@ -33,6 +34,7 @@ class Editor
         $this->menu->addItem('redo', 'Redo command', new EditorRedoCommand($this));
 
         $this->menu->addItem('insertParagraph', 'Insert paragraph. Args: <position>|end <text>', new EditorInsertParagraph($this));
+        $this->menu->addItem('insertImage', 'Insert image. Args: <position>|end <width> <height> <filepath>', new EditorInsertImage($this));
     }
 
     public function start(): void
@@ -92,5 +94,31 @@ class Editor
         }
 
         $this->document->insertParagraph($text, $position);
+    }
+
+    public function insertImage(): void
+    {
+        $str = stream_get_line($this->stream, 65535, "\n");
+
+        $position = null;
+        $path = '';
+
+        if (sscanf($str, "end%d%d%s", $width, $height, $path) < 1) {
+            if (sscanf($str, "%d%d%d%s", $position, $width, $height, $path) < 1) {
+                return;
+            }
+        }
+
+        if (!file_exists($path)) {
+            echo 'Error';
+            return;
+        }
+
+        if ($position !== null && $position > $this->document->getItemCount()) {
+            echo "Error: Position more then document items count\n";
+            return;
+        }
+
+        $this->document->insertImage($path, $width, $height, $position);
     }
 }

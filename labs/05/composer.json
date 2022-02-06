@@ -21,9 +21,12 @@
     "test": [
       "@phpunit"
     ],
+    "editor": [
+      "php ./public/index.php"
+    ],
     "app": [
       "@test",
-      "php ./public/index.php"
+      "@editor"
     ]
   }
 }

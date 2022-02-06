@@ -14,7 +14,7 @@ class ChangeStringCommandTest extends TestCase
 
         $command = new ChangeStringCommand($target, $newValue);
 
-        $command->doExecute();
+        $command->execute();
 
         $this->assertEquals($target, $newValue);
     }
@@ -27,7 +27,7 @@ class ChangeStringCommandTest extends TestCase
 
         $command = new ChangeStringCommand($target, $newValue);
 
-        $command->doUnexecute();
+        $command->unexecute();
 
         $this->assertEquals($target, $oldValue);
     }
@@ -40,8 +40,8 @@ class ChangeStringCommandTest extends TestCase
 
         $command = new ChangeStringCommand($target, $newValue);
 
-        $command->doExecute();
-        $command->doUnexecute();
+        $command->execute();
+        $command->unexecute();
 
         $this->assertEquals($target, $oldValue);
     }
