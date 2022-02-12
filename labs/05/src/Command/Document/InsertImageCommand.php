@@ -19,6 +19,7 @@ class InsertImageCommand extends AbstractCommand
     private int $height;
     private string $path;
     private ?ImageInterface $image;
+    private string $pathTo;
 
     public function __construct(array &$items, string $path, int $width, int $height, ?int $position = null, ?ImageInterface &$image)
     {
@@ -28,17 +29,18 @@ class InsertImageCommand extends AbstractCommand
         $this->height = $height;
         $this->path = $path;
         $this->image =& $image;
+
+        // предварительное копирование ресурса
+        $from = $this->path;
+        $extension = pathinfo($from, PATHINFO_EXTENSION);
+        $this->pathTo = IMAGES_PATH . '/' . uniqid('',false) . "." .  $extension;
+
+        copy($from, $this->pathTo);
     }
 
     protected function doExecute(): void
     {
-        $from = $this->path;
-        $extension = pathinfo($from, PATHINFO_EXTENSION);
-        $to = IMAGES_PATH . '/' . uniqid('',false) . "." .  $extension;
-
-        copy($from, $to);
-
-        $image = new Image($to, $this->width, $this->height);
+        $image = new Image($this->pathTo, $this->width, $this->height);
         $item = new DocumentItem();
         $item->setImage($image);
         $this->image = $item->getImage();
