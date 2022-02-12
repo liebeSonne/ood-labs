@@ -5,6 +5,7 @@ namespace App\Robot;
 use App\Command\Menu\MenuExitCommand;
 use App\Command\Menu\MenuHelpCommand;
 use App\Menu\Menu;
+use App\Robot\Command\BeginMacroCommand;
 use App\Robot\Command\MacroCommand;
 use App\Robot\Command\StopCommand;
 use App\Robot\Command\TurnOffCommand;
@@ -41,6 +42,8 @@ class RobotMenu
         $this->menu->addItem('patrol', 'Patrol the territory', $cmd);
 
         $this->menu->addItem('stop', 'Stop the Robot', new StopCommand($this->robot));
+
+        $this->menu->addItem('begin_macro', 'Begin record macro command.', new BeginMacroCommand($this->menu, $this->stream));
         $this->menu->addItem('help', 'Show instructions', new MenuHelpCommand($this->menu));
         $this->menu->addItem('exit', 'Exit from this menu', new MenuExitCommand($this->menu));
 

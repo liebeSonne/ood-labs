@@ -25,6 +25,18 @@ class Menu
         $this->items[] = new Item($shortcut, $description, $command);
     }
 
+    public function getItem(string $shortcut): ?CommandInterface
+    {
+        $command = null;
+        foreach ($this->items as $item) {
+            if ($item->getShortcut() === $shortcut) {
+                $command = $item->getCommand();
+                break;
+            }
+        }
+        return $command;
+    }
+
     public function run(): void
     {
         $do = true;
@@ -38,13 +50,7 @@ class Menu
     public function executeCommand(string $shortcut): bool
     {
         $this->isExit = false;
-        $command = null;
-        foreach ($this->items as $item) {
-            if ($item->getShortcut() === $shortcut) {
-                $command = $item->getCommand();
-                break;
-            }
-        }
+        $command = $this->getItem($shortcut);
         if ($command === null) {
             echo "Unknown command\n";
         } else {
