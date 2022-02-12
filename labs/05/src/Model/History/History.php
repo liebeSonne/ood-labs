@@ -6,6 +6,8 @@ use App\Command\CommandInterface;
 
 class History
 {
+    public const MAX_COMMANDS = 10;
+
     private int $nextCommandIndex = 0;
 
     /**
@@ -55,6 +57,13 @@ class History
             $command->execute();
             $this->commands->push($command);
             ++$this->nextCommandIndex;
+        }
+
+        if (count($this->commands) > self::MAX_COMMANDS) {
+            $from = count($this->commands) - self::MAX_COMMANDS;
+            $to = count($this->commands) - 1;
+            $this->commands = $this->commands->slice($from, $to);
+            $this->nextCommandIndex -= $from;
         }
     }
 }

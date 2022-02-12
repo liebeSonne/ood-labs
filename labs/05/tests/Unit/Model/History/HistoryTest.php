@@ -69,4 +69,26 @@ class HistoryTest extends TestCase
 
         $history->addAndExecuteCommand($command);
     }
+
+    public function testCommandLimit(): void
+    {
+        $command = $this->createMock(CommandInterface::class);
+
+        $count = 20;
+        $max = History::MAX_COMMANDS;
+
+        $history = new History();
+
+        $command->expects($this->exactly($count))->method('execute');
+
+        for ($i = 0; $i < $count; $i++) {
+            $history->addAndExecuteCommand($command);
+        }
+
+        $command->expects($this->exactly($max))->method('unexecute');
+
+        for ($i = 0; $i < $count; $i++) {
+            $history->undo();
+        }
+    }
 }
