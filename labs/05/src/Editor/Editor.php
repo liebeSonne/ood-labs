@@ -110,7 +110,7 @@ class Editor
         }
 
         if (!file_exists($path)) {
-            echo 'Error';
+            echo "Error: File ($path) not exists\n";
             return;
         }
 
