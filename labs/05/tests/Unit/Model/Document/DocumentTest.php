@@ -10,6 +10,8 @@ use PHPUnit\Framework\TestCase;
 
 class DocumentTest extends TestCase
 {
+    private array $files = [];
+
     public function testSetGetTitle(): void
     {
         $document = new Document();
@@ -70,10 +72,9 @@ class DocumentTest extends TestCase
         $path = $this->createFile($width, $height);
 
         $image = $document->insertImage($path, $width, $height, $position);
+        $this->files[] = $image->getPath();
 
         $this->assertInstanceOf(ImageInterface::class, $image);
-
-        @unlink($path);
     }
 
     public function testInsertImageNullPoint(): void
@@ -86,10 +87,9 @@ class DocumentTest extends TestCase
         $path = $this->createFile($width, $height);
 
         $image = $document->insertImage($path, $width, $height, $position);
+        $this->files[] = $image->getPath();
 
         $this->assertInstanceOf(ImageInterface::class, $image);
-
-        @unlink($path);
     }
 
     public function testGetItemCount(): void
@@ -136,14 +136,13 @@ class DocumentTest extends TestCase
 
         $path = $this->createFile($width, $height);
 
-        $document->insertImage($path, $width, $height, $position);
+        $image = $document->insertImage($path, $width, $height, $position);
+        $this->files[] = $image->getPath();
 
         $document->resizeImage($position, $newWidth, $newHeight);
 
         $this->assertEquals($newWidth, $document->getItem($position)->getImage()->getWidth());
         $this->assertEquals($newHeight, $document->getItem($position)->getImage()->getHeight());
-
-        @unlink($path);
     }
 
     public function testDeleteItem(): void
@@ -211,6 +210,7 @@ class DocumentTest extends TestCase
         imagefill($im, 0, 0, $red);
         imagepng($im, $path);
         imagedestroy($im);
+        $this->files[] = $path;
         return $path;
     }
 
@@ -226,5 +226,12 @@ class DocumentTest extends TestCase
             }
         }
         return @rmdir($dir);
+    }
+
+    public function __destruct()
+    {
+        foreach ($this->files as $file) {
+            @unlink($file);
+        }
     }
 }

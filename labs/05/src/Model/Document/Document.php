@@ -38,6 +38,14 @@ class Document implements DocumentInterface
     public function insertImage(string $path, int $width, int $height, ?int $position = null): ImageInterface
     {
         $image = null;
+
+        // предварительное копирование ресурса
+        $from = $path;
+        $extension = pathinfo($from, PATHINFO_EXTENSION);
+        $pathTo = IMAGES_PATH . '/' . uniqid('',false) . "." .  $extension;
+        copy($from, $pathTo);
+        $path = $pathTo;
+
         $this->history->addAndExecuteCommand(new InsertImageCommand($this->items, $path, $width, $height, $position, $image));
         return $image;
     }

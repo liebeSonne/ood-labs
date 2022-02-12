@@ -9,6 +9,8 @@ use PHPUnit\Framework\TestCase;
 
 class InsertImageCommandTest extends TestCase
 {
+    private array $files = [];
+
     public function testDoExecuteNullPosition(): void
     {
         $items = [];
@@ -27,8 +29,6 @@ class InsertImageCommandTest extends TestCase
         $this->assertInstanceOf(DocumentItem::class, $items[0]);
         $this->assertEquals($image, $items[0]->getImage());
         $this->assertInstanceOf(ImageInterface::class, $image);
-
-        @unlink($path);
     }
 
     public function testDoExecuteNotNullPosition(): void
@@ -52,8 +52,6 @@ class InsertImageCommandTest extends TestCase
         $this->assertInstanceOf(DocumentItem::class, $items[0]);
         $this->assertEquals($image, $items[$position]->getImage());
         $this->assertInstanceOf(ImageInterface::class, $image);
-
-        @unlink($path);
     }
 
     public function testDoUnexecuteNullPosition(): void
@@ -75,8 +73,6 @@ class InsertImageCommandTest extends TestCase
         $command->unexecute();
 
         $this->assertCount(2, $items);
-
-        @unlink($path);
     }
 
     public function testDoUnexecuteNotNullPosition(): void
@@ -98,8 +94,6 @@ class InsertImageCommandTest extends TestCase
         $command->unexecute();
 
         $this->assertCount(2, $items);
-
-        @unlink($path);
     }
 
     public function testDoUnexecuteNotNullPositionMoreThenCount(): void
@@ -123,6 +117,47 @@ class InsertImageCommandTest extends TestCase
         $this->assertCount(2, $items);
     }
 
+    public function testRemoveResource(): void
+    {
+        $items = [];
+        $width = 1024;
+        $height = 756;
+        $position = null;
+        $image = null;
+
+        $path = $this->createFile($width, $height);
+
+        $command = new InsertImageCommand($items, $path, $width, $height, $position, $image);
+
+        $command->execute();
+        $command->unexecute();
+
+        unset($command);
+
+        $this->assertFileDoesNotExist($path);
+    }
+
+    public function testDontRemoveResource(): void
+    {
+        $items = [];
+        $width = 1024;
+        $height = 756;
+        $position = null;
+        $image = null;
+
+        $path = $this->createFile($width, $height);
+
+        $command = new InsertImageCommand($items, $path, $width, $height, $position, $image);
+
+        $command->execute();
+        $command->unexecute();
+        $command->execute();
+
+        unset($command);
+
+        $this->assertFileExists($path);
+    }
+
     private function createFile($width, $height): string
     {
         $path = './file.png';
@@ -132,6 +167,14 @@ class InsertImageCommandTest extends TestCase
         imagefill($im, 0, 0, $red);
         imagepng($im, $path);
         imagedestroy($im);
+        $this->files[] = $path;
         return $path;
+    }
+
+    public function __destruct()
+    {
+        foreach ($this->files as $file) {
+            @unlink($file);
+        }
     }
 }

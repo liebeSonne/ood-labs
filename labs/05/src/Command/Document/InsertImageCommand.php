@@ -19,7 +19,7 @@ class InsertImageCommand extends AbstractCommand
     private int $height;
     private string $path;
     private ?ImageInterface $image;
-    private string $pathTo;
+    private bool $markDel = false;
 
     public function __construct(array &$items, string $path, int $width, int $height, ?int $position = null, ?ImageInterface &$image)
     {
@@ -29,18 +29,11 @@ class InsertImageCommand extends AbstractCommand
         $this->height = $height;
         $this->path = $path;
         $this->image =& $image;
-
-        // предварительное копирование ресурса
-        $from = $this->path;
-        $extension = pathinfo($from, PATHINFO_EXTENSION);
-        $this->pathTo = IMAGES_PATH . '/' . uniqid('',false) . "." .  $extension;
-
-        copy($from, $this->pathTo);
     }
 
     protected function doExecute(): void
     {
-        $image = new Image($this->pathTo, $this->width, $this->height);
+        $image = new Image($this->path, $this->width, $this->height);
         $item = new DocumentItem();
         $item->setImage($image);
         $this->image = $item->getImage();
@@ -50,6 +43,7 @@ class InsertImageCommand extends AbstractCommand
         } else {
             array_splice($this->items, $this->position, 0, [$item]);
         }
+        $this->markDel = false;
     }
 
     protected function doUnexecute(): void
@@ -59,6 +53,14 @@ class InsertImageCommand extends AbstractCommand
         } else {
             unset($this->items[$this->position]);
             $this->items = array_values($this->items);
+        }
+        $this->markDel = true;
+    }
+
+    public function __destruct()
+    {
+        if ($this->markDel) {
+            @unlink($this->path);
         }
     }
 }
