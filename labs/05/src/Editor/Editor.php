@@ -92,14 +92,12 @@ class Editor
     {
         $str = stream_get_line($this->stream, 65535, "\n");
 
-        $position = null;
-        $text = '';
-
-        if (sscanf($str, "end%s", $text) < 1) {
-            if (sscanf($str, "%d%s", $position, $text) < 1) {
-                return;
-            }
+        $r = preg_match('/^(?<pos>(end)|([0-9]+))(?<text>.*)$/', $str, $match);
+        if (!$r || !is_array($match)) {
+            return;
         }
+        $position = $match['pos'] == 'end' ? null : (int) $match['pos'];
+        $text = $match['text'] ?? '';
 
         if ($position !== null && $position > $this->document->getItemCount()) {
             echo "Error: Position more then document items count\n";
