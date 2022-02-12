@@ -170,6 +170,38 @@ class DocumentTest extends TestCase
         $this->assertEquals(3, $document->getItemCount());
     }
 
+    public function testSaveToPath(): void
+    {
+        $document = new Document();
+
+        $path = '';
+        $documentFile = $path . '/index.html';
+        $documentImagesDir = $path . '/images';
+
+        $document->save($documentFile);
+
+        $this->assertFileExists($documentFile);
+
+        @unlink($documentFile);
+        $this->removeDir($documentImagesDir);
+    }
+
+    public function testSaveToFileHtml(): void
+    {
+        $document = new Document();
+
+        $path = './file.html';
+        $documentFile = $path;
+        $documentImagesDir = $path . '/images';
+
+        $document->save($documentFile);
+
+        $this->assertFileExists($documentFile);
+
+        @unlink($documentFile);
+        $this->removeDir($documentImagesDir);
+    }
+
     private function createFile($width, $height): string
     {
         $path = './file.png';
@@ -180,5 +212,19 @@ class DocumentTest extends TestCase
         imagepng($im, $path);
         imagedestroy($im);
         return $path;
+    }
+
+    private function removeDir($dir) : bool
+    {
+        if (!is_dir($dir)) return false;
+        $files = array_diff(scandir($dir), ['.','..']);
+        foreach ($files as $file) {
+            if (is_dir($dir . '/' . $file)) {
+                $this->removeDir($dir . '/' . $file);
+            } else {
+                @unlink($dir.'/'.$file);
+            }
+        }
+        return @rmdir($dir);
     }
 }

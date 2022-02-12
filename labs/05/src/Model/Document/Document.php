@@ -92,7 +92,46 @@ class Document implements DocumentInterface
         $this->history->redo();
     }
 
-    //public function save(string $path): void;
+    public function save(string $path): void
+    {
+        $images = [];
+
+        $html = '<!doctype html>';
+        $html .= '<html>';
+        $html .= '<head>';
+        $html .= '<meta charset="utf-8">';
+        $html .= '<title>' . $this->prepareHtmlText($this->getTitle()) . '</title>';
+        $html .= '</head>';
+        $html .= '<body>';
+        foreach ($this->items as $item) {
+            $paragraph = $item->getParagraph();
+            $image = $item->getImage();
+            if ($paragraph !== null) {
+                $html .= '<p>' . $this->prepareHtmlText($paragraph->getText()). '</p>';
+            }
+            if ($image !== null) {
+                $src = 'images/' . basename($image->getPath());
+                $images[] = $image->getPath();
+                $html .= '<img width="' . $image->getWidth() . '" height="' . $image->getHeight() . '" src="' . $src. '">';
+            }
+        }
+        $html .= '</body>';
+        $html .= '</html>';
+
+        file_put_contents($path, $html);
+
+        $dir = pathinfo($path, PATHINFO_DIRNAME);
+
+        if (!empty($images)) {
+            $imagesDir = $dir . '/images';
+            if (!is_dir($imagesDir)) {
+                mkdir($imagesDir);
+            }
+            foreach ($images as $filepath) {
+                copy($filepath, $imagesDir . '/' . basename($filepath));
+            }
+        }
+    }
 
     public function replaceParagraphText(int $position, string $text): void
     {
@@ -110,5 +149,10 @@ class Document implements DocumentInterface
         $image = $item->getImage();
         if ($image === null) return;
         $this->history->addAndExecuteCommand(new ResizeImageCommand($image, $width, $height));
+    }
+
+    private function prepareHtmlText(string $text): string
+    {
+        return htmlentities($text, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5);
     }
 }

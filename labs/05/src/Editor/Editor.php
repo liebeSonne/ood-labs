@@ -9,6 +9,7 @@ use App\Command\Editor\EditorListCommand;
 use App\Command\Editor\EditorRedoCommand;
 use App\Command\Editor\EditorReplaceTextCommand;
 use App\Command\Editor\EditorResizeImageCommand;
+use App\Command\Editor\EditorSaveCommand;
 use App\Command\Editor\EditorSetTitleCommand;
 use App\Command\Editor\EditorUndoCommand;
 use App\Menu\Menu;
@@ -41,6 +42,7 @@ class Editor
         $this->menu->addItem('replaceText','Replace text in paragraph. Args: <position> <text>', new EditorReplaceTextCommand($this));
         $this->menu->addItem('resizeImage','Resize image. Args: <position> <width> <height>', new EditorResizeImageCommand($this));
         $this->menu->addItem('deleteItem', 'Delete document item from position. Args: <position>', new EditorDeleteItemCommand($this));
+        $this->menu->addItem('save', 'Save document to HTML file. Args: <path>', new EditorSaveCommand($this));
     }
 
     public function start(): void
@@ -212,6 +214,32 @@ class Editor
         }
 
         $this->document->deleteItem($position);
+    }
+
+    public function save(): void
+    {
+        $path = stream_get_line($this->stream, 65535, "\n");
+
+        $filepath = $path;
+        $extension = pathinfo($path, PATHINFO_EXTENSION);
+
+        if (!empty($extension)) {
+            if ($extension !== 'html') {
+                echo "Error: Filepath is not HTML\n";
+                return;
+            }
+        } elseif(is_dir($path)) {
+            $filepath = $path .'/index.html';
+        } elseif (!is_dir($path)) {
+            if (mkdir($path)) {
+                $filepath = $path .'/index.html';
+            } else {
+                echo 'Error: The path is not directory';
+                return;
+            }
+        }
+
+        $this->document->save($filepath);
     }
 
     private function checkImageSize($width, $height): bool
