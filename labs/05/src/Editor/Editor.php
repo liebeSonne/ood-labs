@@ -114,6 +114,26 @@ class Editor
             return;
         }
 
+        $min_size = 1;
+        $max_size = 10000;
+
+        if ($width > $max_size) {
+            echo "Error: To big width size (max size: $max_size)\n";
+            return;
+        }
+        if ($height > $max_size) {
+            echo "Error: To big height size (max size: $max_size)\n";
+            return;
+        }
+        if ($width < $min_size) {
+            echo "Error: To small width size (min size: $min_size)\n";
+            return;
+        }
+        if ($height < $min_size) {
+            echo "Error: To small height size (min size: $min_size)\n";
+            return;
+        }
+
         if ($position !== null && $position > $this->document->getItemCount()) {
             echo "Error: Position more then document items count\n";
             return;
