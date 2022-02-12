@@ -85,4 +85,25 @@ class MenuTest extends TestCase
         $menu->showInstructions();
     }
 
+    public function testAddItemGetCommand(): void
+    {
+        $shortcut = 'test_shortcut';
+        $description = 'test_shortcut description';
+        $command = $this->createMock(CommandInterface::class);
+
+        $stream = STDIN;
+        $menu = new Menu($stream);
+
+        $menu->addItem($shortcut, $description, $command);
+
+        $cmd = $menu->getItemCommand($shortcut);
+
+        $this->assertNotNull($cmd);
+        $this->assertInstanceOf(CommandInterface::class, $cmd);
+
+        $cmd2 = $menu->getItemCommand('not exist command');
+
+        $this->assertNull($cmd2);
+    }
+
 }

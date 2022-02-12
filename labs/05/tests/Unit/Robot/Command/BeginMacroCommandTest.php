@@ -31,6 +31,6 @@ class BeginMacroCommandTest extends TestCase
 
         $command->execute();
 
-        $this->assertNotNull($menu->getItem($name));
+        $this->assertNotNull($menu->getItemCommand($name));
     }
 }

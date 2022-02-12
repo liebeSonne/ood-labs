@@ -26,7 +26,7 @@ class BeginMacroCommand extends CommandExecute
             $name = stream_get_line($this->stream, 65535, "\n");
             $name = trim($name);
 
-            if (!empty($name) && $this->menu->getItem($name) !== null) {
+            if (!empty($name) && $this->menu->getItemCommand($name) !== null) {
                 echo "Error: command `" . $name . "` already exist\n";
                 $name = '';
             }
@@ -50,7 +50,7 @@ class BeginMacroCommand extends CommandExecute
             } if ($command === self::END_MACRO) {
                 $do = false;
             } else {
-                $cmd = $this->menu->getItem($command);
+                $cmd = $this->menu->getItemCommand($command);
                 if ($cmd === null) {
                     echo "Error: Unknown command `" . $command . "`\n";
                 } else {
