@@ -18,14 +18,17 @@
   },
   "scripts": {
     "phpunit": "./vendor/bin/phpunit",
-    "test": [
+    "tests": [
       "@phpunit"
     ],
     "editor": [
       "php ./public/index.php"
     ],
+    "robot": [
+      "php ./public/robot.php"
+    ],
     "app": [
-      "@test",
+      "@tests",
       "@editor"
     ]
   }
