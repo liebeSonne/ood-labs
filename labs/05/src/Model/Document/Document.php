@@ -3,6 +3,7 @@
 namespace App\Model\Document;
 
 use App\Command\Document\ChangeStringCommand;
+use App\Command\Document\DeleteItemCommand;
 use App\Command\Document\InsertImageCommand;
 use App\Command\Document\InsertParagraphCommand;
 use App\Command\Document\ReplaceTextCommand;
@@ -56,7 +57,10 @@ class Document implements DocumentInterface
         return $this->items[$index] ?? null;
     }
 
-    //public function deleteItem(int $index): void;
+    public function deleteItem(int $index): void
+    {
+        $this->history->addAndExecuteCommand(new DeleteItemCommand($this->items, $index));
+    }
 
     public function getTitle(): string
     {

@@ -17,7 +17,7 @@ interface DocumentInterface
 
     public function getItem(int $index): ?DocumentItem;
 
-    //public function deleteItem(int $index): void;
+    public function deleteItem(int $index): void;
 
     public function getTitle(): string;
 

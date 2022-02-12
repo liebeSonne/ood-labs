@@ -146,6 +146,30 @@ class DocumentTest extends TestCase
         @unlink($path);
     }
 
+    public function testDeleteItem(): void
+    {
+        $document = new Document();
+        $document->insertParagraph('text1');
+        $document->insertParagraph('text2');
+        $document->insertParagraph('text3');
+
+        $document->deleteItem(1);
+
+        $this->assertEquals(2, $document->getItemCount());
+    }
+
+    public function testDeleteItemIncorrectPosition(): void
+    {
+        $document = new Document();
+        $document->insertParagraph('text1');
+        $document->insertParagraph('text2');
+        $document->insertParagraph('text3');
+
+        $document->deleteItem(10);
+
+        $this->assertEquals(3, $document->getItemCount());
+    }
+
     private function createFile($width, $height): string
     {
         $path = './file.png';

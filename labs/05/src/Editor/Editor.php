@@ -2,6 +2,7 @@
 
 namespace App\Editor;
 
+use App\Command\Editor\EditorDeleteItemCommand;
 use App\Command\Editor\EditorInsertImage;
 use App\Command\Editor\EditorInsertParagraph;
 use App\Command\Editor\EditorListCommand;
@@ -39,6 +40,7 @@ class Editor
         $this->menu->addItem('insertImage', 'Insert image. Args: <position>|end <width> <height> <filepath>', new EditorInsertImage($this));
         $this->menu->addItem('replaceText','Replace text in paragraph. Args: <position> <text>', new EditorReplaceTextCommand($this));
         $this->menu->addItem('resizeImage','Resize image. Args: <position> <width> <height>', new EditorResizeImageCommand($this));
+        $this->menu->addItem('deleteItem', 'Delete document item from position. Args: <position>', new EditorDeleteItemCommand($this));
     }
 
     public function start(): void
@@ -155,13 +157,12 @@ class Editor
         $position = (int) $match['pos'];
         $text = $match['text'] ?? '';
 
-        if ($position >= $this->document->getItemCount()) {
-            echo "Error: Position more then document items count\n";
+        if (!$this->checkItemPosition($position)) {
             return;
         }
 
         $item = $this->document->getItemConst($position);
-        if ($this->document->getItemCount() === 0 || $item->getParagraph() === null) {
+        if ($item->getParagraph() === null) {
             echo "Error: in the position is not a paragraph\n";
             return;
         }
@@ -186,19 +187,31 @@ class Editor
             return;
         }
 
-        if ($position >= $this->document->getItemCount()) {
-            echo "Error: Position more then document items count\n";
+        if (!$this->checkItemPosition($position)) {
             return;
         }
 
         $item = $this->document->getItemConst($position);
-        if ($this->document->getItemCount() === 0 || $item->getImage() === null) {
+        if ($item->getImage() === null) {
             echo "Error: in the position is not image\n";
             return;
         }
 
         $this->document->resizeImage($position, $width, $height);
 
+    }
+
+    public function deleteItem(): void
+    {
+        $str = stream_get_line($this->stream, 65535, "\n");
+
+        $position = (int) $str;
+
+        if (!$this->checkItemPosition($position)) {
+            return;
+        }
+
+        $this->document->deleteItem($position);
     }
 
     private function checkImageSize($width, $height): bool
@@ -222,6 +235,21 @@ class Editor
             echo "Error: To small height size (min size: $min_size)\n";
             return false;
         }
+        return true;
+    }
+
+    private function checkItemPosition(int $position): bool
+    {
+        if ($position < 0) {
+            echo "Error: Incorrect position\n";
+            return false;
+        }
+
+        if ($position >= $this->document->getItemCount()) {
+            echo "Error: Position more then document items count\n";
+            return false;
+        }
+
         return true;
     }
 }
