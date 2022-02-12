@@ -34,4 +34,6 @@ interface DocumentInterface
     //public function save(string $path): void;
 
     public function replaceParagraphText(int $position, string $text): void;
+
+    public function resizeImage(int $position, int $width, int $height): void;
 }

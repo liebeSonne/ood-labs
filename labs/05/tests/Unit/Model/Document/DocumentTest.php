@@ -5,6 +5,7 @@ namespace Tests\Unit\Model\Document;
 use App\Model\Document\Document;
 use App\Model\Image\ImageInterface;
 use App\Model\Paragraph\ParagraphInterface;
+use PhpParser\Comment\Doc;
 use PHPUnit\Framework\TestCase;
 
 class DocumentTest extends TestCase
@@ -121,6 +122,28 @@ class DocumentTest extends TestCase
         $document->replaceParagraphText($position, $newText);
 
         $this->assertEquals($newText, $document->getItem($position)->getParagraph()->getText());
+    }
+
+    public function testResizeImage(): void
+    {
+        $document = new Document();
+
+        $position = 0;
+        $width = 100;
+        $height = 200;
+        $newWidth = 400;
+        $newHeight = 300;
+
+        $path = $this->createFile($width, $height);
+
+        $document->insertImage($path, $width, $height, $position);
+
+        $document->resizeImage($position, $newWidth, $newHeight);
+
+        $this->assertEquals($newWidth, $document->getItem($position)->getImage()->getWidth());
+        $this->assertEquals($newHeight, $document->getItem($position)->getImage()->getHeight());
+
+        @unlink($path);
     }
 
     private function createFile($width, $height): string

@@ -6,6 +6,7 @@ use App\Command\Document\ChangeStringCommand;
 use App\Command\Document\InsertImageCommand;
 use App\Command\Document\InsertParagraphCommand;
 use App\Command\Document\ReplaceTextCommand;
+use App\Command\Document\ResizeImageCommand;
 use App\Model\History\History;
 use App\Model\Image\ImageInterface;
 use App\Model\Paragraph\ParagraphInterface;
@@ -96,5 +97,14 @@ class Document implements DocumentInterface
         $paragraph = $item->getParagraph();
         if ($paragraph === null) return;
         $this->history->addAndExecuteCommand(new ReplaceTextCommand($paragraph, $text));
+    }
+
+    public function resizeImage(int $position, int $width, int $height): void
+    {
+        $item = $this->getItem($position);
+        if ($item === null) return;
+        $image = $item->getImage();
+        if ($image === null) return;
+        $this->history->addAndExecuteCommand(new ResizeImageCommand($image, $width, $height));
     }
 }
