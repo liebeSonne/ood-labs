@@ -6,6 +6,7 @@ use App\Command\Editor\EditorInsertImage;
 use App\Command\Editor\EditorInsertParagraph;
 use App\Command\Editor\EditorListCommand;
 use App\Command\Editor\EditorRedoCommand;
+use App\Command\Editor\EditorReplaceTextCommand;
 use App\Command\Editor\EditorSetTitleCommand;
 use App\Command\Editor\EditorUndoCommand;
 use App\Menu\Menu;
@@ -35,6 +36,7 @@ class Editor
 
         $this->menu->addItem('insertParagraph', 'Insert paragraph. Args: <position>|end <text>', new EditorInsertParagraph($this));
         $this->menu->addItem('insertImage', 'Insert image. Args: <position>|end <width> <height> <filepath>', new EditorInsertImage($this));
+        $this->menu->addItem('replaceText','Replace text in paragraph. Args: <position> <text>', new EditorReplaceTextCommand($this));
     }
 
     public function start(): void
@@ -151,5 +153,30 @@ class Editor
         }
 
         $this->document->insertImage($path, $width, $height, $position);
+    }
+
+    public function replaceText(): void
+    {
+        $str = stream_get_line($this->stream, 65535, "\n");
+
+        $r = preg_match('/^(?<pos>[0-9]+)(?<text>.*)$/', $str, $match);
+        if (!$r || !is_array($match)) {
+            return;
+        }
+        $position = (int) $match['pos'];
+        $text = $match['text'] ?? '';
+
+        if ($position >= $this->document->getItemCount()) {
+            echo "Error: Position more then document items count\n";
+            return;
+        }
+
+        $item = $this->document->getItemConst($position);
+        if ($item->getParagraph() === null) {
+            echo "Error: in the position is not a paragraph\n";
+            return;
+        }
+
+        $this->document->replaceParagraphText($position, $text);
     }
 }

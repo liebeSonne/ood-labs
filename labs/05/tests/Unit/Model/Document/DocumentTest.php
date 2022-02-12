@@ -91,7 +91,6 @@ class DocumentTest extends TestCase
         @unlink($path);
     }
 
-
     public function testGetItemCount(): void
     {
         $document = new Document();
@@ -105,6 +104,23 @@ class DocumentTest extends TestCase
 
         $document->insertParagraph('text');
         $this->assertEquals(2, $document->getItemCount());
+    }
+
+    public function testReplaceParagraphText(): void
+    {
+        $document = new Document();
+
+        $position = 0;
+        $text = 'text';
+        $text2 = 'text 2';
+        $newText = 'New text';
+
+        $document->insertParagraph($text, 0);
+        $document->insertParagraph($text2, 1);
+
+        $document->replaceParagraphText($position, $newText);
+
+        $this->assertEquals($newText, $document->getItem($position)->getParagraph()->getText());
     }
 
     private function createFile($width, $height): string

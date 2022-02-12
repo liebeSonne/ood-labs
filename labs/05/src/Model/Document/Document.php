@@ -5,6 +5,7 @@ namespace App\Model\Document;
 use App\Command\Document\ChangeStringCommand;
 use App\Command\Document\InsertImageCommand;
 use App\Command\Document\InsertParagraphCommand;
+use App\Command\Document\ReplaceTextCommand;
 use App\Model\History\History;
 use App\Model\Image\ImageInterface;
 use App\Model\Paragraph\ParagraphInterface;
@@ -87,4 +88,13 @@ class Document implements DocumentInterface
     }
 
     //public function save(string $path): void;
+
+    public function replaceParagraphText(int $position, string $text): void
+    {
+        $item = $this->getItem($position);
+        if ($item === null) return;
+        $paragraph = $item->getParagraph();
+        if ($paragraph === null) return;
+        $this->history->addAndExecuteCommand(new ReplaceTextCommand($paragraph, $text));
+    }
 }

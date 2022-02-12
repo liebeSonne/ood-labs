@@ -32,4 +32,6 @@ interface DocumentInterface
     public function redo(): void;
 
     //public function save(string $path): void;
+
+    public function replaceParagraphText(int $position, string $text): void;
 }
