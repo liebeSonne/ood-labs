@@ -3,15 +3,19 @@
 namespace Tests\Unit\Command\Document;
 
 use App\Command\Document\ReplaceTextCommand;
-use App\Model\Paragraph\ParagraphInterface;
+use App\Model\Paragraph\Paragraph;
 use PHPUnit\Framework\TestCase;
 
-class ReplaceTextCommandText extends TestCase
+class ReplaceTextCommandTest extends TestCase
 {
     public function testDoExecute(): void
     {
-        $paragraph = $this->createMock(ParagraphInterface::class);
         $newText = 'new text';
+        $oldText = 'old text';
+
+        $paragraph = new Paragraph($oldText);
+
+        $this->assertEquals($oldText, $paragraph->getText());
 
         $command = new ReplaceTextCommand($paragraph, $newText);
 
@@ -22,11 +26,10 @@ class ReplaceTextCommandText extends TestCase
 
     public function testDoUnexecute(): void
     {
-        $paragraph = $this->createMock(ParagraphInterface::class);
         $oldText = 'old text';
         $newText = 'new text';
 
-        $paragraph->setText($oldText);
+        $paragraph = new Paragraph($oldText);
 
         $command = new ReplaceTextCommand($paragraph, $newText);
 
