@@ -16,14 +16,4 @@ class DocumentItem extends ConstDocumentItem
     {
         $this->paragraph = $paragraph;
     }
-
-    public function getImage(): ?ImageInterface
-    {
-        return $this->image;
-    }
-
-    public function getParagraph(): ?ParagraphInterface
-    {
-        return $this->paragraph;
-    }
 }

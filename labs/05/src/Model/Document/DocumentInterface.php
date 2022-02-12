@@ -13,9 +13,9 @@ interface DocumentInterface
 
     public function getItemCount(): int;
 
-    //public function getItem(int $index): ConstDocumentItem;
+    public function getItemConst(int $index): ?ConstDocumentItem;
 
-    //public function getItem(int $index): DocumentItem;
+    public function getItem(int $index): ?DocumentItem;
 
     //public function deleteItem(int $index): void;
 

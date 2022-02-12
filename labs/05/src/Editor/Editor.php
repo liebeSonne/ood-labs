@@ -64,7 +64,20 @@ class Editor
     public function list(): void
     {
         echo "----------\n";
-        echo $this->document->getTitle() . "\n";
+        echo "Title: " . $this->document->getTitle() . "\n";
+        $count = $this->document->getItemCount();
+        for ($i = 0; $i < $count; $i++)
+        {
+            $item = $this->document->getItemConst($i);
+            $image = $item->getImage();
+            $paragraph = $item->getParagraph();
+            if ($image !== null) {
+                echo $i . '.' . ' Image: ' .$image->getWidth() . 'x' . $image->getHeight() . ' ' . $image->getPath() . "\n";
+            }
+            if ($paragraph !== null) {
+                echo $i . '.' . ' Paragraph: ' . $paragraph->getText() . "\n";
+            }
+        }
         echo "----------\n";
     }
 

@@ -44,9 +44,15 @@ class Document implements DocumentInterface
         return count($this->items);
     }
 
-    //public function getItem(int $index): ConstDocumentItem;
+    public function getItemConst(int $index): ?ConstDocumentItem
+    {
+        return $this->items[$index] ?? null;
+    }
 
-    //public function getItem(int $index): DocumentItem;
+    public function getItem(int $index): ?DocumentItem
+    {
+        return $this->items[$index] ?? null;
+    }
 
     //public function deleteItem(int $index): void;
 
