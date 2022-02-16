@@ -37,9 +37,16 @@ class PaintPicture
         $stream = new \SplFileObject($filename);
         $renderer = new ModernGraphicsRenderer($stream);
 
-        // TODO: при помощи существующей функции PaintPicture() нарисовать
+        // при помощи существующей функции PaintPicture() нарисовать
         // картину на renderer
         // Подсказка: используйте паттерн "Адаптер"
+
+        $canvas = new CanvasModernAdapter($renderer);
+        $painter = new CanvasPainter($canvas);
+
+        $renderer->beginDraw();
+        self::paintPicture($painter);
+        $renderer->endDraw();
     }
 
 }
