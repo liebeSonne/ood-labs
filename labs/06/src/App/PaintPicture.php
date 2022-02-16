@@ -11,26 +11,24 @@ use App\ShapeDrawingLib\Triangle;
 
 class PaintPicture
 {
-    public function paintPicture(CanvasPainter $painter): void
+    public static function paintPicture(CanvasPainter $painter): void
     {
         $triangle = new Triangle(
             new Point(10, 15),
             new Point(100, 200),
             new Point(150, 250),
         );
-        $rectangle = new Rectangle(
-            new Point(30, 40),
-            new Point(18, 24),
-        );
+        $rectangle = new Rectangle(new Point(30, 40),18, 24);
 
-        // TODO: нарисовать прямоугольник и треугольник при помощи painter
+        $painter->draw($triangle);
+        $painter->draw($rectangle);
     }
 
     public static function paintPictureOnCanvas(): void
     {
         $simpleCanvas = new Canvas();
         $painter = new CanvasPainter($simpleCanvas);
-        self::PaintPicture();
+        self::paintPicture($painter);
     }
 
     public static function paintPictureOnModernGraphicsRenderer(): void

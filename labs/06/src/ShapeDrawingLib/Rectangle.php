@@ -19,8 +19,13 @@ class Rectangle implements CanvasDrawableInterface
 
     public function draw(CanvasInterface $canvas): void
     {
-        // TODO: написать код рисования прямоугольника на холсте
-    }
+        $xRight = $this->leftTop->x + $this->width;
+        $yBottom = $this->leftTop->y + $this->height;
 
-    // TODO: дописать приватную часть
+        $canvas->moveTo($this->leftTop->x, $this->leftTop->y);
+        $canvas->lineTo($xRight, $this->leftTop->y);
+        $canvas->lineTo($xRight, $yBottom);
+        $canvas->lineTo($this->leftTop->x, $yBottom);
+        $canvas->lineTo($this->leftTop->x, $this->leftTop->y);
+    }
 }

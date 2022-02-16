@@ -6,15 +6,15 @@ use App\GraphicsLib\CanvasInterface;
 
 class CanvasPainter
 {
+    private CanvasInterface $canvas;
+
     public function __construct(CanvasInterface $canvas)
     {
-        // TODO: дописать конструктор класса
+        $this->canvas = $canvas;
     }
 
     public function draw(CanvasDrawableInterface $drawable): void
     {
-        // TODO: дописать код рисования ICanvasDrawable на canvas, переданном в конструктор
+        $drawable->draw($this->canvas);
     }
-
-    // TODO: дописать приватную часть
 }

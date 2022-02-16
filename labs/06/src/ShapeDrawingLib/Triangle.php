@@ -19,8 +19,9 @@ class Triangle implements CanvasDrawableInterface
 
     public function draw(CanvasInterface $canvas): void
     {
-        // TODO: написать код рисования треугольника на холсте
+        $canvas->moveTo($this->p1->x, $this->p1->y);
+        $canvas->lineTo($this->p2->x, $this->p2->y);
+        $canvas->lineTo($this->p3->x, $this->p2->y);
+        $canvas->lineTo($this->p1->x, $this->p1->y);
     }
-
-    // TODO: дописать приватную часть
 }
