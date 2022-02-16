@@ -23,7 +23,7 @@ class ModernGraphicsRenderer
     }
 
     // Выполняет рисование линии
-    public function drawLine(Point $start, Point $end, RGBColor $color): void
+    public function drawLine(Point $start, Point $end, RGBAColor $color): void
     {
         // TODO: выводит в output инструкцию для рисования линии в виде
         // <line fromX="3" fromY="5" toX="5" toY="17">
