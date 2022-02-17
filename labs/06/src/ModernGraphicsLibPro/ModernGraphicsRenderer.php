@@ -25,11 +25,15 @@ class ModernGraphicsRenderer
     // Выполняет рисование линии
     public function drawLine(Point $start, Point $end, RGBAColor $color): void
     {
-        // TODO: выводит в output инструкцию для рисования линии в виде
-        // <line fromX="3" fromY="5" toX="5" toY="17">
-        //   <color r="0.35" g="0.47" b="1.0" a="1.0" />
-        // </line>
-        // Можно вызывать только между BeginDraw() и EndDraw()
+        if (!$this->isDrawing) {
+            throw new \LogicException("rawLine is allowed between BeginDraw()/EndDraw() only");
+        }
+
+        $str = '<line fromX="%d" fromY="%d" toX="%d" toY="%d">' . "\n";
+        $str .= '   <color r="%.2f" g="%.2f" b="%.2f" a="%.2f" />' . "\n";
+        $str .= '</line>';
+        $str = sprintf($str, $start->x, $start->y, $end->x, $end->y, $color->r, $color->g,$color->b, $color->a);
+        $this->stream->fwrite($str);
     }
 
     // Этот метод должен быть вызван в конце рисования

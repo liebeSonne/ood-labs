@@ -6,7 +6,7 @@ class Canvas implements CanvasInterface
 {
     public function setColor(int $rgbColor): void
     {
-        // TODO: вывести в output цвет в виде строки SetColor (#RRGGBB)
+        echo "SetColor (#" . substr("000000".dechex($rgbColor),-6) . ")\n";
     }
 
     public function moveTo(int $x, int $y): void
