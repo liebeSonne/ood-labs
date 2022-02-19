@@ -39,4 +39,10 @@ interface CanvasInterface
 
     // Изменить толщину рисования линий
     public function setLineSize(float $size): void;
+
+    /**
+     * @param Point[] $points
+     * @return void
+     */
+    public function drawRect(array $points): void;
 }

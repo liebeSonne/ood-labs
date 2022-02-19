@@ -82,12 +82,12 @@ class Canvas implements CanvasInterface
                 $cur = $point;
                 $p0 = $point;
             } else {
-                $this->line($cur->x, $cur->y, $point->x, $point->y);
+                $this->fillLine($cur->x, $cur->y, $point->x, $point->y);
                 $cur = $point;
             }
         }
         if ($cur !== null && $p0 !== null) {
-            $this->line($cur->x, $cur->y, $p0->x, $p0->y);
+            $this->fillLine($cur->x, $cur->y, $p0->x, $p0->y);
         }
 
         $this->endFill();
@@ -101,5 +101,30 @@ class Canvas implements CanvasInterface
     public function setLineSize(float $size): void
     {
         $this->lineSize = $size;
+    }
+
+    public function drawRect(array $points): void
+    {
+        $p0 = null;
+        $cur = null;
+        foreach ($points as $point) {
+            if ($cur === null) {
+                $cur = $point;
+                $p0 = $point;
+            } else {
+                $this->line($cur->x, $cur->y, $point->x, $point->y);
+                $cur = $point;
+            }
+        }
+        if ($cur !== null && $p0 !== null) {
+            $this->line($cur->x, $cur->y, $p0->x, $p0->y);
+        }
+    }
+
+    private function fillLine(float $fromX, float $fromY, float $toX, float $toY): void
+    {
+        $str = '<line fromX="%.2f" fromY="%.2f" toX="%.2f" toY="%.2f"/>' . "\n";;
+        $str = sprintf($str, $fromX, $fromY, $toX, $toY);
+        echo $str;
     }
 }
