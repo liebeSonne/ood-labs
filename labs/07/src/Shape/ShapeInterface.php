@@ -3,6 +3,7 @@
 namespace App\Shape;
 
 use App\Canvas\DrawableInterface;
+use App\Shape\Group\GroupShapeInterface;
 use App\Style\StyleInterface;
 
 interface ShapeInterface extends DrawableInterface

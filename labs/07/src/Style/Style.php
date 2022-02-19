@@ -7,9 +7,9 @@ class Style implements StyleInterface
     private bool $enabled = true;
     private RGBAColor $color;
 
-    public function __construct()
+    public function __construct(RGBAColor $color)
     {
-        $this->color = new RGBAColor(0x000000FF);
+        $this->color = $color;
     }
 
     public function isEnabled(): bool

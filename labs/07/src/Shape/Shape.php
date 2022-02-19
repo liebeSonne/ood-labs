@@ -3,6 +3,7 @@
 namespace App\Shape;
 
 use App\Canvas\CanvasInterface;
+use App\Shape\Group\GroupShapeInterface;
 use App\Style\StyleInterface;
 
 abstract class Shape implements ShapeInterface
@@ -19,7 +20,7 @@ abstract class Shape implements ShapeInterface
         ?GroupShapeInterface $group = null
     ) {
         $this->setFrame($frame);
-        $this->setOutlineStyle($this->outlineStyle);
+        $this->setOutlineStyle($outlineStyle);
         $this->setFillStyle($fillStyle);
         $this->group = $group;
     }
