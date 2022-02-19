@@ -4,19 +4,20 @@ namespace App\Shape;
 
 use App\Canvas\CanvasInterface;
 use App\Shape\Group\GroupShapeInterface;
-use App\Style\StyleInterface;
+use App\Style\StyleFillInterface;
+use App\Style\StyleStrokeInterface;
 
 abstract class Shape implements ShapeInterface
 {
     private Rect $frame;
-    private StyleInterface $outlineStyle;
-    private StyleInterface $fillStyle;
+    private ?StyleStrokeInterface $outlineStyle;
+    private ?StyleFillInterface $fillStyle;
     private ?GroupShapeInterface $group;
 
     public function __construct(
         Rect $frame,
-        StyleInterface $outlineStyle,
-        StyleInterface $fillStyle,
+        ?StyleStrokeInterface $outlineStyle = null,
+        ?StyleFillInterface $fillStyle = null,
         ?GroupShapeInterface $group = null
     ) {
         $this->setFrame($frame);
@@ -35,22 +36,22 @@ abstract class Shape implements ShapeInterface
         $this->frame = $frame;
     }
 
-    public function getOutlineStyle(): StyleInterface
+    public function getOutlineStyle(): ?StyleStrokeInterface
     {
         return $this->outlineStyle;
     }
 
-    public function setOutlineStyle(StyleInterface $style): void
+    public function setOutlineStyle(?StyleStrokeInterface $style): void
     {
         $this->outlineStyle = $style;
     }
 
-    public function getFillStyle(): StyleInterface
+    public function getFillStyle(): ?StyleFillInterface
     {
         return $this->fillStyle;
     }
 
-    public function setFillStyle(StyleInterface $style): void
+    public function setFillStyle(?StyleFillInterface $style): void
     {
         $this->fillStyle = $style;
     }
