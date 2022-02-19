@@ -12,18 +12,15 @@ abstract class Shape implements ShapeInterface
     private Rect $frame;
     private ?StyleStrokeInterface $outlineStyle;
     private ?StyleFillInterface $fillStyle;
-    private ?GroupShapeInterface $group;
 
     public function __construct(
         Rect $frame,
         ?StyleStrokeInterface $outlineStyle = null,
-        ?StyleFillInterface $fillStyle = null,
-        ?GroupShapeInterface $group = null
+        ?StyleFillInterface $fillStyle = null
     ) {
         $this->setFrame($frame);
         $this->setOutlineStyle($outlineStyle);
         $this->setFillStyle($fillStyle);
-        $this->group = $group;
     }
 
     public function getFrame(): Rect
@@ -58,7 +55,7 @@ abstract class Shape implements ShapeInterface
 
     public function getGroup(): ?GroupShapeInterface
     {
-        return $this->group;
+        return null;
     }
 
     abstract public function draw(CanvasInterface $canvas): void;
