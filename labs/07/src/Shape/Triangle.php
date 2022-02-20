@@ -7,7 +7,7 @@ use App\Canvas\Point;
 
 class Triangle extends Shape
 {
-    public function draw(CanvasInterface $canvas): void
+    final public function draw(CanvasInterface $canvas): void
     {
         $frame = $this->getFrame();
 

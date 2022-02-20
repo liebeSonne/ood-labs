@@ -6,8 +6,8 @@ use App\Canvas\CanvasInterface;
 
 class Ellipse extends Shape
 {
-   public function draw(CanvasInterface $canvas): void
-   {
+    final public function draw(CanvasInterface $canvas): void
+    {
        $frame = $this->getFrame();
 
        $fillStyle = $this->getFillStyle();
@@ -22,5 +22,5 @@ class Ellipse extends Shape
            $canvas->setLineSize($lineStyle->getSize());
            $canvas->drawEllipse($frame->left, $frame->top, $frame->width, $frame->height);
        }
-   }
+    }
 }
