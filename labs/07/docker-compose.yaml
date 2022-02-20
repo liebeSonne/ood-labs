@@ -11,6 +11,7 @@ services:
       - ./public:/app/public
       - ./composer.json:/app/composer.json
       - ./tests:/app/tests
+      - ./data:/app/data
     command: [ "composer", "run-script", "app" ]
     #command: [ "php", "./public/index.php" ]
     #stdin_open: true

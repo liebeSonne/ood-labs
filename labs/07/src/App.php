@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Canvas\SVGCanvas;
 use App\Shape\Ellipse;
 use App\Shape\Group\GroupShape;
 use App\Shape\Rect;
@@ -27,15 +28,15 @@ class App
                 $width,
                 $height / 2 - 20
             ),
-            new StyleStroke(new RGBAColor(0x3692D7DB), 1),
-            new StyleFill(new RGBAColor(0x3692D700))
+            new StyleStroke(new RGBAColor(0x3692D700), 1),
+            new StyleFill(new RGBAColor(0x3692D7DB))
         );
         $ground = new Rectangle(
             new Rect(
                 0,
                 $height / 2 - 20,
                 $width,
-                $height - $height / 2 - 20,
+                $height / 2 + 20,
             ),
             new StyleStroke(new RGBAColor(0x785527FF), 1),
             new StyleFill(new RGBAColor(0x5c421eFF))
@@ -52,22 +53,32 @@ class App
                 100
             ),
             new StyleStroke(new RGBAColor(0x0E106AFF), 1),
-            new StyleFill(new RGBAColor(0x0E106AAA))
+            new StyleFill(new RGBAColor(0x0E106AEE))
+        );
+        $window = new Rectangle(
+            new Rect(
+                $width / 2 - 60,
+                $height / 2 - 30,
+                40,
+                40
+            ),
+            new StyleStroke(new RGBAColor(0x763209FF), 1),
+            new StyleFill(new RGBAColor(0x4CDDFFFF))
         );
         $coverage = new Triangle(
             new Rect(
-                $width / 2 - 100,
+                $width / 2 - 105,
                 $height / 2 - 100,
-                200,
+                210,
                 50
             ),
             new StyleStroke(new RGBAColor(0xA52A2AFF), 2),
-            new StyleFill(new RGBAColor(0xA52A2A9C))
+            new StyleFill(new RGBAColor(0xA52A2AFE))
         );
         $tube = new Rectangle(
             new Rect(
-                $width / 2 - 40,
-                $height / 2 - 30,
+                $width / 2 + 40,
+                $height / 2 - 100,
                 20,
                 40
             ),
@@ -76,11 +87,12 @@ class App
         );
         $roof = new GroupShape();
         $roof->insertShape($tube, 0);
-        $roof->insertShape($coverage, 0);
+        $roof->insertShape($coverage, 1);
 
         $house = new GroupShape();
         $house->insertShape($walls, 0);
-        $house->insertShape($roof, 1);
+        $house->insertShape($window, 1);
+        $house->insertShape($roof, 2);
 
         $sun = new Ellipse(
             new Rect(
@@ -99,7 +111,11 @@ class App
         $shapes->insertShape($sun, 2);
 
         $slide = new Slide($width, $height, $shapes);
-        $canvas = new Canvas();
+//        $canvas = new Canvas();
+
+//        $stream = new \SplFileObject('php://stdout', 'w+');
+        $stream = new \SplFileObject("/app/data/1.svg", 'w+');
+        $canvas = new SVGCanvas($stream, $width, $height);
 
         $slide->draw($canvas);
     }
