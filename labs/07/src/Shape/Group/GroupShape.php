@@ -3,10 +3,29 @@
 namespace App\Shape\Group;
 
 use App\Canvas\CanvasInterface;
+use App\Shape\Enumerator\ShapesEnumerator;
+use App\Shape\Group\Strategy\GroupGetFillStyleCompoundStrategy;
+use App\Shape\Group\Strategy\GroupGetFillStyleStrategy;
+use App\Shape\Group\Strategy\GroupGetFillStyleStrategyInterface;
+use App\Shape\Group\Strategy\GroupGetFrameStrategyInterface;
+use App\Shape\Group\Strategy\GroupGetOutlineStyleCompoundStrategy;
+use App\Shape\Group\Strategy\GroupGetOutlineStyleStrategy;
+use App\Shape\Group\Strategy\GroupGetOutlineStyleStrategyInterface;
+use App\Shape\Group\Strategy\GroupSetFillStyleCompoundStrategy;
+use App\Shape\Group\Strategy\GroupSetFillStyleStrategy;
+use App\Shape\Group\Strategy\GroupSetFillStyleStrategyInterface;
+use App\Shape\Group\Strategy\GroupSetFrameStrategy;
+use App\Shape\Group\Strategy\GroupSetFrameStrategyInterface;
+use App\Shape\Group\Strategy\GroupSetOutlineStyleCompoundStrategy;
+use App\Shape\Group\Strategy\GroupSetOutlineStyleStrategy;
+use App\Shape\Group\Strategy\GroupSetOutlineStyleStrategyInterface;
 use App\Shape\Rect;
 use App\Shape\ShapeInterface;
-use App\Style\CompoundStyle;
-use App\Style\FillStyleEnumerator;
+use App\Shape\Group\Strategy\GroupGetFrameStrategy;
+use App\Style\Compound\CompoundFillStyle;
+use App\Style\Enumerator\FillStyleEnumerator;
+use App\Style\Enumerator\StrokeStyleEnumerator;
+use App\Style\Enumerator\StyleEnumeratorInterface;
 use App\Style\StyleFillInterface;
 use App\Style\StyleStrokeInterface;
 
@@ -21,153 +40,74 @@ class GroupShape implements GroupShapeInterface
      */
     private array $shapes = [];
 
+    private ShapesEnumerator $shapesEnumerator;
+    private GroupGetFrameStrategyInterface $strategyGetFrame;
+    private GroupSetFrameStrategyInterface $strategySetFrame;
+
+    private StyleEnumeratorInterface $strokeStyleEnumerator;
+    private GroupGetOutlineStyleStrategyInterface $strategyGetOutlineStyle;
+    private GroupSetOutlineStyleStrategyInterface $strategySetOutlineStyle;
+
+    private StyleEnumeratorInterface $fillStyleEnumerator;
+    private GroupGetFillStyleStrategyInterface $strategyGetFillStyle;
+    private GroupSetFillStyleStrategyInterface $strategySetFillStyle;
+
     public function __construct()
     {
         $this->frame = new Rect(0,0,0,0);
+
+        // варианты с вынесением алгоритмов в стратегии и перебором через энумератор элементов
+        $this->shapesEnumerator = new ShapesEnumerator($this);
+        $this->strategyGetFrame = new GroupGetFrameStrategy($this->frame, $this->shapesEnumerator);
+        $this->strategySetFrame = new GroupSetFrameStrategy($this->frame, $this->shapesEnumerator);
+
+        // стратегии обработки стилей через энумератор элементов
+//        $this->strategyGetOutlineStyle = new GroupGetOutlineStyleStrategy($this->shapesEnumerator);
+//        $this->strategySetOutlineStyle = new GroupSetOutlineStyleStrategy($this->outlineStyle, $this->shapesEnumerator);
+//        $this->strategyGetFillStyle = new GroupGetFillStyleStrategy($this->fillStyle, $this->shapesEnumerator);
+//        $this->strategySetFillStyle = new GroupSetFillStyleStrategy($this->fillStyle, $this->shapesEnumerator);
+
+        // стратегии обработки стилей через энумератор стилей
+        $this->strokeStyleEnumerator = new StrokeStyleEnumerator($this);
+        $this->strategyGetOutlineStyle = new GroupGetOutlineStyleCompoundStrategy($this->strokeStyleEnumerator);
+        $this->strategySetOutlineStyle = new GroupSetOutlineStyleCompoundStrategy($this->outlineStyle, $this->strokeStyleEnumerator);
+
+        $this->fillStyleEnumerator = new FillStyleEnumerator($this);
+        $this->strategyGetFillStyle = new GroupGetFillStyleCompoundStrategy($this->fillStyleEnumerator);
+        $this->strategySetFillStyle = new GroupSetFillStyleCompoundStrategy($this->fillStyle, $this->fillStyleEnumerator);
+
     }
 
     //-- ShapeInterface:
 
     public function getFrame(): Rect
     {
-        // фрейм расчитывается так, чтобы охватить фреймы всех входящих в группу элементов
-        $this->frame->left = 0;
-        $this->frame->top = 0;
-        $this->frame->width = 0;
-        $this->frame->height = 0;
-        $minX = null;
-        $minY = null;
-        $maxX = null;
-        $maxY = null;
-        foreach ($this->shapes as $shape) {
-            $frame = $shape->getFrame();
-            // не учитываем элементы с нулевыми размерами
-            if ($frame->width == 0 || $frame->height == 0) {
-                continue;
-            }
-            $x0 = $frame->left;
-            $y0 = $frame->top;
-            $xm = $frame->left + $frame->width;
-            $ym = $frame->top + $frame->height;
-            if ($minX === null || $minX > $x0) {
-                $minX = $x0;
-            }
-            if ($minY === null || $minY > $y0) {
-                $minY = $y0;
-            }
-            if ($maxX === null || $maxX < $xm) {
-                $maxX = $xm;
-            }
-            if ($maxY === null || $maxY < $ym) {
-                $maxY = $ym;
-            }
-            $this->frame->left = $minX;
-            $this->frame->top = $minY;
-            $this->frame->width = $maxX - $minX;
-            $this->frame->height = $maxY - $minY;
-        }
-        return $this->frame;
+        return $this->strategyGetFrame->getFrame();
     }
 
     public function setFrame(Rect $frame): void
     {
-        // пропорциональное изменение размера и положения всем элементам
-        $diffLeft = $frame->left - $this->frame->left;
-        $diffTop = $frame->top - $this->frame->top;
-        $scaleWidth = $this->frame->width != 0 ? $frame->width / $this->frame->width : 0;
-        $scaleHeight = $this->frame->height != 0 ? $frame->height / $this->frame->height : 0;
-
-        foreach ($this->shapes as $shape) {
-            $shapeFrame = $shape->getFrame();
-            $shapeFrame->left += $diffLeft;
-            $shapeFrame->top += $diffTop;
-            $shapeFrame->width *= $scaleWidth;
-            $shapeFrame->height *= $scaleHeight;
-            $shape->setFrame($shapeFrame);
-        }
-
-        $this->frame = $frame;
+        $this->strategySetFrame->setFrame($frame);
     }
 
     public function getOutlineStyle(): ?StyleStrokeInterface
     {
-        // возвращает null или стиль, если он одинаковый у всех элементов группы
-        $curStyle = null;
-        $isFirst = true;
-        foreach ($this->shapes as $shape) {
-            $style = $shape->getOutlineStyle();
-            // если есть хотябы один null, то результат null
-            if ($style === null) {
-                $curStyle = null;
-                break;
-            }
-            // если первый - берём его значение
-            if ($isFirst) {
-                $curStyle = clone $style;
-                $isFirst = false;
-                continue;
-            }
-            if ($style->getSize() != $curStyle->getSize()
-                || $style->getColor()->getColor() !== $curStyle->getColor()->getColor()
-                || $style->isEnabled() !== $curStyle->isEnabled()
-            ) {
-                $curStyle = null;
-                break;
-            }
-        }
-
-        $this->outlineStyle = $curStyle;
-
-        return $this->outlineStyle;
+        return $this->outlineStyle = $this->strategyGetOutlineStyle->getOutlineStyle();
     }
 
     public function setOutlineStyle(?StyleStrokeInterface $style): void
     {
-        // распространение стмлей на все элементы
-        foreach ($this->shapes as $shape) {
-            $shape->setOutlineStyle($style);
-        }
-        $this->outlineStyle = $style;
+        $this->strategySetOutlineStyle->setOutlineStyle($style);
     }
 
     public function getFillStyle(): ?StyleFillInterface
     {
-        // возвращает null или стиль, если он одинаковый у всех элементов группы
-        $curStyle = null;
-        $isFirst = true;
-        foreach ($this->shapes as $shape) {
-            $style = $shape->getFillStyle();
-            // если есть хотябы один null, то результат null
-            if ($style === null) {
-                $curStyle = null;
-                break;
-            }
-            // если первый - берём его значение
-            if ($isFirst) {
-                $curStyle = clone $style;
-                $isFirst = false;
-                continue;
-            }
-            if ($style->getColor()->getColor() !== $curStyle->getColor()->getColor()
-                || $style->isEnabled() !== $curStyle->isEnabled()
-            ) {
-                $curStyle = null;
-                break;
-            }
-        }
-
-        $this->fillStyle = $curStyle;
-
-        return $this->fillStyle;
+        return $this->strategyGetFillStyle->getFillStyle();
     }
 
     public function setFillStyle(?StyleFillInterface $style): void
     {
-        // распространение стмлей на все элементы
-        foreach ($this->shapes as $shape) {
-            $shape->setFillStyle($style);
-        }
-        $this->fillStyle = $style;
+        $this->strategySetFillStyle->setFillStyle($style);
     }
 
     public function getGroup(): ?GroupShapeInterface
