@@ -15,7 +15,7 @@ class GroupSetOutlineStyleCompoundStrategy implements GroupSetOutlineStyleStrate
     {
         $this->outlineStyle =& $outlineStyle;
         $this->enumerator = $enumerator;
-        $this->outlineStyle = new CompoundStrokeStyle($this->enumerator);
+        $this->outlineStyle = new CompoundStrokeStyle($this->outlineStyle, $this->enumerator);
     }
 
     public function setOutlineStyle(?StyleStrokeInterface $style): void

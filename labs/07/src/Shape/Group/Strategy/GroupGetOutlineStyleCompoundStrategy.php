@@ -11,10 +11,10 @@ class GroupGetOutlineStyleCompoundStrategy implements GroupGetOutlineStyleStrate
     private ?StyleStrokeInterface $style;
     private StrokeStyleEnumerator $enumerator;
 
-    public function __construct(StrokeStyleEnumerator $enumerator)
+    public function __construct(?StyleStrokeInterface $style, StrokeStyleEnumerator $enumerator)
     {
         $this->enumerator = $enumerator;
-        $this->style = new CompoundStrokeStyle($this->enumerator);
+        $this->style = new CompoundStrokeStyle($style, $this->enumerator);
     }
 
     public function getOutlineStyle(): ?StyleStrokeInterface

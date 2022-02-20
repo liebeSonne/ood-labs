@@ -8,19 +8,28 @@ use App\Style\StyleInterface;
 
 class CompoundStyle implements StyleInterface
 {
+    private ?StyleInterface $style;
     private StyleEnumeratorInterface $enumerator;
 
-    public function __construct(StyleEnumeratorInterface $enumerator)
+    public function __construct(?StyleInterface $style, StyleEnumeratorInterface $enumerator)
     {
+        $this->style = $style;
         $this->enumerator = $enumerator;
     }
 
     public function isEnabled(): bool
     {
         $isEnables = true;
-        $this->enumerator->enumStyles(function (?StyleInterface $style) use (&$isEnables) {
+        $hasItems = false;
+        $this->enumerator->enumStyles(function (?StyleInterface $style) use (&$isEnables, &$hasItems) {
             $isEnables = $isEnables && $style !== null && $style->isEnabled();
+            $hasItems = true;
         });
+
+        if (!$hasItems && $this->style !== null) {
+            $isEnables = $this->style->isEnabled();
+        }
+
         return $isEnables;
     }
 
@@ -50,6 +59,10 @@ class CompoundStyle implements StyleInterface
                 }
             }
         });
+
+        if ($color === null) {
+            $color = $this->style !== null ? $this->style->getColor()->getColor() : 0;
+        }
 
         return new RGBAColor($color);
     }

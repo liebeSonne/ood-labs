@@ -11,10 +11,10 @@ class GroupGetFillStyleCompoundStrategy implements GroupGetFillStyleStrategyInte
     private ?StyleFillInterface $style;
     private FillStyleEnumerator $enumerator;
 
-    public function __construct(FillStyleEnumerator $enumerator)
+    public function __construct(?StyleFillInterface $style, FillStyleEnumerator $enumerator)
     {
         $this->enumerator = $enumerator;
-        $this->style = new CompoundFillStyle($this->enumerator);
+        $this->style = new CompoundFillStyle($style, $this->enumerator);
     }
 
     public function getFillStyle(): ?StyleFillInterface

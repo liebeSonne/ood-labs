@@ -15,7 +15,7 @@ class GroupSetFillStyleCompoundStrategy implements GroupSetFillStyleStrategyInte
     {
         $this->style =& $style;
         $this->enumerator = $enumerator;
-        $this->style = new CompoundFillStyle($this->enumerator);
+        $this->style = $style = new CompoundFillStyle($style, $this->enumerator);
     }
 
     public function setFillStyle(?StyleFillInterface $style): void

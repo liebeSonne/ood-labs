@@ -69,11 +69,11 @@ class GroupShape implements GroupShapeInterface
 
         // стратегии обработки стилей через энумератор стилей
         $this->strokeStyleEnumerator = new StrokeStyleEnumerator($this);
-        $this->strategyGetOutlineStyle = new GroupGetOutlineStyleCompoundStrategy($this->strokeStyleEnumerator);
+        $this->strategyGetOutlineStyle = new GroupGetOutlineStyleCompoundStrategy($this->outlineStyle, $this->strokeStyleEnumerator);
         $this->strategySetOutlineStyle = new GroupSetOutlineStyleCompoundStrategy($this->outlineStyle, $this->strokeStyleEnumerator);
 
         $this->fillStyleEnumerator = new FillStyleEnumerator($this);
-        $this->strategyGetFillStyle = new GroupGetFillStyleCompoundStrategy($this->fillStyleEnumerator);
+        $this->strategyGetFillStyle = new GroupGetFillStyleCompoundStrategy($this->fillStyle, $this->fillStyleEnumerator);
         $this->strategySetFillStyle = new GroupSetFillStyleCompoundStrategy($this->fillStyle, $this->fillStyleEnumerator);
 
     }
