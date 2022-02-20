@@ -15,6 +15,7 @@ class Slide implements SlideInterface
     {
         $this->width = $width;
         $this->height = $height;
+        $this->shapes = $shapes;
     }
 
     public function getWidth(): float
@@ -34,6 +35,12 @@ class Slide implements SlideInterface
 
     public function draw(CanvasInterface $canvas): void
     {
-        // @TODO
+        $count = $this->shapes->getShapesCount();
+        for ($i = 0; $i < $count; $i++) {
+            $shape = $this->shapes->getShapeAtIndex($i);
+            if ($shape) {
+                $shape->draw($canvas);
+            }
+        }
     }
 }
