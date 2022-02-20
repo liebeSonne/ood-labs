@@ -2,18 +2,103 @@
 
 namespace Tests\Unit\Shape\Group;
 
+use App\Shape\Ellipse;
 use App\Shape\Group\GroupShape;
 use App\Shape\Rect;
 use App\Shape\Rectangle;
+use App\Shape\ShapeInterface;
 use App\Shape\Triangle;
 use App\Style\RGBAColor;
 use App\Style\StyleFill;
+use App\Style\StyleFillInterface;
 use App\Style\StyleStroke;
+use App\Style\StyleStrokeInterface;
 use PHPUnit\Framework\TestCase;
 
 class GroupShapeTest extends TestCase
 {
-    public function testSetFrame(): void
+    public function testGetShapeCount(): void
+    {
+        $group = new GroupShape();
+        $group->insertShape($this->createMock(ShapeInterface::class), 0);
+        $group->insertShape($this->createMock(ShapeInterface::class), 1);
+        $group->insertShape($this->createMock(ShapeInterface::class), 3);
+
+        $this->assertEquals(3, $group->getShapesCount());
+    }
+
+    public function testInsertGet(): void
+    {
+        $group = new GroupShape();
+        $s1 = $this->createMock(ShapeInterface::class);
+        $s2 = $this->createMock(ShapeInterface::class);
+        $s3 = $this->createMock(ShapeInterface::class);
+        $group->insertShape($s1, 0);
+        $group->insertShape($s2, 1);
+        $group->insertShape($s3, 2);
+
+        $this->assertEquals($s1, $group->getShapeAtIndex(0));
+        $this->assertEquals($s2, $group->getShapeAtIndex(1));
+        $this->assertEquals($s3, $group->getShapeAtIndex(2));
+    }
+
+    public function testRemove(): void
+    {
+        $group = new GroupShape();
+
+        $s1 = $this->createMock(ShapeInterface::class);
+        $s2 = $this->createMock(ShapeInterface::class);
+        $s3 = $this->createMock(ShapeInterface::class);
+
+        $group->insertShape($s1, 0);
+        $group->insertShape($s2, 1);
+        $group->insertShape($s3, 2);
+
+        $this->assertEquals(3, $group->getShapesCount());
+
+        $group->removeShapeAtIndex(1);
+
+        $this->assertEquals(2, $group->getShapesCount());
+        $this->assertNull($group->getShapeAtIndex(1));
+        $this->assertEquals($s1, $group->getShapeAtIndex(0));
+        $this->assertEquals($s3, $group->getShapeAtIndex(2));
+    }
+
+    public function testOutlineStyleInstance(): void
+    {
+        $group = new GroupShape();
+
+        $style = $group->getOutlineStyle();
+
+        $this->assertInstanceOf(StyleStrokeInterface::class, $style);
+    }
+
+    public function testFillStyleInstance(): void
+    {
+        $group = new GroupShape();
+
+        $style = $group->getFillStyle();
+
+        $this->assertInstanceOf(StyleFillInterface::class, $style);
+    }
+
+    public function testGetGroup(): void
+    {
+        $group = new GroupShape();
+
+        $this->assertEquals($group, $group->getGroup());
+    }
+
+    public function testSimpleSetGetFrame(): void
+    {
+        $frame = new Rect(10, 20, 50, 100);
+        $group = new GroupShape();
+        $group->setFrame($frame);
+
+        $this->assertEquals($frame, $group->getFrame());
+    }
+
+    public function testSetFrameShapes(): void
     {
         $frame = new Rect(10, 20, 50, 100);
 
@@ -79,6 +164,50 @@ class GroupShapeTest extends TestCase
         $this->assertEquals(true, $style->isEnabled());
     }
 
+    public function testSetFillStyle(): void
+    {
+        $group = new GroupShape();
+        $triangle = new Triangle(
+            new Rect(30,45,110,50),
+            new StyleStroke(new RGBAColor(0x87240CCC), 1),
+            new StyleFill(new RGBAColor(0x87240CFF))
+        );
+
+        $group->insertShape($triangle, 0);
+        $color = new RGBAColor(0x00112233);
+        $style = new StyleFill($color);
+
+        $group->setFillStyle($style);
+
+        $this->assertEquals($style->isEnabled(), $group->getFillStyle()->isEnabled());
+        $this->assertEquals($style->getColor()->getColor(), $group->getFillStyle()->getColor()->getColor());
+        $this->assertEquals($style->isEnabled(), $triangle->getFillStyle()->isEnabled());
+        $this->assertEquals($style->getColor()->getColor(), $triangle->getFillStyle()->getColor()->getColor());
+    }
+
+    public function testSetStrokeStyle(): void
+    {
+        $group = new GroupShape();
+        $triangle = new Triangle(
+            new Rect(30,45,110,50),
+            new StyleStroke(new RGBAColor(0x87240CCC), 1),
+            new StyleFill(new RGBAColor(0x87240CFF))
+        );
+
+        $group->insertShape($triangle, 0);
+        $color = new RGBAColor(0x00112233);
+        $style = new StyleStroke($color, 2);
+
+        $group->setOutlineStyle($style);
+
+        $this->assertEquals($style->isEnabled(), $group->getOutlineStyle()->isEnabled());
+        $this->assertEquals($style->getColor()->getColor(), $group->getOutlineStyle()->getColor()->getColor());
+        $this->assertEquals($style->getSize(), $group->getOutlineStyle()->getSize());
+        $this->assertEquals($style->isEnabled(), $triangle->getOutlineStyle()->isEnabled());
+        $this->assertEquals($style->getColor()->getColor(), $triangle->getOutlineStyle()->getColor()->getColor());
+        $this->assertEquals($style->getSize(), $triangle->getOutlineStyle()->getSize());
+    }
+
     private function createGroup() : GroupShape
     {
         $group = new GroupShape();
@@ -97,7 +226,6 @@ class GroupShapeTest extends TestCase
 
         $group->insertShape($rectangle, 0);
         $group->insertShape($triangle, 1);
-
 
         return $group;
     }
@@ -120,7 +248,6 @@ class GroupShapeTest extends TestCase
 
         $group->insertShape($rectangle, 0);
         $group->insertShape($triangle, 1);
-
 
         return $group;
     }
