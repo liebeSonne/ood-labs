@@ -11,7 +11,7 @@ composer install
 composer run-script app
 # or
 composer run-script tests
-composer run-script paint
+composer run-script slide
 ```
 
 Run by php:
