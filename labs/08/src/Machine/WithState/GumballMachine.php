@@ -46,7 +46,7 @@ class GumballMachine implements GumballMachineInterface, GumballMachineTypeInter
 
     public function turnCrank(): void
     {
-        $this->state->insertQuarter();
+        $this->state->turnCrank();
         $this->state->dispense();
     }
 
