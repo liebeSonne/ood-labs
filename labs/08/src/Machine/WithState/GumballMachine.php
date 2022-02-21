@@ -21,12 +21,14 @@ class GumballMachine implements GumballMachineInterface, GumballMachineTypeInter
 
     public function __construct(int $numBalls)
     {
+        $numBalls = max($numBalls, 0);
         $this->count = $numBalls;
         $this->soldState = new SoldState($this);
         $this->soldOutState = new SoldOutState($this);
         $this->noQuarterState = new NoQuarterState($this);
         $this->hasQuarterState = new HasQuarterState($this);
 
+        $this->state = $this->soldOutState;
         if ($this->count > 0) {
             $this->state = $this->noQuarterState;
         }

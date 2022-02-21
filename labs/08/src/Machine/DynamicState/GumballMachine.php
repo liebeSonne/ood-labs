@@ -17,6 +17,7 @@ class GumballMachine implements GumballMachineInterface, GumballMachineTypeInter
 
     public function __construct(int $numBalls)
     {
+        $numBalls = max($numBalls, 0);
         $this->count = $numBalls;
         if ($this->count > 0) {
             $this->setNoQuarterState();

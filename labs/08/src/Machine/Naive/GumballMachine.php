@@ -11,6 +11,7 @@ class GumballMachine implements GumballMachineTypeInterface
 
     public function __construct(int $count)
     {
+        $count = max($count, 0);
         $this->count = $count;
         $this->state = $count > 0 ? State::NO_QUARTER : State::SOLD_OUT;
     }
