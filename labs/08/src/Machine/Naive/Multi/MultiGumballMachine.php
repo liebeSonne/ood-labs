@@ -7,14 +7,14 @@ use App\Machine\Naive\State;
 
 class MultiGumballMachine implements GumballMachineTypeInterface
 {
-    private int $max_quarter = 1;
-    private int $count_quarter = 0; // Количество монеток
+    private int $maxQuarter = 1;
+    private int $countQuarter = 0; // Количество монеток
     private int $count; // Количество шариков
     private string $state = State::SOLD_OUT;
 
-    public function __construct(int $count, int $max_quarter = 5)
+    public function __construct(int $count, int $maxQuarter = 5)
     {
-        $this->max_quarter = max($max_quarter, 1);
+        $this->maxQuarter = max($maxQuarter, 1);
         $count = max($count, 0);
         $this->count = $count;
         $this->state = $count > 0 ? State::NO_QUARTER : State::SOLD_OUT;
@@ -27,16 +27,16 @@ class MultiGumballMachine implements GumballMachineTypeInterface
                 echo "You can't insert a quarter, the machine is sold out\n";
                 break;
             case State::NO_QUARTER:
-                $this->count_quarter++;
+                $this->countQuarter++;
                 $this->state = State::HAS_QUARTER;
                 break;
             case State::HAS_QUARTER:
             case State::SOLD:
-                if ($this->count_quarter < $this->max_quarter) {
-                    $this->count_quarter++;
-                    echo "You inserted a quarter ($this->count_quarter / $this->max_quarter)\n";
+                if ($this->countQuarter < $this->maxQuarter) {
+                    $this->countQuarter++;
+                    echo "You inserted a quarter ($this->countQuarter / $this->maxQuarter)\n";
                 } else {
-                    echo "You can't insert another quarter ($this->count_quarter / $this->max_quarter)\n";
+                    echo "You can't insert another quarter ($this->countQuarter / $this->maxQuarter)\n";
                 }
                 break;
         }
@@ -46,9 +46,9 @@ class MultiGumballMachine implements GumballMachineTypeInterface
     {
         switch ($this->state) {
             case State::SOLD_OUT:
-                if ($this->count_quarter > 0) {
-                    echo "$this->count_quarter Quarter returned\n";
-                    $this->count_quarter = 0;
+                if ($this->countQuarter > 0) {
+                    echo "$this->countQuarter Quarter returned\n";
+                    $this->countQuarter = 0;
                 } else {
                     echo "You can't eject, you haven't inserted a quarter yet\n";
                 }
@@ -57,14 +57,14 @@ class MultiGumballMachine implements GumballMachineTypeInterface
                 echo "You haven't inserted a quarter\n";
                 break;
             case State::HAS_QUARTER:
-                echo "$this->count_quarter Quarter returned\n";
-                $this->count_quarter = 0;
+                echo "$this->countQuarter Quarter returned\n";
+                $this->countQuarter = 0;
                 $this->state = State::NO_QUARTER;
                 break;
             case State::SOLD:
-                if ($this->count_quarter > 0) {
-                    echo "$this->count_quarter Quarter returned\n";
-                    $this->count_quarter = 0;
+                if ($this->countQuarter > 0) {
+                    echo "$this->countQuarter Quarter returned\n";
+                    $this->countQuarter = 0;
                 } else {
                     echo "You haven't inserted a quarter\n";
                 }
@@ -124,9 +124,9 @@ class MultiGumballMachine implements GumballMachineTypeInterface
         $str .= ")\n";
 
         $postfix = $this->count != 1 ? 's' : '';
-        $postfix_quarter = $this->count_quarter != 1 ? 's' : '';
+        $postfix_quarter = $this->countQuarter != 1 ? 's' : '';
 
-        return sprintf($str, $this->count, $postfix, $this->count_quarter, $postfix_quarter, $state);
+        return sprintf($str, $this->count, $postfix, $this->countQuarter, $postfix_quarter, $state);
     }
 
     private function dispense(): void
@@ -135,11 +135,11 @@ class MultiGumballMachine implements GumballMachineTypeInterface
             case State::SOLD:
                 echo "A gumball comes rolling out the slot\n";
                 --$this->count;
-                --$this->count_quarter;
+                --$this->countQuarter;
                 if ($this->count === 0) {
                     echo  "Oops, out of gumballs\n";
                     $this->state = State::SOLD_OUT;
-                } elseif ($this->count_quarter > 0) {
+                } elseif ($this->countQuarter > 0) {
                     $this->state = State::HAS_QUARTER;
                 } else {
                     $this->state = State::NO_QUARTER;
