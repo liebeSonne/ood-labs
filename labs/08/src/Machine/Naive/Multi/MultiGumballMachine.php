@@ -28,6 +28,7 @@ class MultiGumballMachine implements GumballMachineTypeInterface
                 break;
             case State::NO_QUARTER:
                 $this->countQuarter++;
+                echo "You inserted a quarter ($this->countQuarter / $this->maxQuarter)\n";
                 $this->state = State::HAS_QUARTER;
                 break;
             case State::HAS_QUARTER:
