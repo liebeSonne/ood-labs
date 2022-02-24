@@ -11,11 +11,13 @@ composer install
 composer run-script app
 # or
 composer run-script tests
-composer run-script paint
+composer run-script machines-test
+composer run-script multi-machines-test
 ```
 
 Run by php:
 ```bash
 composer install
 php ./public/index.php
+php ./public/index_multi.php
 ```

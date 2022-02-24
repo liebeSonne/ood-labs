@@ -24,9 +24,12 @@
     "machines-test": [
       "php ./public/index.php"
     ],
+    "multi-machines-test": [
+      "php ./public/index_multi.php"
+    ],
     "app": [
       "@tests",
-      "@machines-test"
+      "@multi-machines-test"
     ]
   }
 }
