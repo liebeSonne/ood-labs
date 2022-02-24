@@ -31,6 +31,9 @@
       "php ./public/index.php"
     ],
     "stream": [
+      "@stream-e-e-c--d-d-d"
+    ],
+    "stream-e-e-c--d-d-d": [
       "rm -f input.dat",
       "rm -f output.dat",
       "rm -f input.dat.restored",
@@ -38,6 +41,26 @@
       "cat input.dat",
       "php ./public/index_stream.php --encrypt 100500 --encrypt 3 --compress input.dat output.dat",
       "php ./public/index_stream.php --decompress  --decrypt 3  --decrypt 100500 output.dat input.dat.restored",
+      "cat input.dat.restored"
+    ],
+    "stream-encrypt--decrypt": [
+      "rm -f input.dat",
+      "rm -f output.dat",
+      "rm -f input.dat.restored",
+      "printf 'zz11aa123' > input.dat",
+      "cat input.dat",
+      "php ./public/index_stream.php --compress input.dat output.dat",
+      "php ./public/index_stream.php --decompress output.dat input.dat.restored",
+      "cat input.dat.restored"
+    ],
+    "stream-compress--decompress": [
+      "rm -f input.dat",
+      "rm -f output.dat",
+      "rm -f input.dat.restored",
+      "printf 'zz11aa123' > input.dat",
+      "cat input.dat",
+      "php ./public/index_stream.php --compress input.dat output.dat",
+      "php ./public/index_stream.php --decompress output.dat input.dat.restored",
       "cat input.dat.restored"
     ]
   }
