@@ -24,6 +24,7 @@ class GumballMachine implements GumballMachineTypeInterface
                 break;
             case State::NO_QUARTER:
                 echo "You inserted a quarter\n";
+                $this->state = State::HAS_QUARTER;
                 break;
             case State::HAS_QUARTER:
                 echo "You can't insert another quarter\n";
