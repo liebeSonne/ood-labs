@@ -122,4 +122,9 @@ class MultiGumballMachine implements GumballMachineInterface, GumballMachineType
     {
         $this->state->refill($numBalls);
     }
+
+    public function getMaxQuarterCount(): int
+    {
+        return $this->maxQuarter;
+    }
 }

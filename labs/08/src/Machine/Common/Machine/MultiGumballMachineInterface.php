@@ -6,4 +6,5 @@ interface MultiGumballMachineInterface extends  GumballMachineInterface
 {
     public function getQuarterCount(): int;
     public function setQuarterCount(int $count): void;
+    public function getMaxQuarterCount(): int;
 }
