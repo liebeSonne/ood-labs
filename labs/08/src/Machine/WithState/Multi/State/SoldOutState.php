@@ -8,12 +8,10 @@ use App\Machine\Common\State\StateInterface;
 class SoldOutState implements StateInterface
 {
     private MultiGumballMachineInterface $gumballMachine;
-    private int $countQuarter;
 
-    public function __construct(MultiGumballMachineInterface $gumballMachine, int &$countQuarter)
+    public function __construct(MultiGumballMachineInterface $gumballMachine)
     {
         $this->gumballMachine = $gumballMachine;
-        $this->countQuarter =& $countQuarter;
     }
 
     public function insertQuarter(): void
@@ -23,9 +21,11 @@ class SoldOutState implements StateInterface
 
     public function ejectQuarter(): void
     {
-        if ($this->countQuarter > 0) {
-            echo "$this->countQuarter Quarter returned\n";
-            $this->countQuarter = 0;
+        $countQuarter = $this->gumballMachine->getQuarterCount();
+        if ($countQuarter > 0) {
+            echo "$countQuarter Quarter returned\n";
+            $countQuarter = 0;
+            $this->gumballMachine->setQuarterCount($countQuarter);
         } else {
             echo "You can't eject, you haven't inserted a quarter yet\n";
         }

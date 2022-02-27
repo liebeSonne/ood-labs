@@ -27,10 +27,10 @@ class MultiGumballMachine implements GumballMachineInterface, GumballMachineType
         $this->maxQuarter = max($maxQuarter, 1);
         $numBalls = max($numBalls, 0);
         $this->count = $numBalls;
-        $this->soldState = new SoldState($this, $this->countQuarter, $maxQuarter);
-        $this->soldOutState = new SoldOutState($this, $this->countQuarter);
-        $this->noQuarterState = new NoQuarterState($this, $this->countQuarter, $this->maxQuarter);
-        $this->hasQuarterState = new HasQuarterState($this, $this->countQuarter, $this->maxQuarter);
+        $this->soldState = new SoldState($this);
+        $this->soldOutState = new SoldOutState($this);
+        $this->noQuarterState = new NoQuarterState($this);
+        $this->hasQuarterState = new HasQuarterState($this);
 
         $this->state = $this->soldOutState;
         if ($this->count > 0) {

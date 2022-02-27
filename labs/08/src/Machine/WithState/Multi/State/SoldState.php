@@ -8,31 +8,32 @@ use App\Machine\Common\State\StateInterface;
 class SoldState implements StateInterface
 {
     private MultiGumballMachineInterface $gumballMachine;
-    private int $countQuarter;
-    private int $maxQuarter;
 
-    public function __construct(MultiGumballMachineInterface $gumballMachine, int &$countQuarter, int &$maxQuarter)
+    public function __construct(MultiGumballMachineInterface $gumballMachine)
     {
         $this->gumballMachine = $gumballMachine;
-        $this->countQuarter =& $countQuarter;
-        $this->maxQuarter = $maxQuarter;
     }
 
     public function insertQuarter(): void
     {
-        if ($this->countQuarter < $this->maxQuarter) {
-            $this->countQuarter++;
-            echo "You inserted a quarter ($this->countQuarter / $this->maxQuarter)\n";
+        $maxQuarter = $this->gumballMachine->getMaxQuarterCount();
+        $countQuarter = $this->gumballMachine->getQuarterCount();
+        if ($countQuarter < $maxQuarter) {
+            $countQuarter++;
+            $this->gumballMachine->setQuarterCount($countQuarter);
+            echo "You inserted a quarter ($countQuarter / $maxQuarter)\n";
         } else {
-            echo "You can't insert another quarter ($this->countQuarter, $this->maxQuarter)\n";
+            echo "You can't insert another quarter ($countQuarter / $maxQuarter)\n";
         }
     }
 
     public function ejectQuarter(): void
     {
-        if ($this->countQuarter > 0) {
-            echo "$this->countQuarter Quarter returned\n";
-            $this->countQuarter = 0;
+        $countQuarter = $this->gumballMachine->getQuarterCount();
+        if ($countQuarter > 0) {
+            echo "$countQuarter Quarter returned\n";
+            $countQuarter = 0;
+            $this->gumballMachine->setQuarterCount($countQuarter);
         } else {
             echo "You haven't inserted a quarter\n";
         }
@@ -46,10 +47,11 @@ class SoldState implements StateInterface
     public function dispense(): void
     {
         $this->gumballMachine->releaseBall();
+        $countQuarter = $this->gumballMachine->getQuarterCount();
         if ($this->gumballMachine->getBallCount() === 0) {
             echo "Oops, out of gumballs\n";
             $this->gumballMachine->setSoldOutState();
-        } elseif ($this->countQuarter > 0) {
+        } elseif ($countQuarter > 0) {
             $this->gumballMachine->setHasQuarterState();
         } else {
             $this->gumballMachine->setNoQuarterState();

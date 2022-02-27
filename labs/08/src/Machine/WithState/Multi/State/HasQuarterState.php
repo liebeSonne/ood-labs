@@ -8,30 +8,31 @@ use App\Machine\Common\State\StateInterface;
 class HasQuarterState implements StateInterface
 {
     private MultiGumballMachineInterface $gumballMachine;
-    private int $countQuarter;
-    private int $maxQuarter;
 
-    public function __construct(MultiGumballMachineInterface $gumballMachine, int &$countQuarter, int &$maxQuarter)
+    public function __construct(MultiGumballMachineInterface $gumballMachine)
     {
         $this->gumballMachine = $gumballMachine;
-        $this->countQuarter =& $countQuarter;
-        $this->maxQuarter = $maxQuarter;
     }
 
     public function insertQuarter(): void
     {
-        if ($this->countQuarter < $this->maxQuarter) {
-            $this->countQuarter++;
-            echo "You inserted a quarter ($this->countQuarter / $this->maxQuarter)\n";
+        $maxQuarter = $this->gumballMachine->getMaxQuarterCount();
+        $countQuarter = $this->gumballMachine->getQuarterCount();
+        if ($countQuarter < $maxQuarter) {
+            $countQuarter++;
+            $this->gumballMachine->setQuarterCount($countQuarter);
+            echo "You inserted a quarter ($countQuarter / $maxQuarter)\n";
         } else {
-            echo "You can't insert another quarter ($this->countQuarter / $this->maxQuarter)\n";
+            echo "You can't insert another quarter ($countQuarter / $maxQuarter)\n";
         }
     }
 
     public function ejectQuarter(): void
     {
-        echo "$this->countQuarter Quarter returned\n";
-        $this->countQuarter = 0;
+        $countQuarter = $this->gumballMachine->getQuarterCount();
+        echo "$countQuarter Quarter returned\n";
+        $countQuarter = 0;
+        $this->gumballMachine->setQuarterCount($countQuarter);
         $this->gumballMachine->setNoQuarterState();
     }
 
