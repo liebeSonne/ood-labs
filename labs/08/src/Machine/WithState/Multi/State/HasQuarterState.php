@@ -2,16 +2,16 @@
 
 namespace App\Machine\WithState\Multi\State;
 
-use App\Machine\Common\Machine\GumballMachineInterface;
+use App\Machine\Common\Machine\MultiGumballMachineInterface;
 use App\Machine\Common\State\StateInterface;
 
 class HasQuarterState implements StateInterface
 {
-    private GumballMachineInterface $gumballMachine;
+    private MultiGumballMachineInterface $gumballMachine;
     private int $countQuarter;
     private int $maxQuarter;
 
-    public function __construct(GumballMachineInterface $gumballMachine, int &$countQuarter, int &$maxQuarter)
+    public function __construct(MultiGumballMachineInterface $gumballMachine, int &$countQuarter, int &$maxQuarter)
     {
         $this->gumballMachine = $gumballMachine;
         $this->countQuarter =& $countQuarter;
@@ -49,5 +49,13 @@ class HasQuarterState implements StateInterface
     public function toString(): string
     {
         return "waiting for turn of crank";
+    }
+
+    public function refill(int $numBalls): void
+    {
+        $this->gumballMachine->setBallCount($numBalls);
+        if ($this->gumballMachine->getBallCount() === 0) {
+            $this->gumballMachine->setSoldOutState();
+        }
     }
 }

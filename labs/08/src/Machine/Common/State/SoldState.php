@@ -43,4 +43,9 @@ class SoldState implements StateInterface
     {
         return "delivering a gumball";
     }
+
+    public function refill(int $numBalls): void
+    {
+        echo "Can't refill when sold...\n";
+    }
 }

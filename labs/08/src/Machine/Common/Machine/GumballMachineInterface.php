@@ -10,4 +10,5 @@ interface GumballMachineInterface
     public function setNoQuarterState(): void;
     public function setSoldState(): void;
     public function setHasQuarterState(): void;
+    public function setBallCount(int $numBalls): void;
 }

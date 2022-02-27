@@ -9,4 +9,5 @@ interface GumballMachineTypeInterface
     public function turnCrank(): void;
 //    public function dispense(): void;
     public function toString(): string;
+    public function refill(int $numBalls): void;
 }

@@ -4,13 +4,14 @@ namespace App\Machine\WithState\Multi;
 
 use App\Machine\Common\Machine\GumballMachineInterface;
 use App\Machine\Common\Machine\GumballMachineTypeInterface;
+use App\Machine\Common\Machine\MultiGumballMachineInterface;
 use App\Machine\WithState\Multi\State\HasQuarterState;
 use App\Machine\WithState\Multi\State\NoQuarterState;
 use App\Machine\WithState\Multi\State\SoldOutState;
 use App\Machine\WithState\Multi\State\SoldState;
 use App\Machine\Common\State\StateInterface;
 
-class MultiGumballMachine implements GumballMachineInterface, GumballMachineTypeInterface
+class MultiGumballMachine implements GumballMachineInterface, GumballMachineTypeInterface, MultiGumballMachineInterface
 {
     private int $maxQuarter = 1;
     private int $countQuarter = 0;
@@ -100,5 +101,25 @@ class MultiGumballMachine implements GumballMachineInterface, GumballMachineType
     public function setHasQuarterState(): void
     {
         $this->state = $this->hasQuarterState;
+    }
+
+    public function setBallCount(int $numBalls): void
+    {
+        $this->count = max($numBalls, 0);
+    }
+
+    public function getQuarterCount(): int
+    {
+        return $this->countQuarter;
+    }
+
+    public function setQuarterCount(int $count): void
+    {
+        $this->countQuarter = $count;
+    }
+
+    public function refill(int $numBalls): void
+    {
+        $this->state->refill($numBalls);
     }
 }

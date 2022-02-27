@@ -37,4 +37,12 @@ class SoldOutState implements StateInterface
     {
         return "sold out";
     }
+
+    public function refill(int $numBalls): void
+    {
+        $this->gumballMachine->setBallCount($numBalls);
+        if ($this->gumballMachine->getBallCount() > 0) {
+            $this->gumballMachine->setNoQuarterState();
+        }
+    }
 }

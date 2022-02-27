@@ -76,8 +76,24 @@ class GumballMachine implements GumballMachineTypeInterface
 
     public function refill(int $numBalls): void
     {
-        $this->count = $numBalls;
-        $this->state = $numBalls > 0 ? State::NO_QUARTER : State::SOLD_OUT;
+        switch ($this->state) {
+            case State::SOLD:
+                echo "Can't refill when sold...\n";
+                break;
+            case State::SOLD_OUT:
+                $this->count = max($numBalls, 0);
+                if ($this->count > 0) {
+                    $this->state = State::NO_QUARTER;
+                }
+                break;
+            case State::NO_QUARTER:
+            case State::HAS_QUARTER:
+                $this->count = max($numBalls, 0);
+                if ($this->count === 0) {
+                    $this->state = State::SOLD_OUT;
+                }
+                break;
+        }
     }
 
     public function toString(): string

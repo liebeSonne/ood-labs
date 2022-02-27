@@ -94,4 +94,14 @@ class GumballMachine implements GumballMachineInterface, GumballMachineTypeInter
     {
         $this->state = $this->hasQuarterState;
     }
+
+    public function setBallCount(int $numBalls): void
+    {
+        $this->count = max($numBalls, 0);
+    }
+
+    public function refill(int $numBalls): void
+    {
+        $this->state->refill($numBalls);
+    }
 }

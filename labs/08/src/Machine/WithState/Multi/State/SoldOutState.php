@@ -2,15 +2,15 @@
 
 namespace App\Machine\WithState\Multi\State;
 
-use App\Machine\Common\Machine\GumballMachineInterface;
+use App\Machine\Common\Machine\MultiGumballMachineInterface;
 use App\Machine\Common\State\StateInterface;
 
 class SoldOutState implements StateInterface
 {
-    private GumballMachineInterface $gumballMachine;
+    private MultiGumballMachineInterface $gumballMachine;
     private int $countQuarter;
 
-    public function __construct(GumballMachineInterface $gumballMachine, int &$countQuarter)
+    public function __construct(MultiGumballMachineInterface $gumballMachine, int &$countQuarter)
     {
         $this->gumballMachine = $gumballMachine;
         $this->countQuarter =& $countQuarter;
@@ -44,5 +44,17 @@ class SoldOutState implements StateInterface
     public function toString(): string
     {
         return "sold out";
+    }
+
+    public function refill(int $numBalls): void
+    {
+        $this->gumballMachine->setBallCount($numBalls);
+        if ($this->gumballMachine->getBallCount() > 0) {
+            if ($this->gumballMachine->getQuarterCount() > 0) {
+                $this->gumballMachine->setHasQuarterState();
+            } else {
+                $this->gumballMachine->setNoQuarterState();
+            }
+        }
     }
 }
