@@ -56,13 +56,16 @@ class MultiGumballMachine implements GumballMachineInterface, GumballMachineType
     public function toString(): string
     {
         $str = "(\n";
-        $str .= "Mighty Gumball, Inc.\n";
-        $str .= "C++-enabled Standing Gumball Model #2016 (with state)\n";
-        $str .= "Inventory: %d gumball%s\n";
-        $str .= "Machine is %s\n";
+        $str .= "\tMighty Gumball, Inc.\n";
+        $str .= "\tC++-enabled Standing Gumball Model #2016 (with state multi)\n";
+        $str .= "\tInventory: %d gumball%s\n";
+        $str .= "\tInventory: %d quarter%s\n";
+        $str .= "\tMachine is %s\n";
         $str .= ")\n";
         $postfix = ($this->count != 1 ? 's' : '');
-        return sprintf($str, $this->count, $postfix, $this->state->toString());
+        $postfix_quarter = $this->countQuarter != 1 ? 's' : '';
+
+        return sprintf($str, $this->count, $postfix, $this->countQuarter, $postfix_quarter, $this->state->toString());
     }
 
     public function releaseBall(): void
