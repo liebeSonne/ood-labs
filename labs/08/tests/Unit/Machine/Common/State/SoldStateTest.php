@@ -69,6 +69,15 @@ class SoldStateTest extends TestCase
         $this->assertEquals("delivering a gumball", $this->state->toString());
     }
 
+    public function testRefill(): void
+    {
+        $str = "Can't refill when sold...\n";
+        $this->expectOutputString($str);
+
+        $numBalls = 5;
+        $this->state->refill($numBalls);
+    }
+
     protected function setUp(): void
     {
         parent::setUp();

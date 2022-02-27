@@ -305,4 +305,26 @@ class GumballMachineTest extends TestCase
             ]],
         ];
     }
+
+    public function testRefill(): void
+    {
+        $count = 0;
+        $m = new GumballMachine($count);
+
+        $numBalls = 5;
+        $m->refill($numBalls);
+
+        $this->assertEquals($this->getStateText($numBalls, 'NoQuarterState'), $m->toString());
+    }
+
+    public function testRefillNull(): void
+    {
+        $count = 5;
+        $m = new GumballMachine($count);
+
+        $numBalls = 0;
+        $m->refill($numBalls);
+
+        $this->assertEquals($this->getStateText($numBalls, 'SoldOutState'), $m->toString());
+    }
 }

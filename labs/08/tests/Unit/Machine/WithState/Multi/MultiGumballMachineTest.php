@@ -58,6 +58,32 @@ class MultiGumballMachineTest extends TestCase
         $this->assertEquals($this->getText($countBalls, $countQuarter, State::NO_QUARTER), $m->toString());
     }
 
+    public function testRefill(): void
+    {
+        $countBalls = 5;
+        $maxQuarter = 5;
+        $countQuarter = 0;
+        $m = new MultiGumballMachine($countBalls, $maxQuarter);
+
+        $numBalls = 5;
+        $m->refill($numBalls);
+
+        $this->assertEquals($this->getText($numBalls, $countQuarter, State::NO_QUARTER), $m->toString());
+    }
+
+    public function testRefillNull(): void
+    {
+        $countBalls = 5;
+        $maxQuarter = 5;
+        $countQuarter = 0;
+        $m = new MultiGumballMachine($countBalls, $maxQuarter);
+
+        $numBalls = 0;
+        $m->refill($numBalls);
+
+        $this->assertEquals($this->getText($numBalls, $countQuarter, State::SOLD_OUT), $m->toString());
+    }
+
     public function getScenarios(): array
     {
         return [

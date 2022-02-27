@@ -57,6 +57,30 @@ class HasQuarterStateTest extends TestCase
         $this->assertEquals("waiting for turn of crank", $this->state->toString());
     }
 
+
+    public function testRefill(): void
+    {
+        $numBalls = 5;
+
+        $this->machine->method('getBallCount')->willReturn($numBalls);
+
+        $this->machine->expects($this->once())->method('getBallCount');
+
+        $this->state->refill($numBalls);
+    }
+
+    public function testRefillNull(): void
+    {
+        $numBalls = 0;
+
+        $this->machine->method('getBallCount')->willReturn($numBalls);
+
+        $this->machine->expects($this->once())->method('getBallCount');
+        $this->machine->expects($this->once())->method('setSoldOutState');
+
+        $this->state->refill($numBalls);
+    }
+
     protected function setUp(): void
     {
         parent::setUp();
