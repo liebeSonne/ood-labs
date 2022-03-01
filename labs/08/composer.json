@@ -27,9 +27,13 @@
     "multi-machines-test": [
       "php ./public/index_multi.php"
     ],
+    "menu": [
+      "php ./public/index_menu.php"
+    ],
     "app": [
       "@tests",
-      "@multi-machines-test"
+      "@multi-machines-test",
+      "@menu"
     ]
   }
 }

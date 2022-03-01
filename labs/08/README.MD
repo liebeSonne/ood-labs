@@ -13,6 +13,7 @@ composer run-script app
 composer run-script tests
 composer run-script machines-test
 composer run-script multi-machines-test
+composer run-script menu
 ```
 
 Run by php:
@@ -20,4 +21,5 @@ Run by php:
 composer install
 php ./public/index.php
 php ./public/index_multi.php
+php ./public/index_menu.php
 ```
