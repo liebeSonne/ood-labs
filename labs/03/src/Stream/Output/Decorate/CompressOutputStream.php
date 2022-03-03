@@ -24,7 +24,7 @@ class CompressOutputStream extends OutputStreamDecoration
         for ($i = 0; $i < $size; $i++)
         {
             $buffer = $srcData->fread(1);
-            parent::writeByte($buffer);
+            self::writeByte($buffer);
         }
     }
 
