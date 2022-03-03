@@ -35,6 +35,9 @@ class PngCanvas implements CanvasInterface
     {
         $hex = Color::colorToHex($color);
         $rgb = Color::hex2rgb($hex);
+        if (!$rgb) {
+            $rgb = ['red' => 0, 'green' => 0, 'blue' => 0];
+        }
 
         $this->color = imagecolorallocate($this->image, $rgb['red'], $rgb['green'], $rgb['blue']);
     }
