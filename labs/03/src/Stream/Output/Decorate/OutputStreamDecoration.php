@@ -22,4 +22,8 @@ class OutputStreamDecoration implements OutputDataStreamInterface
     {
         $this->stream->writeBlock($srcData, $size);
     }
+
+    public function close(): void
+    {
+    }
 }

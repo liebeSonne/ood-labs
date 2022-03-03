@@ -46,4 +46,9 @@ class EncryptOutputStream extends OutputStreamDecoration
         }
         parent::writeBlock($f, $size);
     }
+
+    public function close(): void
+    {
+        parent::close();
+    }
 }

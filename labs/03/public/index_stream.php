@@ -17,6 +17,7 @@ function readWrite(InputDataStreamInterface $input, OutputDataStreamInterface $o
         $byte = $input->readByte();
         $output->writeByte($byte);
     }
+    $output->close();
 }
 
 function readWriteFiles(string $in, string $out)

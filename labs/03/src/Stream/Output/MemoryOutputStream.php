@@ -21,4 +21,8 @@ class MemoryOutputStream implements OutputDataStreamInterface
         $str = $srcData->fread($size);
         $this->stream->fwrite($str);
     }
+
+    public function close(): void
+    {
+    }
 }

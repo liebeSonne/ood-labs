@@ -22,4 +22,6 @@ interface OutputDataStreamInterface
      * @throws \Exception
      */
     public function writeBlock(\SplFileObject $srcData, int $size) : void;
+
+    public function close(): void;
 }

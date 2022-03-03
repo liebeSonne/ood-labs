@@ -29,4 +29,8 @@ class FileOutputStream implements OutputDataStreamInterface
             throw new \Exception('Failure to write');
         }
     }
+
+    public function close(): void
+    {
+    }
 }
