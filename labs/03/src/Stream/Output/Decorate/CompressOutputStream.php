@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Stream\Output\Decorate;
-// @TODO - close для записи полседнего в буфере байта
+
 class CompressOutputStream extends OutputStreamDecoration
 {
     private int $counter = 0;
@@ -44,14 +44,23 @@ class CompressOutputStream extends OutputStreamDecoration
 
     private function writeChunk()
     {
+        // если значение количества байтов больше чем может вместить один байт,
+        // то пишем символ несколько раз
         if ($this->counter > 255) {
             $counter = $this->counter;
             while ($counter > 0) {
+                $curCount = $counter;
+                if ($counter > 255) {
+                    $div = $counter % 255;
+                    if ($div > 0) {
+                        $curCount = $div;
+                    } else {
+                        $curCount = 255;
+                    }
+                }
                 parent::writeByte($this->byte);
-                // @TODO - сложный код, при 255 0, не должно быть
-                $byteCounter = ($counter  - ($counter % 255) > 0) ? ($counter % 255) : $counter;
-                parent::writeByte($byteCounter);
-                $counter -= 255;
+                parent::writeByte($curCount);
+                $counter -= $curCount;
             }
         } else {
             parent::writeByte($this->byte);
