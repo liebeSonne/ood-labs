@@ -15,12 +15,12 @@ class Lemon extends CondimentDecorator
         $this->quantity = $quantity;
     }
 
-    public function getCondimentDescription() : string
+    protected function getCondimentDescription() : string
     {
         return 'Lemon x ' . $this->quantity;
     }
 
-    public function getCondimentCost() : float
+    protected function getCondimentCost() : float
     {
         return 10 * $this->quantity;
     }

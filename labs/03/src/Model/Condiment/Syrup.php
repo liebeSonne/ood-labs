@@ -18,12 +18,12 @@ class Syrup extends CondimentDecorator
         $this->type = $type;
     }
 
-    public function getCondimentDescription() : string
+    protected function getCondimentDescription() : string
     {
         return ($this->type === self::CHOCOLATE ? 'Chocolate' : 'Maple') . ' syrup';
     }
 
-    public function getCondimentCost() : float
+    protected function getCondimentCost() : float
     {
         return 15;
     }

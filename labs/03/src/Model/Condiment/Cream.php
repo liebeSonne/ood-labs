@@ -5,12 +5,12 @@ namespace App\Model\Condiment;
 // Сливки
 class Cream extends CondimentDecorator
 {
-    public function getCondimentDescription() : string
+    protected function getCondimentDescription() : string
     {
         return 'Cream';
     }
 
-    public function getCondimentCost() : float
+    protected function getCondimentCost() : float
     {
         return 25;
     }

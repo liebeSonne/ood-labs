@@ -14,16 +14,16 @@ abstract class CondimentDecorator implements BeverageInterface
         $this->beverage = $beverage;
     }
 
-    public function getDescription() : string
+    final public function getDescription() : string
     {
         return $this->beverage->getDescription() . ", " . $this->getCondimentDescription();
     }
 
-    public function getCost() : float
+    final public function getCost() : float
     {
         return $this->beverage->getCost() + $this->getCondimentCost();
     }
-
-    abstract public function getCondimentDescription() : string;
-    abstract public function getCondimentCost() : float;
+    
+    abstract protected function getCondimentDescription() : string;
+    abstract protected function getCondimentCost() : float;
 }

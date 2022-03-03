@@ -5,12 +5,12 @@ namespace App\Model\Condiment;
 // Добавка из корицы
 class Cinnamon extends CondimentDecorator
 {
-    public function getCondimentDescription() : string
+    protected function getCondimentDescription() : string
     {
         return 'Cinnamon';
     }
 
-    public function getCondimentCost() : float
+    protected function getCondimentCost() : float
     {
         return 20;
     }

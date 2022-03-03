@@ -15,12 +15,12 @@ class CoconutFlakes extends CondimentDecorator
         $this->mass = $mass;
     }
 
-    public function getCondimentDescription() : string
+    protected function getCondimentDescription() : string
     {
         return 'Coconut flakes ' . $this->mass . 'g';
     }
 
-    public function getCondimentCost() : float
+    protected function getCondimentCost() : float
     {
         return 1.0 * $this->mass;
     }

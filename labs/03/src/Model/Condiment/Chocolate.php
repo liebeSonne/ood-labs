@@ -17,12 +17,12 @@ class Chocolate extends CondimentDecorator
         $this->quantity = min($quantity, self::MAX_QUANTITY);
     }
 
-    public function getCondimentDescription() : string
+    protected function getCondimentDescription() : string
     {
         return 'Chocolate x ' . $this->quantity . ' slices';
     }
 
-    public function getCondimentCost() : float
+    protected function getCondimentCost() : float
     {
         return 10 * $this->quantity;
     }

@@ -15,12 +15,12 @@ class ChocolateCrumbs extends CondimentDecorator
         $this->mass = $mass;
     }
 
-    public function getCondimentDescription() : string
+    protected function getCondimentDescription() : string
     {
         return 'Chocolate crumbs ' . $this->mass . 'g';
     }
 
-    public function getCondimentCost() : float
+    protected function getCondimentCost() : float
     {
         return 2.0 * $this->mass;
     }

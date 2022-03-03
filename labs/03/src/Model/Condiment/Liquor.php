@@ -18,12 +18,12 @@ class Liquor extends CondimentDecorator
         $this->type = $type;
     }
 
-    public function getCondimentDescription() : string
+    protected function getCondimentDescription() : string
     {
         return ucfirst($this->type) . ' Liquor';
     }
 
-    public function getCondimentCost() : float
+    protected function getCondimentCost() : float
     {
         return 50;
     }

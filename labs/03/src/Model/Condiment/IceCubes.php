@@ -20,12 +20,12 @@ class IceCubes extends CondimentDecorator
         $this->type = $type;
     }
 
-    public function getCondimentDescription() : string
+    protected function getCondimentDescription() : string
     {
         return ($this->type === self::DRY ? 'Dry' : 'Water') . ' ice cubes x ' . $this->quantity;
     }
 
-    public function getCondimentCost() : float
+    protected function getCondimentCost() : float
     {
         // Чем больше кубиков, тем больше стоимость.
         // Сухой лед стоит дороже
