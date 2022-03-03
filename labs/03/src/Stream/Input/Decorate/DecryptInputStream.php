@@ -2,44 +2,23 @@
 
 namespace App\Stream\Input\Decorate;
 
+use App\Stream\Algorithm\CryptAlgorithmInterface;
 use App\Stream\Input\InputDataStreamInterface;
 
 class DecryptInputStream extends InputStreamDecoration
 {
-    private array $table = [];
+    private CryptAlgorithmInterface $algorithm;
 
-    public function __construct(InputDataStreamInterface $stream, int $seed = 0)
+    public function __construct(InputDataStreamInterface $stream, CryptAlgorithmInterface $algorithm)
     {
         parent::__construct($stream);
-
-        $encrypt = [];
-        $decrypt = [];
-        for($i = 0; $i < 256; $i++) {
-            $ch = chr($i);
-            $encrypt[] = $ch;
-            $decrypt[] = 0;
-        }
-
-        mt_srand($seed, MT_RAND_MT19937);
-        shuffle($encrypt);
-
-        for($i =0; $i < 256; $i++) {
-            $index = ord($encrypt[$i]);
-            $decrypt[$index] = chr($i);
-        }
-        $this->table = $decrypt;
-    }
-
-    private function getDecryptedByte(string $byte) : string
-    {
-        $index = ord($byte);
-        return $this->table[$index];
+        $this->algorithm = $algorithm;
     }
 
     public function readByte() : string
     {
         $byte = parent::readByte();
-        $byte = $this->getDecryptedByte($byte);
+        $byte = $this->algorithm->decrypt($byte);
         return $byte;
     }
 
@@ -50,7 +29,7 @@ class DecryptInputStream extends InputStreamDecoration
         $buffer = [];
         for ($i = 0; $i < $count; $i++) {
             $ch = $dstBuffer->fread(1);
-            $ch = $this->getDecryptedByte($ch);
+            $ch = $this->algorithm->decrypt($ch);;
             $buffer[$i] = $ch;
         }
         $dstBuffer->fseek($position);

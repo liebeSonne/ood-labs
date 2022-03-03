@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+use App\Stream\Algorithm\ReplaceCryptAlgorithm;
 use App\Stream\Input\FileInputStream;
 use App\Stream\Output\FileOutputStream;
 use App\Stream\Output\Decorate\EncryptOutputStream;
@@ -70,14 +71,18 @@ function main($argv, $show_content = false)
             case '--encrypt':
                 $seed = (int) $argv[++$i];
                 echo "--encrypt $seed\n";
-                $output = new EncryptOutputStream($output, $seed);
+                $seed = 0;
+                $alg = new ReplaceCryptAlgorithm($seed);
+                $output = new EncryptOutputStream($output, $alg);
                 readWrite($input, $output);
                 copyClear($fileOutput, $fileTmp);
                 break;
             case '--decrypt':
                 $seed = (int) $argv[++$i];
                 echo "--decrypt $seed\n";
-                $input = new DecryptInputStream($input, $seed);
+                $seed = 0;
+                $alg = new ReplaceCryptAlgorithm($seed);
+                $input = new DecryptInputStream($input, $alg);
                 readWrite($input, $output);
                 copyClear($fileOutput, $fileTmp);
                 break;

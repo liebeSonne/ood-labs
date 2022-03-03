@@ -2,37 +2,22 @@
 
 namespace App\Stream\Output\Decorate;
 
+use App\Stream\Algorithm\CryptAlgorithmInterface;
 use App\Stream\Output\OutputDataStreamInterface;
 
 class EncryptOutputStream extends OutputStreamDecoration
 {
-    private array $table = [];
+    private CryptAlgorithmInterface $algorithm;
 
-    public function __construct(OutputDataStreamInterface $stream, int $seed = 0)
+    public function __construct(OutputDataStreamInterface $stream, CryptAlgorithmInterface $algorithm)
     {
         parent::__construct($stream);
-
-        $data = [];
-        for($i = 0; $i < 256; $i++) {
-            $ch = chr($i);
-            $data[$i] = $ch;
-        }
-
-        mt_srand($seed, MT_RAND_MT19937);
-        shuffle($data);
-
-        $this->table = $data;
-    }
-
-    private function getEncryptedByte(string $byte) : string
-    {
-        $index = ord($byte);
-        return $this->table[$index];
+        $this->algorithm = $algorithm;
     }
 
     public function writeByte(string $data) : void
     {
-        $data = $this->getEncryptedByte($data);
+        $data = $this->algorithm->encrypt($data);
         parent::writeByte($data);
     }
 
@@ -41,7 +26,7 @@ class EncryptOutputStream extends OutputStreamDecoration
         $data = $srcData->fread($size);
         $f = new \SplFileObject('php://temp', 'wb');
         foreach (str_split($data) as $ch) {
-            $ch = $this->getEncryptedByte($ch);
+            $ch = $this->algorithm->encrypt($ch);
             $f->fwrite($ch);
         }
         parent::writeBlock($f, $size);

@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Stream\Output\Decorate;
 
+use App\Stream\Algorithm\ReplaceCryptAlgorithm;
 use App\Stream\Output\Decorate\EncryptOutputStream;
 use App\Stream\Output\OutputDataStreamInterface;
 use PHPUnit\Framework\TestCase;
@@ -12,7 +13,9 @@ class EncryptOutputStreamTest extends TestCase
     {
         $output = $this->createMock(OutputDataStreamInterface::class);
 
-        $stream = new EncryptOutputStream($output);
+        $seed = 0;
+        $alg = new ReplaceCryptAlgorithm($seed);
+        $stream = new EncryptOutputStream($output, $alg);
 
         $output->expects($this->once())->method('writeByte');
 
@@ -24,7 +27,9 @@ class EncryptOutputStreamTest extends TestCase
     {
         $output = $this->createMock(OutputDataStreamInterface::class);
 
-        $stream = new EncryptOutputStream($output);
+        $seed = 0;
+        $alg = new ReplaceCryptAlgorithm($seed);
+        $stream = new EncryptOutputStream($output, $alg);
 
         $size = 3;
         $output->expects($this->once())->method('writeBlock');
