@@ -4,12 +4,12 @@ namespace App\Model\Beverage;
 
 class Latte extends Coffee
 {
-    public const STANDART = 'standart';
+    public const STANDARD = 'standard';
     public const DOUBLE = 'double';
 
     private string $type;
 
-    public function __construct(string $type = self::STANDART, string $description = 'Latte')
+    public function __construct(string $type = self::STANDARD, string $description = 'Latte')
     {
         $this->type = $type;
         $description = ucfirst($this->type) . ' ' . $description;
@@ -21,7 +21,7 @@ class Latte extends Coffee
         switch ($this->type) {
             case self::DOUBLE:
                 return 130;
-            case self::STANDART:
+            case self::STANDARD:
             default:
                 return 90;
         }
