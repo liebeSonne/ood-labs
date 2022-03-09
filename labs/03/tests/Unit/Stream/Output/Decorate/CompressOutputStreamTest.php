@@ -14,11 +14,11 @@ class CompressOutputStreamTest extends TestCase
 
         $stream = new CompressOutputStream($output);
 
-        $output->expects($this->exactly(2))->method('writeByte');
+        $output->expects($this->exactly(4))->method('writeByte');
 
-        $str = 'a';
-        $stream->writeByte($str);
-        $stream->writeByte('');
+        $stream->writeByte('a');
+        $stream->writeByte('b');
+        $stream->close();
     }
 
     public function testWriteBlock() : void
@@ -28,10 +28,11 @@ class CompressOutputStreamTest extends TestCase
         $stream = new CompressOutputStream($output);
 
         $size = 3;
-        $output->expects($this->exactly($size))->method('writeByte');
+        $output->expects($this->exactly(2))->method('writeByte');
 
         $srcData = new \SplFileObject('php://temp','w+b');
 
         $stream->writeBlock($srcData, $size);
+        $stream->close();
     }
 }
