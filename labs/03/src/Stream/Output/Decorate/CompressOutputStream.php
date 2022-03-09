@@ -49,15 +49,7 @@ class CompressOutputStream extends OutputStreamDecoration
         if ($this->counter > 255) {
             $counter = $this->counter;
             while ($counter > 0) {
-                $curCount = $counter;
-                if ($counter > 255) {
-                    $div = $counter % 255;
-                    if ($div > 0) {
-                        $curCount = $div;
-                    } else {
-                        $curCount = 255;
-                    }
-                }
+                $curCount = min([$counter, 255]);
                 parent::writeByte($this->byte);
                 parent::writeByte($curCount);
                 $counter -= $curCount;
