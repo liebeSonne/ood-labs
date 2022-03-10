@@ -38,8 +38,8 @@ class Ellipse extends Shape
     public function draw(CanvasInterface $canvas) : void
     {
         $center = $this->getCenter();
-        $width = $this->getHorizontalRadius();
-        $height = $this->getVerticalRadius();
+        $width = $this->getHorizontalRadius() * 2;
+        $height = $this->getVerticalRadius() * 2;
         $color = $this->getColor();
         $canvas->setColor($color);
         $canvas->drawEllipse($center, $width, $height);
