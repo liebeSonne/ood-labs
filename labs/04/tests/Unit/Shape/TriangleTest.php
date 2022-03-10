@@ -3,8 +3,8 @@
 namespace Tests\Unit\Shape;
 
 use App\Canvas\CanvasInterface;
-use App\Color;
-use App\Point;
+use App\Common\Color;
+use App\Common\Point;
 use App\Shape\Triangle;
 use PHPUnit\Framework\TestCase;
 

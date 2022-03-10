@@ -1,5 +1,5 @@
-rectangle 0 0 10 10 blue
-triangle 0 0 10 10 20 20 yellow
-ellipse 0 0 10 5 red
-polygon 0 0 10 5 white
+rectangle 100 100 100 100 blue
+triangle 100 100 100 100 200 200 yellow
+ellipse 100 100 100 50 red
+polygon 200 200 100 5 green
 ellipse 300 300 100 50 red

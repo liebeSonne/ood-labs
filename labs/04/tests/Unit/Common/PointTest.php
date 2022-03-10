@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Common;
 
-use App\Point;
+use App\Common\Point;
 use PHPUnit\Framework\TestCase;
 
 class PointTest extends TestCase

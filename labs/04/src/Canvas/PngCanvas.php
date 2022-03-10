@@ -2,8 +2,8 @@
 
 namespace App\Canvas;
 
-use App\Color;
-use App\Point;
+use App\Common\Color;
+use App\Common\Point;
 
 class PngCanvas implements CanvasInterface
 {

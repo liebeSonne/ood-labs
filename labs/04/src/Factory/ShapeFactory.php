@@ -2,9 +2,9 @@
 
 namespace App\Factory;
 
-use App\Color;
+use App\Common\Color;
 use App\Command\Editor\EditorListCommand;
-use App\Point;
+use App\Common\Point;
 use App\Shape\Ellipse;
 use App\Shape\Rectangle;
 use App\Shape\RegularPolygon;

@@ -3,7 +3,7 @@
 namespace App\Shape;
 
 use App\Canvas\CanvasInterface;
-use App\Color;
+use App\Common\Color;
 
 abstract class Shape
 {

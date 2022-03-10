@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Shape;
 
-use App\Color;
-use App\Point;
+use App\Common\Color;
+use App\Common\Point;
 use App\Shape\Ellipse;
 use App\Canvas\CanvasInterface;
 use PHPUnit\Framework\TestCase;

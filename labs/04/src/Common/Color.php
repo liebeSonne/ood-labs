@@ -1,7 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Common;
 
+// зачем класс color если нет его экземпляров
 class Color
 {
     const GREEN = 'green';
@@ -20,11 +21,16 @@ class Color
         self::BLACK => '#000000',
     ];
 
+    // не очевидно как себя поведёт функция если цвет неизвестен
     public static function colorToHex(string $color) : string
     {
         return self::$COLOR_TO_HEX[$color] ?? $color;
     }
 
+    /**
+     * @param $hexStr
+     * @return array|false
+     */
     public static function hex2rgb($hexStr)
     {
         $hexStr = preg_replace("/[^0-9A-Fa-f]/", '', $hexStr);

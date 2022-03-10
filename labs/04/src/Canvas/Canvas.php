@@ -2,7 +2,7 @@
 
 namespace App\Canvas;
 
-use App\Point;
+use App\Common\Point;
 
 class Canvas implements CanvasInterface
 {

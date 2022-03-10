@@ -3,8 +3,8 @@
 namespace Tests\Unit\Canvas;
 
 use App\Canvas\Canvas;
-use App\Color;
-use App\Point;
+use App\Common\Color;
+use App\Common\Point;
 use PHPUnit\Framework\TestCase;
 
 class CanvasTest extends TestCase
