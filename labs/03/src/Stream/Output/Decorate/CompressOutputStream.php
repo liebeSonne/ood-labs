@@ -44,19 +44,12 @@ class CompressOutputStream extends OutputStreamDecoration
 
     private function writeChunk()
     {
-        // если значение количества байтов больше чем может вместить один байт,
-        // то пишем символ несколько раз
-        if ($this->counter > 255) {
-            $counter = $this->counter;
-            while ($counter > 0) {
-                $curCount = min([$counter, 255]);
-                parent::writeByte($this->byte);
-                parent::writeByte($curCount);
-                $counter -= $curCount;
-            }
-        } else {
+        $counter = $this->counter;
+        while ($counter > 0) {
+            $curCount = min([$counter, 255]);
             parent::writeByte($this->byte);
-            parent::writeByte($this->counter);
+            parent::writeByte($curCount);
+            $counter -= $curCount;
         }
     }
 }
