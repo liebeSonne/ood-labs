@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Canvas;
+namespace App\Common;
 
 class Point
 {

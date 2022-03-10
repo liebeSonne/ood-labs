@@ -3,7 +3,7 @@
 namespace App\Shape;
 
 use App\Canvas\CanvasInterface;
-use App\Canvas\Point;
+use App\Common\Point;
 
 class Triangle extends Shape
 {
