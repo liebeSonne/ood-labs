@@ -41,11 +41,10 @@ class RegularPolygon extends Shape
         $x0 = $this->center->getX();
         $y0 = $this->center->getY();
         $r = $this->radius;
-        $angel = 360 / $n;
         $points = [];
         for($i = 0; $i < $n; $i++) {
-            $x = $x0 + $r * cos($angel + 2 * M_PI * $i / $n);
-            $y = $y0 + $r * sin($angel + 2 * M_PI * $i / $n);
+            $x = $x0 + $r * cos(2 * M_PI * $i / $n);
+            $y = $y0 + $r * sin(2 * M_PI * $i / $n);
             $points[] = new Point($x, $y);
         }
 
