@@ -116,14 +116,15 @@ class DecompressInputStreamTest extends TestCase
         $dstBuffer = new \SplFileObject($outFile,'w+b');
         $input = new FileInputStream($distFile);
         $decompressor = new DecompressInputStream($input);
-        $count = $decompressor->readBlock($dstBuffer, filesize($distFile));
+        $size = filesize($inFile);
+        $count = $decompressor->readBlock($dstBuffer, $size);
 
         $in = file_get_contents($inFile);
         $out = file_get_contents($outFile);
         $dist = file_get_contents($distFile);
 
         $this->assertEquals($str, $in);
-        $this->assertEquals($in, $out);
+        $this->assertEquals($dist, $out);
         $this->assertEquals($str, $out);
 
         @unlink($inFile);
