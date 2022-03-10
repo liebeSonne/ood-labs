@@ -6,9 +6,8 @@ class MemoryInputStream implements InputDataStreamInterface
 {
     private \SplFileObject $stream;
 
-    public function __construct()
+    public function __construct($filename = 'php://memory')
     {
-        $filename = 'php://memory';
         $this->stream = new \SplFileObject($filename, 'rb');
     }
 
@@ -32,7 +31,7 @@ class MemoryInputStream implements InputDataStreamInterface
         if ($str === false) {
             throw new \Exception('Failure to read next byte');
         }
-        file_put_contents($dstBuffer->getFilename(), $str);
+        $dstBuffer->fwrite($str);
         return $size;
     }
 }
