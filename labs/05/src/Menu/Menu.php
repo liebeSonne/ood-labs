@@ -2,7 +2,7 @@
 
 namespace App\Menu;
 
-use App\Command\CommandInterface;
+use App\Command\ActionCommandInterface;
 
 class Menu
 {
@@ -20,12 +20,12 @@ class Menu
         $this->stream = $stream;
     }
 
-    public function addItem(string $shortcut, string $description, CommandInterface $command): void
+    public function addItem(string $shortcut, string $description, ActionCommandInterface $command): void
     {
         $this->items[] = new Item($shortcut, $description, $command);
     }
 
-    public function getItemCommand(string $shortcut): ?CommandInterface
+    public function getItemCommand(string $shortcut): ?ActionCommandInterface
     {
         $command = null;
         foreach ($this->items as $item) {
@@ -43,8 +43,10 @@ class Menu
         echo ">";
         while ($do) {
             $command = stream_get_line($this->stream, 65535, "\n");
-            $do = $this->executeCommand($command);
-            echo ">";
+            if (!empty($command)) {
+                $do = $this->executeCommand($command);
+                echo ">";
+            }
         }
     }
 

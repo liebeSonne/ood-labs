@@ -2,10 +2,10 @@
 
 namespace App\Command\Editor;
 
-use App\Command\CommandInterface;
+use App\Command\ActionCommandInterface;
 use App\Editor\Editor;
 
-class EditorSaveCommand implements CommandInterface
+class EditorSaveCommand implements ActionCommandInterface
 {
     private Editor $editor;
 
@@ -17,10 +17,5 @@ class EditorSaveCommand implements CommandInterface
     public function execute(): void
     {
         $this->editor->save();
-    }
-
-    public function unexecute(): void
-    {
-
     }
 }

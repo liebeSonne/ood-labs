@@ -2,10 +2,10 @@
 
 namespace App\Command\Editor;
 
-use App\Command\CommandInterface;
+use App\Command\ActionCommandInterface;
 use App\Editor\Editor;
 
-class EditorListCommand implements CommandInterface
+class EditorListCommand implements ActionCommandInterface
 {
     private Editor $editor;
 
@@ -17,10 +17,5 @@ class EditorListCommand implements CommandInterface
     public function execute(): void
     {
         $this->editor->list();
-    }
-
-    public function unexecute(): void
-    {
-
     }
 }

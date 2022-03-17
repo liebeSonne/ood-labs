@@ -13,8 +13,6 @@ class DeleteItemCommand extends AbstractCommand
     private array $items;
     private int $position;
     private ?DocumentItem $item;
-    private bool $markDel = false;
-    private ?string $imagePath = null;
 
     /**
      * @param DocumentItem[] $items
@@ -34,26 +32,25 @@ class DeleteItemCommand extends AbstractCommand
             unset($this->items[$this->position]);
             $this->items = array_values($this->items);
         }
-        $this->markDel = true;
         if ($item !== null && $item->getImage()) {
-            $this->imagePath = $item->getImage()->getPath();
+            $this->item->getImage()->setMarkDel(true);
         }
     }
 
     protected function doUnexecute(): void
     {
         if ($this->item !== null) {
+            if ($this->item->getImage() !== null) {
+                $this->item->getImage()->setMarkDel(false);
+            }
             array_splice($this->items, $this->position, 0, [$this->item]);
         }
-        $this->markDel = false;
     }
 
-    public function __destruct()
+    public function doDestroy(): void
     {
-        if ($this->markDel) {
-            if ($this->imagePath !== null) {
-                @unlink($this->imagePath);
-            }
+        if ($this->item !== null && $this->item->getImage() !== null) {
+            @unlink($this->item->getImage()->getPath());
         }
     }
 }

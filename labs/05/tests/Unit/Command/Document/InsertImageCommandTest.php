@@ -132,7 +132,7 @@ class InsertImageCommandTest extends TestCase
         $command->execute();
         $command->unexecute();
 
-        unset($command);
+        $command->destroy();
 
         $this->assertFileDoesNotExist($path);
     }
@@ -153,7 +153,7 @@ class InsertImageCommandTest extends TestCase
         $command->unexecute();
         $command->execute();
 
-        unset($command);
+        $command->destroy();
 
         $this->assertFileExists($path);
     }

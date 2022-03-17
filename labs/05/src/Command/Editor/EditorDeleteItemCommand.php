@@ -2,10 +2,10 @@
 
 namespace App\Command\Editor;
 
-use App\Command\CommandInterface;
+use App\Command\ActionCommandInterface;
 use App\Editor\Editor;
 
-class EditorDeleteItemCommand implements CommandInterface
+class EditorDeleteItemCommand implements ActionCommandInterface
 {
     private Editor $editor;
 
@@ -17,10 +17,5 @@ class EditorDeleteItemCommand implements CommandInterface
     public function execute(): void
     {
         $this->editor->deleteItem();
-    }
-
-    public function unexecute(): void
-    {
-
     }
 }

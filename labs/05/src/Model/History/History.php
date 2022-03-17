@@ -52,6 +52,9 @@ class History
             $command->execute();
             $this->commands->set($this->nextCommandIndex, $command);
             ++$this->nextCommandIndex;
+            for ($i = $this->nextCommandIndex; $i < count($this->commands); $i++) {
+                $this->commands[$i]->destroy();
+            }
             $this->commands = $this->commands->slice(0, $this->nextCommandIndex);
         } else {
             $command->execute();
@@ -62,6 +65,17 @@ class History
         if (count($this->commands) > self::MAX_COMMANDS) {
             $from = count($this->commands) - self::MAX_COMMANDS;
             $to = count($this->commands) - 1;
+
+            // destroy commands before unset
+            for ($i = 0; $i < $from; $i++) {
+                $this->commands[$i]->destroy();
+            }
+            if ($to + 1 < count($this->commands)) {
+                for ($i = $to + 1; $i < count($this->commands); $i++) {
+                    $this->commands[$i]->destroy();
+                }
+            }
+
             $this->commands = $this->commands->slice($from, $to);
             $this->nextCommandIndex -= $from;
         }

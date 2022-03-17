@@ -2,10 +2,10 @@
 
 namespace App\Command\Editor;
 
-use App\Command\CommandInterface;
+use App\Command\ActionCommandInterface;
 use App\Editor\Editor;
 
-class EditorInsertImage implements CommandInterface
+class EditorInsertImage implements ActionCommandInterface
 {
     private Editor $editor;
 
@@ -17,10 +17,5 @@ class EditorInsertImage implements CommandInterface
     public function execute(): void
     {
         $this->editor->insertImage();
-    }
-
-    public function unexecute(): void
-    {
-
     }
 }

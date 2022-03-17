@@ -18,15 +18,4 @@ class EditorRedoCommandTest extends TestCase
 
         $command->execute();
     }
-
-    public function testUnexecute(): void
-    {
-        $editor = $this->createMock(Editor::class);
-
-        $command = new EditorRedoCommand($editor);
-
-        $editor->expects($this->once())->method('undo');
-
-        $command->unexecute();
-    }
 }

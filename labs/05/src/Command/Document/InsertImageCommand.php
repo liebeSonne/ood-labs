@@ -19,7 +19,6 @@ class InsertImageCommand extends AbstractCommand
     private int $height;
     private string $path;
     private ?ImageInterface $image;
-    private bool $markDel = false;
 
     public function __construct(array &$items, string $path, int $width, int $height, ?int $position = null, ?ImageInterface &$image)
     {
@@ -43,24 +42,25 @@ class InsertImageCommand extends AbstractCommand
         } else {
             array_splice($this->items, $this->position, 0, [$item]);
         }
-        $this->markDel = false;
     }
 
     protected function doUnexecute(): void
     {
+        $this->image->setMarkDel(true);
         if ($this->position === null) {
             array_pop($this->items);
         } else {
             unset($this->items[$this->position]);
             $this->items = array_values($this->items);
         }
-        $this->markDel = true;
     }
 
-    public function __destruct()
+    public function doDestroy(): void
     {
-        if ($this->markDel) {
-            @unlink($this->path);
+        if ($this->image !== null) {
+            if ($this->image->getMarkDel()) {
+                @unlink($this->image->getPath());
+            }
         }
     }
 }

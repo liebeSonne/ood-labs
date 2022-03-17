@@ -2,10 +2,10 @@
 
 namespace App\Command\Menu;
 
-use App\Command\CommandInterface;
+use App\Command\ActionCommandInterface;
 use App\Menu\Menu;
 
-class MenuExitCommand implements CommandInterface
+class MenuExitCommand implements ActionCommandInterface
 {
     private Menu $menu;
 
@@ -17,10 +17,5 @@ class MenuExitCommand implements CommandInterface
     public function execute(): void
     {
         $this->menu->exit();
-    }
-
-    public function unexecute(): void
-    {
-
     }
 }

@@ -2,10 +2,10 @@
 
 namespace App\Command\Editor;
 
-use App\Command\CommandInterface;
+use App\Command\ActionCommandInterface;
 use App\Editor\Editor;
 
-class EditorReplaceTextCommand implements CommandInterface
+class EditorReplaceTextCommand implements ActionCommandInterface
 {
     private Editor $editor;
 
@@ -17,10 +17,5 @@ class EditorReplaceTextCommand implements CommandInterface
     public function execute(): void
     {
         $this->editor->replaceText();
-    }
-
-    public function unexecute(): void
-    {
-
     }
 }

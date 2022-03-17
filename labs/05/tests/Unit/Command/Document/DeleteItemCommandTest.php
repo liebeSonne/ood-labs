@@ -74,7 +74,7 @@ class DeleteItemCommandTest extends TestCase
 
         $command->execute();
 
-        unset($command);
+        $command->destroy();
 
         $this->assertFileDoesNotExist($path);
     }
@@ -96,8 +96,6 @@ class DeleteItemCommandTest extends TestCase
 
         $command->execute();
         $command->unexecute();
-
-        unset($command);
 
         $this->assertFileExists($path);
     }

@@ -2,10 +2,10 @@
 
 namespace App\Command\Editor;
 
-use App\Command\CommandInterface;
+use App\Command\ActionCommandInterface;
 use App\Editor\Editor;
 
-class EditorUndoCommand implements CommandInterface
+class EditorUndoCommand implements ActionCommandInterface
 {
     private Editor $editor;
 
@@ -17,10 +17,5 @@ class EditorUndoCommand implements CommandInterface
     public function execute(): void
     {
         $this->editor->undo();
-    }
-
-    public function unexecute(): void
-    {
-        $this->editor->redo();
     }
 }

@@ -11,4 +11,8 @@ interface ImageInterface
     public function getHeight(): int;
 
     public function resize(int $width, int $height): void;
+
+    public function setMarkDel(bool $mark): void;
+
+    public function getMarkDel(): bool;
 }

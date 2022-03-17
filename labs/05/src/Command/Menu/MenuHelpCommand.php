@@ -2,10 +2,10 @@
 
 namespace App\Command\Menu;
 
-use App\Command\CommandInterface;
+use App\Command\ActionCommandInterface;
 use App\Menu\Menu;
 
-class MenuHelpCommand implements CommandInterface
+class MenuHelpCommand implements ActionCommandInterface
 {
     private Menu $menu;
 
@@ -17,10 +17,5 @@ class MenuHelpCommand implements CommandInterface
     public function execute(): void
     {
         $this->menu->showInstructions();
-    }
-
-    public function unexecute(): void
-    {
-
     }
 }

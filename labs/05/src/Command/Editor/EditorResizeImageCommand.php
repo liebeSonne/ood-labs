@@ -2,10 +2,10 @@
 
 namespace App\Command\Editor;
 
-use App\Command\CommandInterface;
+use App\Command\ActionCommandInterface;
 use App\Editor\Editor;
 
-class EditorResizeImageCommand implements CommandInterface
+class EditorResizeImageCommand implements ActionCommandInterface
 {
     private Editor $editor;
 
@@ -17,10 +17,5 @@ class EditorResizeImageCommand implements CommandInterface
     public function execute(): void
     {
         $this->editor->resizeImage();
-    }
-
-    public function unexecute(): void
-    {
-
     }
 }

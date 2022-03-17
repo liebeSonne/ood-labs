@@ -2,15 +2,15 @@
 
 namespace App\Menu;
 
-use App\Command\CommandInterface;
+use App\Command\ActionCommandInterface;
 
 class Item
 {
     private string $shortcut;
     private string $description;
-    private CommandInterface $command;
+    private ActionCommandInterface $command;
 
-    public function __construct(string $shortcut, string $description, CommandInterface $command)
+    public function __construct(string $shortcut, string $description, ActionCommandInterface $command)
     {
         $this->shortcut = $shortcut;
         $this->description = $description;
@@ -27,7 +27,7 @@ class Item
         return $this->description;
     }
 
-    public function getCommand(): CommandInterface
+    public function getCommand(): ActionCommandInterface
     {
         return $this->command;
     }

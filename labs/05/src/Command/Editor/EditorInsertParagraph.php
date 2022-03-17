@@ -2,10 +2,10 @@
 
 namespace App\Command\Editor;
 
-use App\Command\CommandInterface;
+use App\Command\ActionCommandInterface;
 use App\Editor\Editor;
 
-class EditorInsertParagraph implements CommandInterface
+class EditorInsertParagraph implements ActionCommandInterface
 {
     private Editor $editor;
 
@@ -17,10 +17,5 @@ class EditorInsertParagraph implements CommandInterface
     public function execute(): void
     {
         $this->editor->insertParagraph();
-    }
-
-    public function unexecute(): void
-    {
-
     }
 }
