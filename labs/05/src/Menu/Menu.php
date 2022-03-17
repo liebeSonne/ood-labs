@@ -41,7 +41,8 @@ class Menu
     {
         $do = true;
         echo ">";
-        while ($do && ($command = stream_get_line($this->stream, 65535, "\n"))) {
+        while ($do) {
+            $command = stream_get_line($this->stream, 65535, "\n");
             $do = $this->executeCommand($command);
             echo ">";
         }
