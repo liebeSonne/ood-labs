@@ -2,7 +2,7 @@
 
 namespace App\Robot\Command;
 
-use App\Menu\Menu;
+use App\Robot\Menu\Menu;
 
 class BeginMacroCommand extends CommandExecute
 {

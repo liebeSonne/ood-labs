@@ -2,7 +2,7 @@
 
 namespace App\Robot\CommandMain;
 
-use App\Command\CommandInterface;
+use App\Robot\Command\CommandInterface;
 use App\Menu\Menu;
 use App\Robot\RobotMenu;
 
@@ -22,9 +22,5 @@ class ClassicPatternMenuCommand implements CommandInterface
     {
         $this->robotMenu = new RobotMenu($this->stream);
         $this->menu->showInstructions();
-    }
-
-    public function unexecute(): void
-    {
     }
 }

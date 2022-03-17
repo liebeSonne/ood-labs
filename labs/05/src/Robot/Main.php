@@ -3,7 +3,7 @@
 namespace App\Robot;
 
 use App\Command\Menu\MenuExitCommand;
-use App\Menu\Menu;
+use App\Robot\Menu\Menu;
 use App\Robot\CommandMain\ClassicPatternMenuCommand;
 
 class Main

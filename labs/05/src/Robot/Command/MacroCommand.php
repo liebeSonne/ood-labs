@@ -2,7 +2,6 @@
 
 namespace App\Robot\Command;
 
-use App\Command\CommandInterface;
 use App\Robot\Robot;
 
 class MacroCommand extends CommandExecute

@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Robot\Command;
 
-use App\Command\CommandInterface;
-use App\Menu\Menu;
+use App\Robot\Command\CommandInterface;
+use App\Robot\Menu\Menu;
 use App\Robot\Command\BeginMacroCommand;
 use PHPUnit\Framework\TestCase;
 

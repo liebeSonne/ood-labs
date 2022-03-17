@@ -4,7 +4,7 @@ namespace App\Robot;
 
 use App\Command\Menu\MenuExitCommand;
 use App\Command\Menu\MenuHelpCommand;
-use App\Menu\Menu;
+use App\Robot\Menu\Menu;
 use App\Robot\Command\BeginMacroCommand;
 use App\Robot\Command\MacroCommand;
 use App\Robot\Command\StopCommand;
