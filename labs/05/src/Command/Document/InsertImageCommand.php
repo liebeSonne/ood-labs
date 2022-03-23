@@ -59,7 +59,9 @@ class InsertImageCommand extends AbstractCommand
     {
         if ($this->image !== null) {
             if ($this->image->getMarkDel()) {
-                @unlink($this->image->getPath());
+                if ($this->image->getPath() !== null) {
+                    @unlink($this->image->getPath());
+                }
             }
         }
     }
