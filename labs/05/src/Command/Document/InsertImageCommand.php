@@ -32,10 +32,13 @@ class InsertImageCommand extends AbstractCommand
 
     protected function doExecute(): void
     {
-        $image = new Image($this->path, $this->width, $this->height);
         $item = new DocumentItem();
-        $item->setImage($image);
-        $this->image = $item->getImage();
+        if ($this->image === null) {
+            $image = new Image($this->path, $this->width, $this->height);
+            $item->setImage($image);
+            $this->image = $item->getImage();
+        }
+        $this->image->setMarkDel(false);
 
         if ($this->position === null) {
             $this->items[] = $item;

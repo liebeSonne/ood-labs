@@ -47,12 +47,4 @@ class Image implements ImageInterface
         return $this->markDel;
     }
 
-    public function __destruct()
-    {
-        if ($this->markDel) {
-            if ($this->getPath() !== null) {
-                unlink($this->getPath());
-            }
-        }
-    }
 }
