@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Menu;
 
-use App\Command\CommandInterface;
+use App\Command\ActionCommandInterface;
 use App\Menu\Item;
 use PHPUnit\Framework\TestCase;
 
@@ -12,7 +12,7 @@ class ItemTest extends TestCase
     {
         $shortcut = 'some_struct';
         $description = 'some_struct description';
-        $command = $this->createMock(CommandInterface::class);
+        $command = $this->createMock(ActionCommandInterface::class);
 
         $item = new Item($shortcut, $description, $command);
 

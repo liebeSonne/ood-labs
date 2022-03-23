@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Menu;
 
-use App\Command\CommandInterface;
+use App\Command\ActionCommandInterface;
 use App\Menu\Menu;
 use PHPUnit\Framework\TestCase;
 
@@ -28,7 +28,7 @@ class MenuTest extends TestCase
     {
         $shortcut = 'test_shortcut';
         $description = 'test_shortcut description';
-        $command = $this->createMock(CommandInterface::class);
+        $command = $this->createMock(ActionCommandInterface::class);
 
         $stream = STDIN;
         $menu = new Menu($stream);
@@ -70,7 +70,7 @@ class MenuTest extends TestCase
     {
         $shortcut = 'test_shortcut';
         $description = 'test_shortcut description';
-        $command = $this->createMock(CommandInterface::class);
+        $command = $this->createMock(ActionCommandInterface::class);
 
         $stream = STDIN;
         $menu = new Menu($stream);
@@ -89,7 +89,7 @@ class MenuTest extends TestCase
     {
         $shortcut = 'test_shortcut';
         $description = 'test_shortcut description';
-        $command = $this->createMock(CommandInterface::class);
+        $command = $this->createMock(ActionCommandInterface::class);
 
         $stream = STDIN;
         $menu = new Menu($stream);
@@ -99,7 +99,7 @@ class MenuTest extends TestCase
         $cmd = $menu->getItemCommand($shortcut);
 
         $this->assertNotNull($cmd);
-        $this->assertInstanceOf(CommandInterface::class, $cmd);
+        $this->assertInstanceOf(ActionCommandInterface::class, $cmd);
 
         $cmd2 = $menu->getItemCommand('not exist command');
 
