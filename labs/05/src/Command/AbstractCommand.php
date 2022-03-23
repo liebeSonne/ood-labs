@@ -29,7 +29,6 @@ abstract class AbstractCommand implements CommandInterface
 
     public function destroy(): void
     {
-        echo "\n destroy" . __METHOD__;
         if (!$this->destroyed) {
             $this->doDestroy();
             $this->destroyed = true;
