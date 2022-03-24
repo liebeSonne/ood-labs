@@ -19,22 +19,9 @@ class BeginMacroCommand extends CommandExecute
 
     public function execute(): void
     {
-        $name = '';
-        while(empty($name)) {
-            echo "Write command <name>\n";
-            echo ">";
-            $name = stream_get_line($this->stream, 65535, "\n");
-            $name = trim($name);
+        $name = $this->readName();
 
-            if (!empty($name) && $this->menu->getItemCommand($name) !== null) {
-                echo "Error: command `" . $name . "` already exist\n";
-                $name = '';
-            }
-        }
-
-        echo "Write command <description>\n";
-        echo ">";
-        $description = stream_get_line($this->stream, 65535, "\n");
+        $description = $this->readDescription();
 
         $count = 0;
         $macro = new MacroCommand();
@@ -67,4 +54,29 @@ class BeginMacroCommand extends CommandExecute
             echo "Error: Can;t crete command width empty commands list\n";
         }
     }
+
+    private function readName(): string
+    {
+        $name = '';
+        while(empty($name)) {
+            echo "Write command <name>\n";
+            echo ">";
+            $name = stream_get_line($this->stream, 65535, "\n");
+            $name = trim($name);
+
+            if (!empty($name) && $this->menu->getItemCommand($name) !== null) {
+                echo "Error: command `" . $name . "` already exist\n";
+                $name = '';
+            }
+        }
+        return $name;
+    }
+
+    private function readDescription(): string
+    {
+        echo "Write command <description>\n";
+        echo ">";
+        return stream_get_line($this->stream, 65535, "\n");
+    }
+
 }
