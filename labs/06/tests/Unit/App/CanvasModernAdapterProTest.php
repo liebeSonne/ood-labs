@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\App;
 
-use App\App\CanvasModernAdapterPro;
+use App\App\Adapter\CanvasModernAdapterPro;
 use App\ModernGraphicsLibPro\ModernGraphicsRenderer;
 use App\ModernGraphicsLibPro\Point;
 use App\ModernGraphicsLibPro\RGBAColor;

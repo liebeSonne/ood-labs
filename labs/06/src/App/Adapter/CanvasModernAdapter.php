@@ -1,6 +1,6 @@
 <?php
 
-namespace App\App;
+namespace App\App\Adapter;
 
 use App\GraphicsLib\CanvasInterface;
 use App\ModernGraphicsLib\ModernGraphicsRenderer;

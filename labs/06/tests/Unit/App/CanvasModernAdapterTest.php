@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\App;
 
-use App\App\CanvasModernAdapter;
+use App\App\Adapter\CanvasModernAdapter;
 use App\ModernGraphicsLib\ModernGraphicsRenderer;
 use App\ModernGraphicsLib\Point;
 use PHPUnit\Framework\TestCase;

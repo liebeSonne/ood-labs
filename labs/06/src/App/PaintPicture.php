@@ -2,6 +2,7 @@
 
 namespace App\App;
 
+use App\App\Adapter\CanvasModernAdapter;
 use App\GraphicsLib\Canvas;
 use App\ModernGraphicsLib\ModernGraphicsRenderer;
 use App\ShapeDrawingLib\CanvasPainter;
