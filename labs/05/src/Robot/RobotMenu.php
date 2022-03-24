@@ -43,7 +43,11 @@ class RobotMenu
 
         $this->menu->addItem('stop', 'Stop the Robot', new StopCommand($this->robot));
 
-        $this->menu->addItem('begin_macro', 'Begin record macro command.', new BeginMacroCommand($this->menu, $this->stream));
+        $robotCommands = [
+            'on','off','north','south','west','east',
+        ];
+
+        $this->menu->addItem('begin_macro', 'Begin record macro command.', new BeginMacroCommand($this->menu, $this->stream, $robotCommands));
         $this->menu->addItem('help', 'Show instructions', new MenuHelpCommand($this->menu));
         $this->menu->addItem('exit', 'Exit from this menu', new MenuExitCommand($this->menu));
 
