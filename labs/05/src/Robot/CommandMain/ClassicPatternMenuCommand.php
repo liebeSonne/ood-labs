@@ -3,7 +3,7 @@
 namespace App\Robot\CommandMain;
 
 use App\Robot\Command\CommandInterface;
-use App\Menu\Menu;
+use App\Robot\Menu\Menu;
 use App\Robot\RobotMenu;
 
 class ClassicPatternMenuCommand implements CommandInterface

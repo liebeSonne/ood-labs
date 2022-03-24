@@ -2,8 +2,8 @@
 
 namespace App\Robot;
 
-use App\Command\Menu\MenuExitCommand;
-use App\Command\Menu\MenuHelpCommand;
+use App\Robot\Command\Menu\MenuExitCommand;
+use App\Robot\Command\Menu\MenuHelpCommand;
 use App\Robot\Menu\Menu;
 use App\Robot\Command\BeginMacroCommand;
 use App\Robot\Command\MacroCommand;
