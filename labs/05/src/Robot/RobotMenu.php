@@ -44,7 +44,7 @@ class RobotMenu
         $this->menu->addItem('stop', 'Stop the Robot', new StopCommand($this->robot));
 
         $robotCommands = [
-            'on','off','north','south','west','east',
+            'on','off','north','south','west','east','patrol',
         ];
 
         $this->menu->addItem('begin_macro', 'Begin record macro command.', new BeginMacroCommand($this->menu, $this->stream, $robotCommands));

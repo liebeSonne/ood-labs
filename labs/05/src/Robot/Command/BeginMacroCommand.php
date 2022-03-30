@@ -10,13 +10,13 @@ class BeginMacroCommand extends CommandExecute
 
     private Menu $menu;
     private $stream;
-    private array $robotCommands;
+    private array $commands;
 
-    public function __construct(Menu &$menu, $stream = STDIN, array $robotCommands)
+    public function __construct(Menu &$menu, $stream = STDIN, array $commands)
     {
         $this->menu = $menu;
         $this->stream = $stream;
-        $this->robotCommands = $robotCommands;
+        $this->commands = $commands;
     }
 
     public function execute(): void
@@ -35,15 +35,16 @@ class BeginMacroCommand extends CommandExecute
             $command = trim($command);
             if ($command == 'abort') {
                 echo "Error: Macro command record aborted\n";
-              return;
-            } if ($command === self::END_MACRO) {
+                return;
+            }
+            if ($command === self::END_MACRO) {
                 $do = false;
             } else {
                 $cmd = $this->menu->getItemCommand($command);
                 if ($cmd === null) {
                     echo "Error: Unknown command `" . $command . "`\n";
                 } else {
-                    if (in_array($command, $this->robotCommands)) {
+                    if (in_array($command, $this->commands)) {
                         $macro->addCommand($cmd);
                         $count++;
                     } else {
@@ -55,7 +56,7 @@ class BeginMacroCommand extends CommandExecute
 
         if ($count > 0) {
             $this->menu->addItem($name, $description, $macro);
-            $this->robotCommands[] = $name;
+            $this->commands[] = $name;
             echo "Ok. Command created (count commands: $count).\n";
         } else {
             echo "Error: Can;t crete command width empty commands list\n";
