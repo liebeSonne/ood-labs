@@ -27,6 +27,9 @@
     "paint_trait": [
       "php ./public/index_trait_adapter.php"
     ],
+    "paint_class_adapter": [
+      "php ./public/index_class_adapter.php"
+    ],
     "app": [
       "@tests",
       "@paint"
