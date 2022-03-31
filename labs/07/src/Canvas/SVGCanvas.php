@@ -3,6 +3,7 @@
 namespace App\Canvas;
 
 use App\Style\RGBAColor;
+use App\Common\Point;
 
 class SVGCanvas implements CanvasInterface
 {
