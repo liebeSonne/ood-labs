@@ -13,7 +13,7 @@ class Rectangle implements CanvasDrawableInterface
 
     public function __construct(Point $leftTop, int $width, int $height, int $color = 0x000000)
     {
-        $this->leftTop = $leftTop;
+        $this->leftTop = clone $leftTop;
         $this->width = $width;
         $this->height = $height;
         $this->color = $color;
