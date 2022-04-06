@@ -45,9 +45,9 @@ class ShapeTest extends TestCase
         );
         $style = new StyleFill(new RGBAColor(0x66224411));
 
-        $shape->setFillStyle($style);
+        $shape->getFillStyle()->setColor($style->getColor());
 
-        $this->assertEquals($style, $shape->getFillStyle());
+        $this->assertEquals($style->getColor()->getColor(), $shape->getFillStyle()->getColor()->getColor());
     }
 
     public function testOutlineStyle(): void
@@ -59,9 +59,11 @@ class ShapeTest extends TestCase
         );
         $style = new StyleStroke(new RGBAColor(0x66224411), 2);
 
-        $shape->setOutlineStyle($style);
+        $shape->getOutlineStyle()->setColor($style->getColor());
+        $shape->getOutlineStyle()->setSize($style->getSize());
 
-        $this->assertEquals($style, $shape->getOutlineStyle());
+        $this->assertEquals($style->getSize(), $shape->getOutlineStyle()->getSize());
+        $this->assertEquals($style->getColor()->getColor(), $shape->getOutlineStyle()->getColor()->getColor());
     }
 
 }

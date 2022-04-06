@@ -23,6 +23,7 @@ use App\Shape\Rect;
 use App\Shape\ShapeInterface;
 use App\Shape\Group\Strategy\GroupGetFrameStrategy;
 use App\Style\Compound\CompoundFillStyle;
+use App\Style\Compound\CompoundStrokeStyle;
 use App\Style\Enumerator\FillStyleEnumerator;
 use App\Style\Enumerator\StrokeStyleEnumerator;
 use App\Style\Enumerator\StyleEnumeratorInterface;
@@ -45,12 +46,12 @@ class GroupShape implements GroupShapeInterface
     private GroupSetFrameStrategyInterface $strategySetFrame;
 
     private StyleEnumeratorInterface $strokeStyleEnumerator;
-    private GroupGetOutlineStyleStrategyInterface $strategyGetOutlineStyle;
-    private GroupSetOutlineStyleStrategyInterface $strategySetOutlineStyle;
-
+//    private GroupGetOutlineStyleStrategyInterface $strategyGetOutlineStyle;
+//    private GroupSetOutlineStyleStrategyInterface $strategySetOutlineStyle;
+//
     private StyleEnumeratorInterface $fillStyleEnumerator;
-    private GroupGetFillStyleStrategyInterface $strategyGetFillStyle;
-    private GroupSetFillStyleStrategyInterface $strategySetFillStyle;
+//    private GroupGetFillStyleStrategyInterface $strategyGetFillStyle;
+//    private GroupSetFillStyleStrategyInterface $strategySetFillStyle;
 
     public function __construct()
     {
@@ -69,13 +70,15 @@ class GroupShape implements GroupShapeInterface
 
         // стратегии обработки стилей через энумератор стилей
         $this->strokeStyleEnumerator = new StrokeStyleEnumerator($this);
-        $this->strategyGetOutlineStyle = new GroupGetOutlineStyleCompoundStrategy($this->outlineStyle, $this->strokeStyleEnumerator);
-        $this->strategySetOutlineStyle = new GroupSetOutlineStyleCompoundStrategy($this->outlineStyle, $this->strokeStyleEnumerator);
-
+//        $this->strategyGetOutlineStyle = new GroupGetOutlineStyleCompoundStrategy($this->outlineStyle, $this->strokeStyleEnumerator);
+//        $this->strategySetOutlineStyle = new GroupSetOutlineStyleCompoundStrategy($this->outlineStyle, $this->strokeStyleEnumerator);
+//
         $this->fillStyleEnumerator = new FillStyleEnumerator($this);
-        $this->strategyGetFillStyle = new GroupGetFillStyleCompoundStrategy($this->fillStyle, $this->fillStyleEnumerator);
-        $this->strategySetFillStyle = new GroupSetFillStyleCompoundStrategy($this->fillStyle, $this->fillStyleEnumerator);
+//        $this->strategyGetFillStyle = new GroupGetFillStyleCompoundStrategy($this->fillStyle, $this->fillStyleEnumerator);
+//        $this->strategySetFillStyle = new GroupSetFillStyleCompoundStrategy($this->fillStyle, $this->fillStyleEnumerator);
 
+        $this->outlineStyle = new CompoundStrokeStyle($this->strokeStyleEnumerator);
+        $this->fillStyle = new CompoundFillStyle($this->fillStyleEnumerator);
     }
 
     //-- ShapeInterface:
@@ -90,24 +93,14 @@ class GroupShape implements GroupShapeInterface
         $this->strategySetFrame->setFrame($frame);
     }
 
-    public function getOutlineStyle(): ?StyleStrokeInterface
+    public function getOutlineStyle(): StyleStrokeInterface
     {
-        return $this->outlineStyle = $this->strategyGetOutlineStyle->getOutlineStyle();
+        return $this->outlineStyle;
     }
 
-    public function setOutlineStyle(?StyleStrokeInterface $style): void
+    public function getFillStyle(): StyleFillInterface
     {
-        $this->strategySetOutlineStyle->setOutlineStyle($style);
-    }
-
-    public function getFillStyle(): ?StyleFillInterface
-    {
-        return $this->strategyGetFillStyle->getFillStyle();
-    }
-
-    public function setFillStyle(?StyleFillInterface $style): void
-    {
-        $this->strategySetFillStyle->setFillStyle($style);
+        return $this->fillStyle;
     }
 
     public function getGroup(): ?GroupShapeInterface

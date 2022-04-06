@@ -10,8 +10,8 @@ use App\Style\StyleStrokeInterface;
 abstract class Shape implements ShapeInterface
 {
     private Rect $frame;
-    private ?StyleStrokeInterface $outlineStyle;
-    private ?StyleFillInterface $fillStyle;
+    private StyleStrokeInterface $outlineStyle;
+    private StyleFillInterface $fillStyle;
 
     public function __construct(
         Rect $frame,
@@ -19,8 +19,12 @@ abstract class Shape implements ShapeInterface
         ?StyleFillInterface $fillStyle = null
     ) {
         $this->setFrame($frame);
-        $this->setOutlineStyle($outlineStyle);
-        $this->setFillStyle($fillStyle);
+        if ($outlineStyle !== null) {
+            $this->outlineStyle = clone $outlineStyle;
+        }
+        if ($fillStyle !== null) {
+            $this->fillStyle = clone $fillStyle;
+        }
     }
 
     public function getFrame(): Rect
@@ -30,27 +34,17 @@ abstract class Shape implements ShapeInterface
 
     public function setFrame(Rect $frame): void
     {
-        $this->frame = $frame;
+        $this->frame = clone $frame;
     }
 
-    public function getOutlineStyle(): ?StyleStrokeInterface
+    public function getOutlineStyle(): StyleStrokeInterface
     {
         return $this->outlineStyle;
     }
 
-    public function setOutlineStyle(?StyleStrokeInterface $style): void
-    {
-        $this->outlineStyle = $style;
-    }
-
-    public function getFillStyle(): ?StyleFillInterface
+    public function getFillStyle(): StyleFillInterface
     {
         return $this->fillStyle;
-    }
-
-    public function setFillStyle(?StyleFillInterface $style): void
-    {
-        $this->fillStyle = $style;
     }
 
     public function getGroup(): ?GroupShapeInterface

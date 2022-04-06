@@ -3,18 +3,15 @@
 namespace App\Style\Compound;
 
 use App\Style\Enumerator\StrokeStyleEnumerator;
-use App\Style\StyleFillInterface;
 use App\Style\StyleStrokeInterface;
 
 class CompoundStrokeStyle extends CompoundStyle implements StyleStrokeInterface
 {
-    private ?StyleStrokeInterface $style;
     private StrokeStyleEnumerator $enumerator;
 
-    public function __construct(?StyleStrokeInterface $style, StrokeStyleEnumerator $enumerator)
+    public function __construct(StrokeStyleEnumerator $enumerator)
     {
-        $this->style = $style;
-        parent::__construct($style, $enumerator);
+        parent::__construct($enumerator);
         $this->enumerator = $enumerator;
     }
 
@@ -37,7 +34,7 @@ class CompoundStrokeStyle extends CompoundStyle implements StyleStrokeInterface
         });
 
         if ($size === null) {
-            $size = $this->style !== null ? $this->style->getSize() : 0;
+            $size = 0;
         }
 
         return $size;

@@ -175,9 +175,9 @@ class GroupShapeTest extends TestCase
 
         $group->insertShape($triangle, 0);
         $color = new RGBAColor(0x00112233);
-        $style = new StyleFill($color);
 
-        $group->setFillStyle($style);
+        $style = $group->getFillStyle();
+        $style->setColor($color);
 
         $this->assertEquals($style->isEnabled(), $group->getFillStyle()->isEnabled());
         $this->assertEquals($style->getColor()->getColor(), $group->getFillStyle()->getColor()->getColor());
@@ -196,9 +196,10 @@ class GroupShapeTest extends TestCase
 
         $group->insertShape($triangle, 0);
         $color = new RGBAColor(0x00112233);
-        $style = new StyleStroke($color, 2);
 
-        $group->setOutlineStyle($style);
+        $style = $group->getOutlineStyle();
+        $style->setColor($color);
+        $style->setSize(2);
 
         $this->assertEquals($style->isEnabled(), $group->getOutlineStyle()->isEnabled());
         $this->assertEquals($style->getColor()->getColor(), $group->getOutlineStyle()->getColor()->getColor());

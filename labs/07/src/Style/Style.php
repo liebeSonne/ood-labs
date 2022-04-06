@@ -9,7 +9,7 @@ class Style implements StyleInterface
 
     public function __construct(RGBAColor $color)
     {
-        $this->color = $color;
+        $this->color = clone $color;
     }
 
     public function isEnabled(): bool
@@ -29,6 +29,6 @@ class Style implements StyleInterface
 
     public function setColor(RGBAColor $color): void
     {
-        $this->color = $color;
+        $this->color = clone $color;
     }
 }
