@@ -99,7 +99,7 @@ class GroupShapeNoStrategy implements GroupShapeInterface
             $shape->setFrame($shapeFrame);
         }
 
-        $this->frame = $frame;
+        $this->frame = clone $frame;
     }
 
     public function getOutlineStyle(): StyleStrokeInterface

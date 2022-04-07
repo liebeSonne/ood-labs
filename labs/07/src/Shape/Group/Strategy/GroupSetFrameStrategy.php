@@ -34,6 +34,6 @@ class GroupSetFrameStrategy implements GroupSetFrameStrategyInterface
             $shape->setFrame($shapeFrame);
         });
 
-        $this->frame = $frame;
+        $this->frame = clone $frame;
     }
 }
