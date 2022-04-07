@@ -15,16 +15,12 @@ abstract class Shape implements ShapeInterface
 
     public function __construct(
         Rect $frame,
-        ?StyleStrokeInterface $outlineStyle = null,
-        ?StyleFillInterface $fillStyle = null
+        StyleStrokeInterface $outlineStyle = null,
+        StyleFillInterface $fillStyle = null
     ) {
         $this->setFrame($frame);
-        if ($outlineStyle !== null) {
-            $this->outlineStyle = clone $outlineStyle;
-        }
-        if ($fillStyle !== null) {
-            $this->fillStyle = clone $fillStyle;
-        }
+        $this->outlineStyle = clone $outlineStyle;
+        $this->fillStyle = clone $fillStyle;
     }
 
     public function getFrame(): Rect
