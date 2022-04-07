@@ -3,14 +3,14 @@
 namespace App\Machine\WithState;
 
 use App\Machine\Common\Machine\GumballMachineInterface;
-use App\Machine\Common\Machine\GumballMachineStateInterface;
+use App\Machine\Common\Machine\GumballMachineUserInterface;
 use App\Machine\Common\State\HasQuarterState;
 use App\Machine\Common\State\NoQuarterState;
 use App\Machine\Common\State\SoldOutState;
 use App\Machine\Common\State\SoldState;
 use App\Machine\Common\State\StateInterface;
 
-class GumballMachine implements GumballMachineInterface, GumballMachineStateInterface
+class GumballMachine implements GumballMachineInterface, GumballMachineUserInterface
 {
     private int $count = 0;
     private SoldState $soldState;

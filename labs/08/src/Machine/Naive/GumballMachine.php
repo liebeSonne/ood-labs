@@ -2,9 +2,9 @@
 
 namespace App\Machine\Naive;
 
-use App\Machine\Common\Machine\GumballMachineStateInterface;
+use App\Machine\Common\Machine\GumballMachineUserInterface;
 
-class GumballMachine implements GumballMachineStateInterface
+class GumballMachine implements GumballMachineUserInterface
 {
     private int $count; // Количество шариков
     private string $state = State::SOLD_OUT;

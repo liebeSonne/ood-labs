@@ -3,7 +3,7 @@
 namespace App\Machine\WithState\Multi;
 
 use App\Machine\Common\Machine\GumballMachineInterface;
-use App\Machine\Common\Machine\GumballMachineStateInterface;
+use App\Machine\Common\Machine\GumballMachineUserInterface;
 use App\Machine\Common\Machine\MultiGumballMachineInterface;
 use App\Machine\WithState\Multi\State\HasQuarterState;
 use App\Machine\WithState\Multi\State\NoQuarterState;
@@ -11,7 +11,7 @@ use App\Machine\WithState\Multi\State\SoldOutState;
 use App\Machine\WithState\Multi\State\SoldState;
 use App\Machine\Common\State\StateInterface;
 
-class MultiGumballMachine implements GumballMachineInterface, GumballMachineStateInterface, MultiGumballMachineInterface
+class MultiGumballMachine implements GumballMachineInterface, GumballMachineUserInterface, MultiGumballMachineInterface
 {
     private int $maxQuarter = 1;
     private int $countQuarter = 0;

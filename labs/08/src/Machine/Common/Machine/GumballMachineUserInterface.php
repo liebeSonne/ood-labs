@@ -2,7 +2,7 @@
 
 namespace App\Machine\Common\Machine;
 
-interface GumballMachineStateInterface
+interface GumballMachineUserInterface
 {
     public function insertQuarter(): void;
     public function ejectQuarter(): void;

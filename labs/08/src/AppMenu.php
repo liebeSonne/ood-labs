@@ -11,7 +11,7 @@ use App\Command\Machine\ShowStateCommand;
 use App\Command\Machine\TurnCrankCommand;
 use App\Command\Menu\MenuExitCommand;
 use App\Command\Menu\MenuHelpCommand;
-use App\Machine\Common\Machine\GumballMachineStateInterface;
+use App\Machine\Common\Machine\GumballMachineUserInterface;
 use App\Machine\Naive\GumballMachine as NaiveGumballMachine;
 use App\Machine\Naive\Multi\MultiGumballMachine as NaiveMultiGumballMachine;
 use App\Machine\WithState\GumballMachine as WithStateGumballMachine;
@@ -63,7 +63,7 @@ class AppMenu
         $this->machineMenu->run();
     }
 
-    public function selectMachine(GumballMachineStateInterface $machine): void
+    public function selectMachine(GumballMachineUserInterface $machine): void
     {
         $this->machine = $machine;
 
