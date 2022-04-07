@@ -2,10 +2,10 @@
 
 namespace App\Machine\Naive\Multi;
 
-use App\Machine\Common\Machine\GumballMachineTypeInterface;
+use App\Machine\Common\Machine\GumballMachineStateInterface;
 use App\Machine\Naive\State;
 
-class MultiGumballMachine implements GumballMachineTypeInterface
+class MultiGumballMachine implements GumballMachineStateInterface
 {
     private int $maxQuarter = 1;
     private int $countQuarter = 0; // Количество монеток

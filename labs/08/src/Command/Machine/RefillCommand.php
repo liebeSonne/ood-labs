@@ -3,14 +3,14 @@
 namespace App\Command\Machine;
 
 use App\Command\CommandInterface;
-use App\Machine\Common\Machine\GumballMachineTypeInterface;
+use App\Machine\Common\Machine\GumballMachineStateInterface;
 
 class RefillCommand implements CommandInterface
 {
-    private GumballMachineTypeInterface $machine;
+    private GumballMachineStateInterface $machine;
     private int $numBalls;
 
-    public function __construct(GumballMachineTypeInterface &$machine, int $numBalls)
+    public function __construct(GumballMachineStateInterface &$machine, int $numBalls)
     {
         $this->machine = $machine;
         $this->numBalls = $numBalls;

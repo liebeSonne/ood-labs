@@ -4,14 +4,14 @@ namespace App\Command\App;
 
 use App\Command\CommandInterface;
 use App\AppMenu;
-use App\Machine\Common\Machine\GumballMachineTypeInterface;
+use App\Machine\Common\Machine\GumballMachineStateInterface;
 
 class SelectMachineCommand implements CommandInterface
 {
     private AppMenu $app;
-    private GumballMachineTypeInterface $machine;
+    private GumballMachineStateInterface $machine;
 
-    public function __construct(AppMenu $app, GumballMachineTypeInterface $machine)
+    public function __construct(AppMenu $app, GumballMachineStateInterface $machine)
     {
         $this->app = $app;
         $this->machine = $machine;

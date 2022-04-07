@@ -3,13 +3,13 @@
 namespace App\Command\Machine;
 
 use App\Command\CommandInterface;
-use App\Machine\Common\Machine\GumballMachineTypeInterface;
+use App\Machine\Common\Machine\GumballMachineStateInterface;
 
 class ShowStateCommand implements CommandInterface
 {
-    private GumballMachineTypeInterface $machine;
+    private GumballMachineStateInterface $machine;
 
-    public function __construct(GumballMachineTypeInterface &$machine)
+    public function __construct(GumballMachineStateInterface &$machine)
     {
         $this->machine = $machine;
     }

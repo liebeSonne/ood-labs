@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Machine\Common\Machine\GumballMachineTypeInterface;
+use App\Machine\Common\Machine\GumballMachineStateInterface;
 use App\Machine\Naive\Multi\MultiGumballMachine as NativeMultiGumballMachine;
 use App\Machine\WithState\Multi\MultiGumballMachine as WithStateMultiGumballMachine;
 
@@ -16,7 +16,7 @@ class AppMulti
         $this->testMultiGumballMachineWithState();
     }
 
-    public function TestMultiGumballMachine(GumballMachineTypeInterface $machine): void
+    public function TestMultiGumballMachine(GumballMachineStateInterface $machine): void
     {
         echo  $machine->toString() . "\n";
 

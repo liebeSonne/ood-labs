@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Machine\Common\Machine\GumballMachineTypeInterface;
+use App\Machine\Common\Machine\GumballMachineStateInterface;
 use App\Machine\Naive\GumballMachine as NaiveGumballMachine;
 use App\Machine\DynamicState\GumballMachine as DynamicGumballMachine;
 use App\Machine\WithState\GumballMachine as WithStateGumballMachine;
@@ -20,7 +20,7 @@ class App
         $this->testGumballMachineWithDynamicState();
     }
 
-    public function TestGumballMachine(GumballMachineTypeInterface $machine): void
+    public function TestGumballMachine(GumballMachineStateInterface $machine): void
     {
         echo  $machine->toString() . "\n";
 
