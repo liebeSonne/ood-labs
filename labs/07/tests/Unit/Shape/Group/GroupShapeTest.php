@@ -93,9 +93,19 @@ class GroupShapeTest extends TestCase
     {
         $frame = new Rect(10, 20, 50, 100);
         $group = new GroupShape();
+        $shape = new Rectangle(new Rect(15,16,20,20),
+            new StyleStroke(new RGBAColor(0), 0),
+            new StyleFill(new RGBAColor(0))
+        );
+        $group->insertShape($shape, 0);
         $group->setFrame($frame);
 
-        $this->assertEquals($frame, $group->getFrame());
+        $groupFrame = $group->getFrame();
+
+        $this->assertEquals($frame->height, $groupFrame->height);
+        $this->assertEquals($frame->width, $groupFrame->width);
+        $this->assertEquals($frame->top, $groupFrame->top);
+        $this->assertEquals($frame->left, $groupFrame->left);
     }
 
     public function testSetFrameShapes(): void
@@ -103,7 +113,10 @@ class GroupShapeTest extends TestCase
         $frame = new Rect(10, 20, 50, 100);
 
         $group = new GroupShape();
-        $shape = new Rectangle(new Rect(15,16,20,20));
+        $shape = new Rectangle(new Rect(15,16,20,20),
+            new StyleStroke(new RGBAColor(0), 0),
+            new StyleFill(new RGBAColor(0))
+        );
         $group->insertShape($shape, 0);
         $oldFrame = clone $shape->getFrame();
 

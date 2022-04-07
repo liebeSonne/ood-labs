@@ -32,7 +32,6 @@ use App\Style\StyleStrokeInterface;
 
 class GroupShape implements GroupShapeInterface
 {
-    private Rect $frame;
     private ?StyleStrokeInterface $outlineStyle = null;
     private ?StyleFillInterface $fillStyle = null;
 
@@ -55,12 +54,10 @@ class GroupShape implements GroupShapeInterface
 
     public function __construct()
     {
-        $this->frame = new Rect(0,0,0,0);
-
         // варианты с вынесением алгоритмов в стратегии и перебором через энумератор элементов
         $this->shapesEnumerator = new ShapesEnumerator($this);
-        $this->strategyGetFrame = new GroupGetFrameStrategy($this->frame, $this->shapesEnumerator);
-        $this->strategySetFrame = new GroupSetFrameStrategy($this->frame, $this->shapesEnumerator);
+        $this->strategyGetFrame = new GroupGetFrameStrategy($this->shapesEnumerator);
+        $this->strategySetFrame = new GroupSetFrameStrategy($this->shapesEnumerator);
 
         // стратегии обработки стилей через энумератор элементов
 //        $this->strategyGetOutlineStyle = new GroupGetOutlineStyleStrategy($this->shapesEnumerator);
@@ -90,7 +87,7 @@ class GroupShape implements GroupShapeInterface
 
     public function setFrame(Rect $frame): void
     {
-        $this->strategySetFrame->setFrame($frame);
+        $this->strategySetFrame->setFrame($frame, $this->getFrame());
     }
 
     public function getOutlineStyle(): StyleStrokeInterface

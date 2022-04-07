@@ -15,8 +15,8 @@ abstract class Shape implements ShapeInterface
 
     public function __construct(
         Rect $frame,
-        StyleStrokeInterface $outlineStyle = null,
-        StyleFillInterface $fillStyle = null
+        StyleStrokeInterface $outlineStyle,
+        StyleFillInterface $fillStyle
     ) {
         $this->setFrame($frame);
         $this->outlineStyle = clone $outlineStyle;

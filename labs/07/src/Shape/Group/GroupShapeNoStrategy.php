@@ -15,7 +15,6 @@ use App\Style\StyleStrokeInterface;
 
 class GroupShapeNoStrategy implements GroupShapeInterface
 {
-    private Rect $frame;
     private ?StyleStrokeInterface $outlineStyle = null;
     private ?StyleFillInterface $fillStyle = null;
 
@@ -29,8 +28,6 @@ class GroupShapeNoStrategy implements GroupShapeInterface
 
     public function __construct()
     {
-        $this->frame = new Rect(0,0,0,0);
-
         $this->strokeStyleEnumerator = new StrokeStyleEnumerator($this);
         $this->fillStyleEnumerator = new FillStyleEnumerator($this);
 
@@ -43,10 +40,7 @@ class GroupShapeNoStrategy implements GroupShapeInterface
     public function getFrame(): Rect
     {
         // фрейм расчитывается так, чтобы охватить фреймы всех входящих в группу элементов
-        $this->frame->left = 0;
-        $this->frame->top = 0;
-        $this->frame->width = 0;
-        $this->frame->height = 0;
+        $groupFrame = new Rect(0,0,0,0);
         $minX = null;
         $minY = null;
         $maxX = null;
@@ -73,21 +67,22 @@ class GroupShapeNoStrategy implements GroupShapeInterface
             if ($maxY === null || $maxY < $ym) {
                 $maxY = $ym;
             }
-            $this->frame->left = $minX;
-            $this->frame->top = $minY;
-            $this->frame->width = $maxX - $minX;
-            $this->frame->height = $maxY - $minY;
+            $groupFrame->left = $minX;
+            $groupFrame->top = $minY;
+            $groupFrame->width = $maxX - $minX;
+            $groupFrame->height = $maxY - $minY;
         }
 
-        return $this->frame;
+        return $groupFrame;
     }
 
     public function setFrame(Rect $frame): void
     {
-        $diffLeft = $frame->left - $this->frame->left;
-        $diffTop = $frame->top - $this->frame->top;
-        $scaleWidth = $this->frame->width != 0 ? $frame->width / $this->frame->width : 0;
-        $scaleHeight = $this->frame->height != 0 ? $frame->height / $this->frame->height : 0;
+        $groupFrame = $this->getFrame();
+        $diffLeft = $frame->left - $groupFrame->left;
+        $diffTop = $frame->top - $groupFrame->top;
+        $scaleWidth = $groupFrame->width != 0 ? $frame->width / $groupFrame->width : 0;
+        $scaleHeight = $groupFrame->height != 0 ? $frame->height / $groupFrame->height : 0;
 
         foreach ($this->shapes as $shape) {
             // пропорциональное изменение размера и положения всем элементам
@@ -98,8 +93,6 @@ class GroupShapeNoStrategy implements GroupShapeInterface
             $shapeFrame->height *= $scaleHeight;
             $shape->setFrame($shapeFrame);
         }
-
-        $this->frame = clone $frame;
     }
 
     public function getOutlineStyle(): StyleStrokeInterface

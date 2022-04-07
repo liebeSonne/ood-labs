@@ -6,5 +6,5 @@ use App\Shape\Rect;
 
 interface GroupGetFrameStrategyInterface
 {
-    public function getFrame(): ?Rect;
+    public function getFrame(): Rect;
 }

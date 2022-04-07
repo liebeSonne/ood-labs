@@ -8,27 +8,22 @@ use App\Shape\ShapeInterface;
 
 class GroupGetFrameStrategy implements GroupGetFrameStrategyInterface
 {
-    private Rect $frame;
     private ShapesEnumeratorInterface $enumerator;
 
-    public function __construct(Rect &$frame, ShapesEnumeratorInterface $enumerator)
+    public function __construct(ShapesEnumeratorInterface $enumerator)
     {
-        $this->frame =& $frame;
         $this->enumerator = $enumerator;
     }
 
-    public function getFrame(): ?Rect
+    public function getFrame(): Rect
     {
         // фрейм расчитывается так, чтобы охватить фреймы всех входящих в группу элементов
-        $this->frame->left = 0;
-        $this->frame->top = 0;
-        $this->frame->width = 0;
-        $this->frame->height = 0;
+        $groupFrame = new Rect(0,0,0,0);
         $minX = null;
         $minY = null;
         $maxX = null;
         $maxY = null;
-        $this->enumerator->enumShapes(function (ShapeInterface $shape) use(&$minX, &$minY, &$maxX, &$maxY) {
+        $this->enumerator->enumShapes(function (ShapeInterface $shape) use(&$minX, &$minY, &$maxX, &$maxY, &$groupFrame) {
             $frame = $shape->getFrame();
             // не учитываем элементы с нулевыми размерами
             if ($frame->width == 0 || $frame->height == 0) {
@@ -50,12 +45,12 @@ class GroupGetFrameStrategy implements GroupGetFrameStrategyInterface
             if ($maxY === null || $maxY < $ym) {
                 $maxY = $ym;
             }
-            $this->frame->left = $minX;
-            $this->frame->top = $minY;
-            $this->frame->width = $maxX - $minX;
-            $this->frame->height = $maxY - $minY;
+            $groupFrame->left = $minX;
+            $groupFrame->top = $minY;
+            $groupFrame->width = $maxX - $minX;
+            $groupFrame->height = $maxY - $minY;
         });
 
-        return $this->frame;
+        return $groupFrame;
     }
 }
