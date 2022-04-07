@@ -15,45 +15,49 @@ class CompoundStyle implements StyleInterface
         $this->enumerator = $enumerator;
     }
 
-    public function isEnabled(): bool
+    public function isEnabled(): ?bool
     {
-        $isEnables = true;
-        $this->enumerator->enumStyles(function (?StyleInterface $style) use (&$isEnables) {
-            $isEnables = $isEnables && $style !== null && $style->isEnabled();
+        $isEnabled = null;
+        $isFirst = true;
+        $this->enumerator->enumStyles(function (StyleInterface $style) use (&$isEnabled, &$isFirst) {
+            if ($style->isEnabled() == null) {
+                $isEnabled = null;
+            } elseif ($isFirst) {
+                $isEnabled = $style->isEnabled();
+            } elseif($isEnabled == null) {
+                $isEnabled = null;
+            } else {
+                $isEnabled = $isEnabled && $style->isEnabled();
+            }
+            $isFirst = false;
         });
 
-        return $isEnables;
+        return $isEnabled;
     }
 
     public function enable(bool $enable): void
     {
-        $this->enumerator->enumStyles(function (?StyleInterface &$style) use ($enable) {
-            if ($style !== null) {
-                $style->enable($enable);
-            }
+        $this->enumerator->enumStyles(function (StyleInterface &$style) use ($enable) {
+            $style->enable($enable);
         });
     }
 
-    public function getColor(): RGBAColor
+    public function getColor(): ?RGBAColor
     {
         $color = null;
         $isFirst = true;
-        $hasNull = false;
-        $this->enumerator->enumStyles(function (?StyleInterface $style) use (&$color, &$isFirst, &$hasNull) {
-            if ($style === null) {
-                $hasNull = true;
-            } elseif (!$hasNull) {
-                if ($isFirst) {
-                    $color = $style->getColor()->getColor();
-                    $isFirst = false;
-                } elseif ($color === null || $color !== $style->getColor()->getColor()) {
-                    $color = null;
-                }
+        $this->enumerator->enumStyles(function (StyleInterface $style) use (&$color, &$isFirst, &$hasNull) {
+            if ($isFirst) {
+                $rColor = $style->getColor();
+                $color = $rColor != null ? $rColor->getColor() : null;
+                $isFirst = false;
+            } elseif ($color === null || $color !== $style->getColor()->getColor()) {
+                $color = null;
             }
         });
 
-        if ($color === null) {
-            $color = 0;
+        if ($color == null) {
+            return null;
         }
 
         return new RGBAColor($color);
@@ -61,10 +65,8 @@ class CompoundStyle implements StyleInterface
 
     public function setColor(RGBAColor $color): void
     {
-        $this->enumerator->enumStyles(function (?StyleInterface &$style) use ($color) {
-            if ($style !== null) {
-                $style->setColor($color);
-            }
+        $this->enumerator->enumStyles(function (StyleInterface &$style) use ($color) {
+            $style->setColor($color);
         });
     }
 }

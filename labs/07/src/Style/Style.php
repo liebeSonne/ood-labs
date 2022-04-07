@@ -22,7 +22,7 @@ class Style implements StyleInterface
         $this->enabled = $enable;
     }
 
-    public function getColor(): RGBAColor
+    public function getColor(): ?RGBAColor
     {
         return $this->color;
     }
