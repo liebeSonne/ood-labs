@@ -20,9 +20,4 @@ class RefillCommand implements CommandInterface
     {
         $this->machine->refill($this->numBalls);
     }
-
-    public function unexecute(): void
-    {
-
-    }
 }

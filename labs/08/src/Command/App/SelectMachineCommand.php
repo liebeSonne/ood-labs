@@ -21,9 +21,4 @@ class SelectMachineCommand implements CommandInterface
     {
         $this->app->selectMachine($this->machine);
     }
-
-    public function unexecute(): void
-    {
-
-    }
 }

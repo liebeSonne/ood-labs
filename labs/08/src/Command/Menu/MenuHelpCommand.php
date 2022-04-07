@@ -18,9 +18,4 @@ class MenuHelpCommand implements CommandInterface
     {
         $this->menu->showInstructions();
     }
-
-    public function unexecute(): void
-    {
-
-    }
 }

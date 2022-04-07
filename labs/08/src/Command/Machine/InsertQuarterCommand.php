@@ -18,9 +18,4 @@ class InsertQuarterCommand implements CommandInterface
     {
         $this->machine->insertQuarter();
     }
-
-    public function unexecute(): void
-    {
-
-    }
 }

@@ -18,9 +18,4 @@ class TurnCrankCommand implements CommandInterface
     {
         $this->machine->turnCrank();
     }
-
-    public function unexecute(): void
-    {
-
-    }
 }

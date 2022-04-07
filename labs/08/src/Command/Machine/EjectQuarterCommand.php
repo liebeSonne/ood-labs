@@ -18,9 +18,4 @@ class EjectQuarterCommand implements CommandInterface
     {
         $this->machine->ejectQuarter();
     }
-
-    public function unexecute(): void
-    {
-
-    }
 }

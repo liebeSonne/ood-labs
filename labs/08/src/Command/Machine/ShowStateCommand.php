@@ -18,9 +18,4 @@ class ShowStateCommand implements CommandInterface
     {
         echo $this->machine->toString();
     }
-
-    public function unexecute(): void
-    {
-
-    }
 }

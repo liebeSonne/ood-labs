@@ -23,9 +23,4 @@ class MenuExitCommand implements CommandInterface
             $this->prevMenu->showInstructions();
         }
     }
-
-    public function unexecute(): void
-    {
-
-    }
 }

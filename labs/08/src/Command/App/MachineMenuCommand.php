@@ -18,9 +18,4 @@ class MachineMenuCommand implements CommandInterface
     {
         $this->app->machineMenu();
     }
-
-    public function unexecute(): void
-    {
-
-    }
 }
