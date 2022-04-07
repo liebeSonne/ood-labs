@@ -20,7 +20,7 @@ class NoQuartedStateTest extends TestCase
 
     public function testInsertQuarter(): void
     {
-        $maxQuarterCount = 0;
+        $maxQuarterCount = 5;
         $quarterCount = 0;
         $this->machine->method('getMaxQuarterCount')->willReturn($maxQuarterCount);
         $this->machine->method('getQuarterCount')->willReturn($quarterCount);

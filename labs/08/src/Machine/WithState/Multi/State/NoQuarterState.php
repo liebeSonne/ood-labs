@@ -18,10 +18,14 @@ class NoQuarterState implements StateInterface
     {
         $maxQuarter = $this->gumballMachine->getMaxQuarterCount();
         $countQuarter = $this->gumballMachine->getQuarterCount();
-        $countQuarter++;
-        $this->gumballMachine->setQuarterCount($countQuarter);
-        echo "You inserted a quarter ($countQuarter / $maxQuarter)\n";
-        $this->gumballMachine->setHasQuarterState();
+        if ($countQuarter < $maxQuarter) {
+            $countQuarter++;
+            $this->gumballMachine->setQuarterCount($countQuarter);
+            echo "You inserted a quarter ($countQuarter / $maxQuarter)\n";
+            $this->gumballMachine->setHasQuarterState();
+        } else {
+            echo "You can't insert another quarter ($countQuarter / $maxQuarter)\n";
+        }
     }
 
     public function ejectQuarter(): void
