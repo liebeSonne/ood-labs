@@ -18,15 +18,21 @@ class Triangle extends Shape
         ];
 
         $fillStyle = $this->getFillStyle();
-        if ($fillStyle && $fillStyle->isEnabled()) {
-            $canvas->setFillColor($fillStyle->getColor());
+        if ($fillStyle && $fillStyle->isEnabled() && $fillStyle->isEnabled() !== null) {
+            if ($fillStyle->getColor() !== null) {
+                $canvas->setFillColor($fillStyle->getColor());
+            }
             $canvas->fillRect($points);
         }
 
         $lineStyle = $this->getOutlineStyle();
-        if ($lineStyle && $lineStyle->isEnabled()) {
-            $canvas->setLineColor($lineStyle->getColor());
-            $canvas->setLineSize($lineStyle->getSize());
+        if ($lineStyle && $lineStyle->isEnabled() && $lineStyle->isEnabled() !== null) {
+            if ($lineStyle->getColor() !== null) {
+                $canvas->setLineColor($lineStyle->getColor());
+            }
+            if ($lineStyle->getSize() !== null) {
+                $canvas->setLineSize($lineStyle->getSize());
+            }
             $canvas->drawRect($points);
         }
     }
