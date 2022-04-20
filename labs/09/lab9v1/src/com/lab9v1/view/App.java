@@ -1,6 +1,6 @@
 package com.lab9v1.view;
 
-import com.lab9v1.view.AddNewHarmonic;
+import com.lab9v1.controller.MainController;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -18,8 +18,13 @@ public class App {
     private JTextField frequencyTextField;
     private JTextField phaseTextField;
     private JPanel mainPanel;
+    private ButtonGroup formulaButtonGroup;
 
-    public App() {
+    private MainController controller;
+
+    public App(MainController controller) {
+        this.controller = controller;
+
         addNewButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -39,7 +44,7 @@ public class App {
     }
 
     private void onAddNewButton() {
-        JDialog dialog = new AddNewHarmonic();
+        JDialog dialog = new AddNewHarmonic(controller);
         dialog.pack();
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.setVisible(true);

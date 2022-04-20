@@ -185,7 +185,7 @@
     </children>
   </grid>
   <buttonGroups>
-    <group name="angleButtonGroup">
+    <group name="formulaButtonGroup" bound="true">
       <member id="a0354"/>
       <member id="47497"/>
     </group>

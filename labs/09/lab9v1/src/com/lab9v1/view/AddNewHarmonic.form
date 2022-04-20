@@ -161,4 +161,10 @@
       </grid>
     </children>
   </grid>
+  <buttonGroups>
+    <group name="formulaButtonGroup" bound="true">
+      <member id="737ed"/>
+      <member id="2becc"/>
+    </group>
+  </buttonGroups>
 </form>
