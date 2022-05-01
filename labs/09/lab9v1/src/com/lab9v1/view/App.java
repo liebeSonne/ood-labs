@@ -25,6 +25,14 @@ public class App {
     public App(MainController controller) {
         this.controller = controller;
 
+        this.bindEvents();
+    }
+
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
+
+    private void bindEvents() {
         addNewButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -37,10 +45,6 @@ public class App {
                 onDeleteSelectedButton();
             }
         });
-    }
-
-    public JPanel getMainPanel() {
-        return mainPanel;
     }
 
     private void onAddNewButton() {
