@@ -12,7 +12,7 @@ public class App {
     private JTextField amplitudeTextField;
     private JList harmonicsList;
     private JTabbedPane tabbedPane1;
-    private JTable table1;
+    private JTable table;
     private JRadioButton sinRadioButton;
     private JRadioButton cosRadioButton;
     private JTextField frequencyTextField;
