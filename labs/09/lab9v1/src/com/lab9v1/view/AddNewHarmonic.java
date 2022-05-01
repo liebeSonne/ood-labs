@@ -22,37 +22,39 @@ public class AddNewHarmonic extends JDialog {
     private ButtonGroup formulaButtonGroup;
 
     private MainController controller;
+    private Harmonica harmonica;
 
-    public AddNewHarmonic(MainController controller) {
+    public AddNewHarmonic(MainController controller, Harmonica harmonica) {
         this.controller = controller;
+        this.harmonica = harmonica;
 
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
+        // call onCancel() when cross is clicked
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
+        bindEvents();
+        bindRedraw();
+        redrawHarmonica();
+    }
+
+    private void bindEvents() {
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onOK();
             }
         });
-
         buttonCancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onCancel();
             }
         });
-
-        bindRedraw();
-        redrawHarmonica();
-
-        // call onCancel() when cross is clicked
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 onCancel();
             }
         });
-
         // call onCancel() on ESCAPE
         contentPane.registerKeyboardAction(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -157,13 +159,8 @@ public class AddNewHarmonic extends JDialog {
     }
 
     private void onOK() {
-        double amplitude = getAmplitude();
-        Formula formula = getFormula();
-        int frequency = getFrequency();
-        int phase = getPhase();
-
-        controller.addHarmonica(amplitude, formula, frequency, phase);
-
+        this.setData(this.harmonica);
+        controller.addHarmonica(this.harmonica.getAmplitude(), this.harmonica.getFormula(), this.harmonica.getFrequency(), this.harmonica.getPhase());
         dispose();
     }
 
@@ -190,5 +187,53 @@ public class AddNewHarmonic extends JDialog {
 
     private int getPhase() {
         return Integer.parseInt(phaseTextField.getText());
+    }
+
+    public void setData(Harmonica data) {
+        amplitudeTextField.setText(Double.toString(data.getAmplitude()));
+        frequencyTextField.setText(Integer.toString(data.getFrequency()));
+        phaseTextField.setText(Integer.toString(data.getPhase()));
+
+        formulaButtonGroup.clearSelection();
+        switch (data.getFormula()) {
+            case COS -> cosRadioButton.setSelected(true);
+            case SIN -> sinRadioButton.setSelected(true);
+        }
+    }
+
+    public void getData(Harmonica data) {
+        data.setAmplitude(Double.parseDouble(amplitudeTextField.getText()));
+        data.setFrequency(Integer.parseInt(frequencyTextField.getText()));
+        data.setPhase(Integer.parseInt(phaseTextField.getText()));
+        data.setFormula(this.getFormula());
+    }
+
+    public boolean isModified(Harmonica data) {
+        if (amplitudeTextField.getText() == null || !amplitudeTextField.getText().equals(Double.toString(data.getAmplitude())))
+            return true;
+        if (frequencyTextField.getText() == null || !frequencyTextField.getText().equals(Integer.toString(data.getFrequency())))
+            return true;
+        if (phaseTextField.getText() == null || !phaseTextField.getText().equals(Integer.toString(data.getPhase())))
+            return true;
+        if (formulaButtonGroup.getSelection() != null ? formulaButtonGroup.getSelection().equals(this.convertFromFormula(data.getFormula())) : data.getFormula() != null)
+            return true;
+        return false;
+    }
+
+    private Formula convertToFormula(JRadioButton button){
+        if (cosRadioButton.equals(button)) {
+            return Formula.COS;
+        } else if (sinRadioButton.equals(button)) {
+            return Formula.SIN;
+        }
+        return null;
+    }
+
+    private JRadioButton convertFromFormula(Formula formula){
+        switch (formula) {
+            case COS -> {return cosRadioButton;}
+            case SIN -> {return sinRadioButton;}
+        }
+        return null;
     }
 }

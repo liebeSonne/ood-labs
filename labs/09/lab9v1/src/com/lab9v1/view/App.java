@@ -1,6 +1,8 @@
 package com.lab9v1.view;
 
 import com.lab9v1.controller.MainController;
+import com.lab9v1.model.Formula;
+import com.lab9v1.model.Harmonica;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -50,7 +52,8 @@ public class App {
     }
 
     private void onAddNewButton() {
-        JDialog dialog = new AddNewHarmonic(controller);
+        Harmonica harmonica = new Harmonica(1, Formula.SIN, 1, 0);
+        JDialog dialog = new AddNewHarmonic(controller, harmonica);
         dialog.pack();
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.setVisible(true);
