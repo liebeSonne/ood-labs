@@ -11,13 +11,14 @@ public class App {
     private JButton deleteSelectedButton;
     private JTextField amplitudeTextField;
     private JList harmonicsList;
-    private JTabbedPane tabbedPane1;
+    private JTabbedPane tabbedPane;
     private JTable table;
     private JRadioButton sinRadioButton;
     private JRadioButton cosRadioButton;
     private JTextField frequencyTextField;
     private JTextField phaseTextField;
     private JPanel mainPanel;
+    private JPanel selectedHarmonicaPanel;
     private ButtonGroup formulaButtonGroup;
 
     private MainController controller;
