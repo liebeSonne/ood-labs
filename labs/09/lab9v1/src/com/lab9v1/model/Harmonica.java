@@ -49,4 +49,15 @@ public class Harmonica {
     public String toString() {
         return getAmplitude() + "*" + getFormula() + "(" + getFrequency() + "*x+" + getPhase() + ")";
     }
+
+    public double execute(double x) {
+        double value = amplitude;
+        double a = frequency * x + phase;
+        if (formula == Formula.SIN) {
+            value *= Math.sin(a);
+        } else if (formula == Formula.COS) {
+            value *= Math.cos(a);
+        }
+        return value;
+    }
 }
