@@ -19,6 +19,7 @@ public class App {
     private JTextField phaseTextField;
     private JPanel mainPanel;
     private JPanel selectedHarmonicaPanel;
+    private JPanel listPanel;
     private ButtonGroup formulaButtonGroup;
 
     private MainController controller;
