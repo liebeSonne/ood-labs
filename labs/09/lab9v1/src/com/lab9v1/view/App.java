@@ -78,7 +78,9 @@ public class App implements DocumentObserver {
      }
 
      private void onDeleteSelectedButton() {
-
+        if (this.selectedHarmonica != null && this.selectedHarmonica.isPresent()) {
+            this.controller.removeHarmonica(this.selectedHarmonica.get());
+        }
      }
 
      private void drawList() {
