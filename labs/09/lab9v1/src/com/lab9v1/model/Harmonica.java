@@ -1,6 +1,6 @@
 package com.lab9v1.model;
 
-public class Harmonica {
+public class Harmonica implements HarmonicaExecutor {
     private double amplitude;
     private Formula formula;
     private double frequency;
