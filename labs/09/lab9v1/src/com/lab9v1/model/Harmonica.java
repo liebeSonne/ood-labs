@@ -3,10 +3,10 @@ package com.lab9v1.model;
 public class Harmonica {
     private double amplitude;
     private Formula formula;
-    private int frequency;
-    private int phase;
+    private double frequency;
+    private double phase;
 
-    public Harmonica(double amplitude, Formula formula, int frequency, int phase) {
+    public Harmonica(double amplitude, Formula formula, double frequency, double phase) {
         setAmplitude(amplitude);
         setFormula(formula);
         setFrequency(frequency);
@@ -21,11 +21,11 @@ public class Harmonica {
         return formula;
     }
 
-    public int getFrequency() {
+    public double getFrequency() {
         return frequency;
     }
 
-    public int getPhase() {
+    public double getPhase() {
         return phase;
     }
 
@@ -37,11 +37,11 @@ public class Harmonica {
         this.formula = formula;
     }
 
-    public void setFrequency(int frequency) {
+    public void setFrequency(double frequency) {
         this.frequency = frequency;
     }
 
-    public void setPhase(int phase) {
+    public void setPhase(double phase) {
         this.phase = phase;
     }
 

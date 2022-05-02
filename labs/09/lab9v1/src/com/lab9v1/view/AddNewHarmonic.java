@@ -95,21 +95,21 @@ public class AddNewHarmonic extends JDialog {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 if (getFrequency() < 0) {
-                    frequencyTextField.setText(Integer.toString(0));
+                    frequencyTextField.setText(Double.toString(0));
                 }
                 redrawHarmonica();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                frequencyTextField.setText(Integer.toString(0));
+                frequencyTextField.setText(Double.toString(0));
                 redrawHarmonica();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
                 if (getFrequency() < 0) {
-                    frequencyTextField.setText(Integer.toString(0));
+                    frequencyTextField.setText(Double.toString(0));
                 }
                 redrawHarmonica();
             }
@@ -119,21 +119,21 @@ public class AddNewHarmonic extends JDialog {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 if (getPhase() < 0) {
-                    phaseTextField.setText(Integer.toString(0));
+                    phaseTextField.setText(Double.toString(0));
                 }
                 redrawHarmonica();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                phaseTextField.setText(Integer.toString(0));
+                phaseTextField.setText(Double.toString(0));
                 redrawHarmonica();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
                 if (getPhase() < 0) {
-                    phaseTextField.setText(Integer.toString(0));
+                    phaseTextField.setText(Double.toString(0));
                 }
                 redrawHarmonica();
             }
@@ -181,18 +181,18 @@ public class AddNewHarmonic extends JDialog {
         }
     }
 
-    private int getFrequency() {
-        return Integer.parseInt(frequencyTextField.getText());
+    private double getFrequency() {
+        return Double.parseDouble(frequencyTextField.getText());
     }
 
-    private int getPhase() {
-        return Integer.parseInt(phaseTextField.getText());
+    private double getPhase() {
+        return Double.parseDouble(phaseTextField.getText());
     }
 
     public void setData(Harmonica data) {
         amplitudeTextField.setText(Double.toString(data.getAmplitude()));
-        frequencyTextField.setText(Integer.toString(data.getFrequency()));
-        phaseTextField.setText(Integer.toString(data.getPhase()));
+        frequencyTextField.setText(Double.toString(data.getFrequency()));
+        phaseTextField.setText(Double.toString(data.getPhase()));
 
         formulaButtonGroup.clearSelection();
         switch (data.getFormula()) {
@@ -203,17 +203,17 @@ public class AddNewHarmonic extends JDialog {
 
     public void getData(Harmonica data) {
         data.setAmplitude(Double.parseDouble(amplitudeTextField.getText()));
-        data.setFrequency(Integer.parseInt(frequencyTextField.getText()));
-        data.setPhase(Integer.parseInt(phaseTextField.getText()));
+        data.setFrequency(Double.parseDouble(frequencyTextField.getText()));
+        data.setPhase(Double.parseDouble(phaseTextField.getText()));
         data.setFormula(this.getFormula());
     }
 
     public boolean isModified(Harmonica data) {
         if (amplitudeTextField.getText() == null || !amplitudeTextField.getText().equals(Double.toString(data.getAmplitude())))
             return true;
-        if (frequencyTextField.getText() == null || !frequencyTextField.getText().equals(Integer.toString(data.getFrequency())))
+        if (frequencyTextField.getText() == null || !frequencyTextField.getText().equals(Double.toString(data.getFrequency())))
             return true;
-        if (phaseTextField.getText() == null || !phaseTextField.getText().equals(Integer.toString(data.getPhase())))
+        if (phaseTextField.getText() == null || !phaseTextField.getText().equals(Double.toString(data.getPhase())))
             return true;
         if (formulaButtonGroup.getSelection() != null ? formulaButtonGroup.getSelection().equals(this.convertFromFormula(data.getFormula())) : data.getFormula() != null)
             return true;
