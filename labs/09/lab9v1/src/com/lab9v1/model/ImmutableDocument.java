@@ -4,4 +4,6 @@ import java.util.ArrayList;
 
 public interface ImmutableDocument {
     public ArrayList<Harmonica> getHarmonics();
+
+    public void register(DocumentObserver observer);
 }
