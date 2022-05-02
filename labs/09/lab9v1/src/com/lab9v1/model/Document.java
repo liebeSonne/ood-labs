@@ -32,7 +32,6 @@ public class Document extends Observable implements ImmutableDocument {
     }
 
     private void sendUpdate() {
-        System.out.println("sendUpdate");
         this.observers.forEach(DocumentObserver::update);
     }
 }

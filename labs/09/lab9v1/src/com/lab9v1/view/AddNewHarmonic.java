@@ -67,7 +67,6 @@ public class AddNewHarmonic extends JDialog {
         amplitudeTextField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                System.out.println("amplitudeTextField.insertUpdate");
                 if (getAmplitude() < 0) {
                     amplitudeTextField.setText(Double.toString(0));
                 }
@@ -76,14 +75,12 @@ public class AddNewHarmonic extends JDialog {
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                System.out.println("amplitudeTextField.removeUpdate");
                 amplitudeTextField.setText(Double.toString(0));
                 redrawHarmonica();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                System.out.println("amplitudeTextField.changedUpdate");
                 if (getAmplitude() < 0) {
                     amplitudeTextField.setText(Double.toString(0));
                 }
