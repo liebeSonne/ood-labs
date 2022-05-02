@@ -159,7 +159,7 @@ public class AddNewHarmonic extends JDialog {
     }
 
     private void onOK() {
-        this.setData(this.harmonica);
+        this.getData(this.harmonica);
         controller.addHarmonica(this.harmonica.getAmplitude(), this.harmonica.getFormula(), this.harmonica.getFrequency(), this.harmonica.getPhase());
         dispose();
     }
