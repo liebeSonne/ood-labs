@@ -3,10 +3,12 @@ package com.lab9v1.view;
 import com.lab9v1.controller.MainController;
 import com.lab9v1.model.Formula;
 import com.lab9v1.model.Harmonica;
+import com.lab9v1.model.HarmonicaExecutor;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Optional;
@@ -35,6 +37,7 @@ public class App {
 
         this.drawList();
         this.drawSelectedHarmonica();
+        this.drawTable();
 
         this.bindBtnEvents();
         this.bindListEvents();
@@ -87,6 +90,7 @@ public class App {
                  selectedHarmonica = Optional.ofNullable(selected);
 
                  drawSelectedHarmonica();
+                 drawTable();
              }
          });
      }
@@ -126,4 +130,18 @@ public class App {
             data.setFormula(Formula.SIN);
         }
     }
+
+    private void drawTable() {
+        if (this.selectedHarmonica != null && this.selectedHarmonica.isPresent()) {
+            System.out.println("drawTable");
+            double minX = 0;
+            double maxX = 8;
+            double delta = 0.5;
+            HarmonicaTableModel dataModel = new HarmonicaTableModel((HarmonicaExecutor) this.selectedHarmonica.get(), minX, maxX, delta);
+            this.table.setModel(dataModel);
+        } else {
+            this.table.setModel(new DefaultTableModel());
+        }
+    }
+
 }
