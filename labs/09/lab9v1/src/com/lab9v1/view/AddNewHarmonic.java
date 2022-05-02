@@ -7,17 +7,19 @@ import com.lab9v1.model.Harmonica;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.NumberFormatter;
 import java.awt.event.*;
+import java.text.DecimalFormat;
 
 public class AddNewHarmonic extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
-    private JTextField amplitudeTextField;
+    private JFormattedTextField amplitudeTextField;
     private JRadioButton sinRadioButton;
     private JRadioButton cosRadioButton;
-    private JTextField frequencyTextField;
-    private JTextField phaseTextField;
+    private JFormattedTextField frequencyTextField;
+    private JFormattedTextField phaseTextField;
     private JLabel resultHarmonic;
     private ButtonGroup formulaButtonGroup;
 
@@ -89,13 +91,11 @@ public class AddNewHarmonic extends JDialog {
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                harmonica.setFrequency(getFrequency());
                 redrawHarmonica();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                harmonica.setFrequency(getFrequency());
                 redrawHarmonica();
             }
         });
@@ -151,7 +151,9 @@ public class AddNewHarmonic extends JDialog {
     }
 
     private double getAmplitude() {
-        return Double.parseDouble(amplitudeTextField.getText());
+        Object value = amplitudeTextField.getValue();
+        if (value == null ) return 0;
+        return (Double) value;
     }
 
     private Formula getFormula() {
@@ -163,11 +165,15 @@ public class AddNewHarmonic extends JDialog {
     }
 
     private double getFrequency() {
-        return Double.parseDouble(frequencyTextField.getText());
+        Object value = frequencyTextField.getValue();
+        if (value == null ) return 0;
+        return (Double) value;
     }
 
     private double getPhase() {
-        return Double.parseDouble(phaseTextField.getText());
+        Object value = phaseTextField.getValue();
+        if (value == null ) return 0;
+        return (Double) value;
     }
 
     public void setData(Harmonica data) {
@@ -183,9 +189,9 @@ public class AddNewHarmonic extends JDialog {
     }
 
     public void getData(Harmonica data) {
-        data.setAmplitude(Double.parseDouble(amplitudeTextField.getText()));
-        data.setFrequency(Double.parseDouble(frequencyTextField.getText()));
-        data.setPhase(Double.parseDouble(phaseTextField.getText()));
+        data.setAmplitude(getAmplitude());
+        data.setFrequency(getFrequency());
+        data.setPhase(getPhase());
         data.setFormula(this.getFormula());
     }
 
@@ -216,5 +222,16 @@ public class AddNewHarmonic extends JDialog {
             case SIN -> {return sinRadioButton;}
         }
         return null;
+    }
+
+    private void createUIComponents() {
+        DecimalFormat format = new DecimalFormat("##0.###");
+        NumberFormatter formatter = new NumberFormatter(format);
+        formatter.setAllowsInvalid(false);
+        formatter.setValueClass(Double.class);
+
+        this.frequencyTextField = new JFormattedTextField(formatter);
+        this.amplitudeTextField = new JFormattedTextField(formatter);
+        this.phaseTextField = new JFormattedTextField(formatter);
     }
 }
