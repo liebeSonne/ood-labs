@@ -47,7 +47,7 @@ public class Harmonica implements HarmonicaExecutor {
 
     @Override
     public String toString() {
-        return getAmplitude() + "*" + getFormula() + "(" + getFrequency() + "*x+" + getPhase() + ")";
+        return getAmplitude() + "*" + getFormula() + "(" + getFrequency() + "*x" + (getPhase() >= 0 ? "+" : "") + getPhase() + ")";
     }
 
     public double execute(double x) {
