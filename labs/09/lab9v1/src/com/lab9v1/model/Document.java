@@ -23,6 +23,18 @@ public class Document extends Observable implements ImmutableDocument {
         this.sendUpdate();
     }
 
+    public void changeHarmonica(Harmonica oldHarmonica, Harmonica newHarmonica) {
+        int index = this.harmonics.indexOf(oldHarmonica);
+        if (index >= 0) {
+            Harmonica harmonica = this.harmonics.get(index);
+            harmonica.setAmplitude(newHarmonica.getAmplitude());
+            harmonica.setFormula(newHarmonica.getFormula());
+            harmonica.setFrequency(newHarmonica.getFrequency());
+            harmonica.setPhase(newHarmonica.getPhase());
+            this.sendUpdate();
+        }
+    }
+
     public ArrayList<Harmonica> getHarmonics() {
         return this.harmonics;
     }
