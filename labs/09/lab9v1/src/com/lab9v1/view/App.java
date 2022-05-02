@@ -1,6 +1,7 @@
 package com.lab9v1.view;
 
 import com.lab9v1.controller.MainController;
+import com.lab9v1.model.DocumentObserver;
 import com.lab9v1.model.Formula;
 import com.lab9v1.model.Harmonica;
 import com.lab9v1.model.HarmonicaExecutor;
@@ -13,7 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Optional;
 
-public class App {
+public class App implements DocumentObserver {
     private JButton addNewButton;
     private JButton deleteSelectedButton;
     private JTextField amplitudeTextField;
@@ -45,6 +46,8 @@ public class App {
 
         this.bindBtnEvents();
         this.bindListEvents();
+
+        this.controller.getDocument().register(this);
     }
 
     public JPanel getMainPanel() {
@@ -144,4 +147,8 @@ public class App {
         }
     }
 
+    @Override
+    public void update() {
+        this.drawList();
+    }
 }
