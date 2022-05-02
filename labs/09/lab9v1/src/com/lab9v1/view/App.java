@@ -5,8 +5,11 @@ import com.lab9v1.model.Formula;
 import com.lab9v1.model.Harmonica;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Optional;
 
 public class App {
     private JButton addNewButton;
@@ -25,18 +28,23 @@ public class App {
     private ButtonGroup formulaButtonGroup;
 
     private MainController controller;
+    private Optional<Harmonica> selectedHarmonica;
 
     public App(MainController controller) {
         this.controller = controller;
 
-        this.bindEvents();
+        this.drawList();
+        this.drawSelectedHarmonica();
+
+        this.bindBtnEvents();
+        this.bindListEvents();
     }
 
     public JPanel getMainPanel() {
         return mainPanel;
     }
 
-    private void bindEvents() {
+    private void bindBtnEvents() {
         addNewButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -62,4 +70,60 @@ public class App {
      private void onDeleteSelectedButton() {
 
      }
+
+     private void drawList() {
+         DefaultListModel data = new DefaultListModel();
+         this.controller.getDocument().getHarmonics().forEach(harmonica -> {
+             data.addElement(harmonica);
+         });
+         this.harmonicsList.setModel(data);
+     }
+
+     private void bindListEvents () {
+         harmonicsList.addListSelectionListener(new ListSelectionListener() {
+             @Override
+             public void valueChanged(ListSelectionEvent e) {
+                 Harmonica selected = (Harmonica) ((JList<?>)e.getSource()).getSelectedValue();
+                 selectedHarmonica = Optional.ofNullable(selected);
+
+                 drawSelectedHarmonica();
+             }
+         });
+     }
+
+     private void drawSelectedHarmonica() {
+         setData(selectedHarmonica);
+    }
+
+    private void setData(Optional<Harmonica> obj) {
+        if (obj != null && obj.isPresent()) {
+            Harmonica data = obj.get();
+            amplitudeTextField.setText(Double.toString(data.getAmplitude()));
+            frequencyTextField.setText(Double.toString(data.getFrequency()));
+            phaseTextField.setText(Double.toString(data.getPhase()));
+
+            formulaButtonGroup.clearSelection();
+            switch (data.getFormula()) {
+                case COS -> cosRadioButton.setSelected(true);
+                case SIN -> sinRadioButton.setSelected(true);
+            }
+        } else {
+            amplitudeTextField.setText("");
+            frequencyTextField.setText("");
+            phaseTextField.setText("");
+            formulaButtonGroup.clearSelection();
+            sinRadioButton.setSelected(true);
+        }
+    }
+
+    private void getData(Harmonica data) {
+        data.setAmplitude(Double.parseDouble(amplitudeTextField.getText()));
+        data.setFrequency(Double.parseDouble(frequencyTextField.getText()));
+        data.setPhase(Double.parseDouble(phaseTextField.getText()));
+        if (formulaButtonGroup.getSelection().equals(cosRadioButton)) {
+            data.setFormula(Formula.COS);
+        } else {
+            data.setFormula(Formula.SIN);
+        }
+    }
 }
