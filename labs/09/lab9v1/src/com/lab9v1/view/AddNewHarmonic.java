@@ -67,23 +67,16 @@ public class AddNewHarmonic extends JDialog {
         amplitudeTextField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                if (getAmplitude() < 0) {
-                    amplitudeTextField.setText(Double.toString(0));
-                }
                 redrawHarmonica();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                amplitudeTextField.setText(Double.toString(0));
                 redrawHarmonica();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                if (getAmplitude() < 0) {
-                    amplitudeTextField.setText(Double.toString(0));
-                }
                 redrawHarmonica();
             }
         });
@@ -91,23 +84,18 @@ public class AddNewHarmonic extends JDialog {
         frequencyTextField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                if (getFrequency() < 0) {
-                    frequencyTextField.setText(Double.toString(0));
-                }
                 redrawHarmonica();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                frequencyTextField.setText(Double.toString(0));
+                harmonica.setFrequency(getFrequency());
                 redrawHarmonica();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                if (getFrequency() < 0) {
-                    frequencyTextField.setText(Double.toString(0));
-                }
+                harmonica.setFrequency(getFrequency());
                 redrawHarmonica();
             }
         });
@@ -115,23 +103,16 @@ public class AddNewHarmonic extends JDialog {
         phaseTextField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                if (getPhase() < 0) {
-                    phaseTextField.setText(Double.toString(0));
-                }
                 redrawHarmonica();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                phaseTextField.setText(Double.toString(0));
                 redrawHarmonica();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                if (getPhase() < 0) {
-                    phaseTextField.setText(Double.toString(0));
-                }
                 redrawHarmonica();
             }
         });
@@ -151,8 +132,11 @@ public class AddNewHarmonic extends JDialog {
     }
 
     private void redrawHarmonica() {
-        Harmonica harmonica = new Harmonica(getAmplitude(), getFormula(), getFrequency(), getPhase());
-        resultHarmonic.setText(harmonica.toString());
+        this.harmonica.setFrequency(getFrequency());
+        this.harmonica.setAmplitude(getAmplitude());
+        this.harmonica.setPhase(getPhase());
+        this.harmonica.setFormula(getFormula());
+        resultHarmonic.setText(this.harmonica.toString());
     }
 
     private void onOK() {
