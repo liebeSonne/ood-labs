@@ -32,6 +32,10 @@ public class App {
     private MainController controller;
     private Optional<Harmonica> selectedHarmonica;
 
+    double minX = 0;
+    double maxX = 8;
+    double delta = 0.5;
+
     public App(MainController controller) {
         this.controller = controller;
 
@@ -133,10 +137,6 @@ public class App {
 
     private void drawTable() {
         if (this.selectedHarmonica != null && this.selectedHarmonica.isPresent()) {
-            System.out.println("drawTable");
-            double minX = 0;
-            double maxX = 8;
-            double delta = 0.5;
             HarmonicaTableModel dataModel = new HarmonicaTableModel((HarmonicaExecutor) this.selectedHarmonica.get(), minX, maxX, delta);
             this.table.setModel(dataModel);
         } else {
