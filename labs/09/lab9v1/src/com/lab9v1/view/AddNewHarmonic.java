@@ -5,6 +5,8 @@ import com.lab9v1.model.Formula;
 import com.lab9v1.model.Harmonica;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.NumberFormatter;
@@ -122,12 +124,7 @@ public class AddNewHarmonic extends JDialog {
             public void itemStateChanged(ItemEvent event) {
                 redrawHarmonica();
             }
-        });
-        cosRadioButton.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent event) {
-                redrawHarmonica();
-            }
+
         });
     }
 
@@ -157,7 +154,7 @@ public class AddNewHarmonic extends JDialog {
     }
 
     private Formula getFormula() {
-        if (formulaButtonGroup.getSelection().equals(cosRadioButton)) {
+        if (cosRadioButton.isSelected()) {
             return Formula.COS;
         } else {
             return Formula.SIN;
