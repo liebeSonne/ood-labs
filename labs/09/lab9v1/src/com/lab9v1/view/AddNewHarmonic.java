@@ -68,7 +68,7 @@ public class AddNewHarmonic extends JDialog {
     }
 
     private void bindRedraw() {
-        amplitudeTextField.getDocument().addDocumentListener(new DocumentListener() {
+        DocumentListener listener = new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 redrawHarmonica();
@@ -81,45 +81,22 @@ public class AddNewHarmonic extends JDialog {
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                redrawHarmonica();
-            }
-        });
 
-        frequencyTextField.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                redrawHarmonica();
             }
+        };
 
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                redrawHarmonica();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                redrawHarmonica();
-            }
-        });
-
-        phaseTextField.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                redrawHarmonica();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                redrawHarmonica();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                redrawHarmonica();
-            }
-        });
+        amplitudeTextField.getDocument().addDocumentListener(listener);
+        frequencyTextField.getDocument().addDocumentListener(listener);
+        phaseTextField.getDocument().addDocumentListener(listener);
 
         sinRadioButton.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent event) {
+                redrawHarmonica();
+            }
+
+        });
+        cosRadioButton.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent event) {
                 redrawHarmonica();
