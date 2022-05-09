@@ -36,6 +36,9 @@ public class Chart extends JPanel implements DocumentObserver {
     public void paintComponents(Graphics g) {
         super.paintComponents(g);
 
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, getWidth(), getHeight());
+
         Graphics2D g2 = (Graphics2D) g;
 
         this.drawBackground(g2);
