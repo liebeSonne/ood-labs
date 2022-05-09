@@ -26,7 +26,6 @@ public class Chart extends JPanel implements DocumentObserver {
     public Chart(ImmutableDocument document) {
         super();
         this.document = document;
-        this.document.register(this);
     }
 
     public void update() {
