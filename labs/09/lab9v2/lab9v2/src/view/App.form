@@ -30,6 +30,7 @@
               <inheritsPopupMenu value="false"/>
               <label value="Rectangle"/>
               <text value="Rectangle"/>
+              <toolTipText value="Insert Rectangle"/>
             </properties>
           </component>
           <component id="bff67" class="javax.swing.JButton" binding="triangleButton" default-binding="true">
@@ -39,6 +40,7 @@
             <properties>
               <icon value="view/icons/triangle64.png"/>
               <text value="Triangle"/>
+              <toolTipText value="Insert Triangle"/>
             </properties>
           </component>
           <component id="3a804" class="javax.swing.JButton" binding="ellipseButton" default-binding="true">
@@ -49,6 +51,7 @@
               <icon value="view/icons/ellipse64.png"/>
               <inheritsPopupMenu value="false"/>
               <text value="Ellipse"/>
+              <toolTipText value="Insert Ellipse"/>
             </properties>
           </component>
           <hspacer id="7f184">
