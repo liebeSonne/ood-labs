@@ -1,6 +1,9 @@
 package view;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 public class MenuBar extends JMenuBar {
 
@@ -19,6 +22,19 @@ public class MenuBar extends JMenuBar {
 
     private void initMenuFile() {
         JMenu menuFile = new JMenu("File");
+
+        JMenuItem itemExit = new JMenuItem("Exit");
+        itemExit.setMnemonic(KeyEvent.VK_Q);
+        itemExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
+        itemExit.setToolTipText("Exit application");
+        itemExit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                System.exit(0);
+            }
+        });
+
+        menuFile.add(itemExit);
+
         this.add(menuFile);
     }
 
