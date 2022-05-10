@@ -6,6 +6,9 @@ public class App extends JFrame {
     JPanel mainPanel;
     private JPanel canvasPanel;
     private JPanel instrumentPanel;
+    private JButton rectangleButton;
+    private JButton triangleButton;
+    private JButton ellipseButton;
 
     public App() {
         super();

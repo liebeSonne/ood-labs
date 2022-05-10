@@ -3,12 +3,12 @@
   <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="509" height="429"/>
+      <xy x="20" y="20" width="524" height="629"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
-      <grid id="dd22" binding="instrumentPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="dd22" binding="instrumentPanel" layout-manager="GridLayoutManager" row-count="1" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false">
@@ -19,7 +19,44 @@
           <background color="-3939111"/>
         </properties>
         <border type="bevel-raised"/>
-        <children/>
+        <children>
+          <component id="d7f8c" class="javax.swing.JButton" binding="rectangleButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <icon value="view/icons/rectangle64.png"/>
+              <iconTextGap value="4"/>
+              <inheritsPopupMenu value="false"/>
+              <label value="Rectangle"/>
+              <text value="Rectangle"/>
+            </properties>
+          </component>
+          <component id="bff67" class="javax.swing.JButton" binding="triangleButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <icon value="view/icons/triangle64.png"/>
+              <text value="Triangle"/>
+            </properties>
+          </component>
+          <component id="3a804" class="javax.swing.JButton" binding="ellipseButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <icon value="view/icons/ellipse64.png"/>
+              <inheritsPopupMenu value="false"/>
+              <text value="Ellipse"/>
+            </properties>
+          </component>
+          <hspacer id="7f184">
+            <constraints>
+              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </hspacer>
+        </children>
       </grid>
       <grid id="1839f" binding="canvasPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
