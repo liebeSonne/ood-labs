@@ -7,38 +7,46 @@ import com.lab9v1.model.Harmonica;
 import com.lab9v1.model.HarmonicaExecutor;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.event.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.text.NumberFormatter;
+import java.awt.event.*;
+import java.text.DecimalFormat;
 import java.util.Optional;
 
 public class App implements DocumentObserver {
     private JButton addNewButton;
     private JButton deleteSelectedButton;
-    private JTextField amplitudeTextField;
+    private JFormattedTextField amplitudeTextField;
     private JList harmonicsList;
     private JTabbedPane tabbedPane;
     private JTable table;
     private JRadioButton sinRadioButton;
     private JRadioButton cosRadioButton;
-    private JTextField frequencyTextField;
-    private JTextField phaseTextField;
+    private JFormattedTextField frequencyTextField;
+    private JFormattedTextField phaseTextField;
     private JPanel mainPanel;
     private JPanel selectedHarmonicaPanel;
     private JPanel listPanel;
+    private JPanel chartPanel;
+    private JButton updButton;
     private ButtonGroup formulaButtonGroup;
 
-    private MainController controller;
+    private final MainController controller;
     private Optional<Harmonica> selectedHarmonica;
 
-    double minX = 0;
-    double maxX = 8;
-    double delta = 0.5;
+    private int selectedHarmonicaIndex = -1;
+
+    private double minX = 0;
+    private double maxX = 8;
+    private double delta = 0.5;
+
+    private boolean listenChange = true;
 
     public App(MainController controller) {
         this.controller = controller;
+        this.controller.getDocument().register(this);
+        this.controller.getDocument().register((DocumentObserver) this.chartPanel);
 
         this.drawList();
         this.drawSelectedHarmonica();
@@ -46,12 +54,28 @@ public class App implements DocumentObserver {
 
         this.bindBtnEvents();
         this.bindListEvents();
-
-        this.controller.getDocument().register(this);
+        this.bindChangeSelectedEvents();
+        this.bindForRedrawChart();
     }
 
     public JPanel getMainPanel() {
         return mainPanel;
+    }
+
+    private void bindForRedrawChart() {
+        this.chartPanel.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent componentEvent) {
+                drawChart();
+            }
+        });
+
+        tabbedPane.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                if (tabbedPane.getSelectedIndex() == 0) {
+                    drawChart();
+                }
+            }
+        });
     }
 
     private void bindBtnEvents() {
@@ -65,6 +89,65 @@ public class App implements DocumentObserver {
             @Override
             public void actionPerformed(ActionEvent e) {
                 onDeleteSelectedButton();
+            }
+        });
+
+        updButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                drawList();
+                drawTable();
+                drawChart();
+            }
+        });
+    }
+
+    private void bindListEvents () {
+        harmonicsList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int index = ((JList) e.getSource()).getSelectedIndex();
+                if (index == selectedHarmonicaIndex) {
+                    return;
+                }
+                selectedHarmonicaIndex = index;
+                onSelectHarmonica();
+            }
+        });
+    }
+
+    private void bindChangeSelectedEvents() {
+        DocumentListener listener = new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                onChangeSelectedHarmonica();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                onChangeSelectedHarmonica();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+
+            }
+        };
+
+        amplitudeTextField.getDocument().addDocumentListener(listener);
+        frequencyTextField.getDocument().addDocumentListener(listener);
+        phaseTextField.getDocument().addDocumentListener(listener);
+
+        sinRadioButton.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent event) {
+                onChangeSelectedHarmonica();
+            }
+        });
+        cosRadioButton.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent event) {
+                onChangeSelectedHarmonica();
             }
         });
     }
@@ -83,6 +166,10 @@ public class App implements DocumentObserver {
         }
      }
 
+     private void drawChart() {
+         chartPanel.paintComponents(chartPanel.getGraphics());
+     }
+
      private void drawList() {
          DefaultListModel data = new DefaultListModel();
          this.controller.getDocument().getHarmonics().forEach(harmonica -> {
@@ -91,53 +178,100 @@ public class App implements DocumentObserver {
          this.harmonicsList.setModel(data);
      }
 
-     private void bindListEvents () {
-         harmonicsList.addListSelectionListener(new ListSelectionListener() {
-             @Override
-             public void valueChanged(ListSelectionEvent e) {
-                 Harmonica selected = (Harmonica) ((JList<?>)e.getSource()).getSelectedValue();
-                 selectedHarmonica = Optional.ofNullable(selected);
-
-                 drawSelectedHarmonica();
-                 drawTable();
-             }
-         });
+     private void onSelectHarmonica() {
+        if (!this.listenChange) return;
+        this.listenChange = false;
+        Harmonica selected = (Harmonica) this.harmonicsList.getSelectedValue();
+        this.selectedHarmonica = Optional.ofNullable(selected);
+        drawSelectedHarmonica();
+        drawTable();
+        this.listenChange = true;
      }
 
-     private void drawSelectedHarmonica() {
-         setData(selectedHarmonica);
+    private void drawSelectedHarmonica() {
+        if (this.selectedHarmonica != null && this.selectedHarmonica.isPresent()) {
+            setData(this.selectedHarmonica.get());
+        } else {
+            this.setDataNull();
+        }
     }
 
-    private void setData(Optional<Harmonica> obj) {
-        if (obj != null && obj.isPresent()) {
-            Harmonica data = obj.get();
-            amplitudeTextField.setText(Double.toString(data.getAmplitude()));
-            frequencyTextField.setText(Double.toString(data.getFrequency()));
-            phaseTextField.setText(Double.toString(data.getPhase()));
-
+    private void setData(Harmonica data) {
+        this.listenChange = false;
+        if (this.isModified(data)) {
+            amplitudeTextField.setValue(data.getAmplitude());
+            frequencyTextField.setValue(data.getFrequency());
+            phaseTextField.setValue(data.getPhase());
             formulaButtonGroup.clearSelection();
             switch (data.getFormula()) {
                 case COS -> cosRadioButton.setSelected(true);
                 case SIN -> sinRadioButton.setSelected(true);
             }
-        } else {
-            amplitudeTextField.setText("");
-            frequencyTextField.setText("");
-            phaseTextField.setText("");
-            formulaButtonGroup.clearSelection();
-            sinRadioButton.setSelected(true);
         }
+        this.listenChange = true;
+    }
+
+    private void setDataNull() {
+        this.listenChange = false;
+        amplitudeTextField.setValue(0);
+        frequencyTextField.setValue(0);
+        phaseTextField.setValue(0);
+        formulaButtonGroup.clearSelection();
+        sinRadioButton.setSelected(true);
+        this.listenChange = true;
     }
 
     private void getData(Harmonica data) {
-        data.setAmplitude(Double.parseDouble(amplitudeTextField.getText()));
-        data.setFrequency(Double.parseDouble(frequencyTextField.getText()));
-        data.setPhase(Double.parseDouble(phaseTextField.getText()));
-        if (formulaButtonGroup.getSelection().equals(cosRadioButton)) {
-            data.setFormula(Formula.COS);
-        } else {
-            data.setFormula(Formula.SIN);
+        data.setAmplitude(getAmplitude());
+        data.setFrequency(getFrequency());
+        data.setPhase(getPhase());
+        data.setFormula(this.getFormula());
+    }
+
+    public boolean isModified(Harmonica data) {
+        if (amplitudeTextField.getText() == null || !amplitudeTextField.getText().equals(Double.toString(data.getAmplitude())))
+            return true;
+        if (frequencyTextField.getText() == null || !frequencyTextField.getText().equals(Double.toString(data.getFrequency())))
+            return true;
+        if (phaseTextField.getText() == null || !phaseTextField.getText().equals(Double.toString(data.getPhase())))
+            return true;
+        if (formulaButtonGroup.getSelection() != null ? formulaButtonGroup.getSelection().equals(this.convertFromFormula(data.getFormula())) : data.getFormula() != null)
+            return true;
+        return false;
+    }
+
+    private JRadioButton convertFromFormula(Formula formula){
+        switch (formula) {
+            case COS -> {return cosRadioButton;}
+            case SIN -> {return sinRadioButton;}
         }
+        return null;
+    }
+
+    private double getAmplitude() {
+        Object value = amplitudeTextField.getValue();
+        if (value == null ) return 0;
+        return (Double) value;
+    }
+
+    private Formula getFormula() {
+        if (cosRadioButton.isSelected()) {
+            return Formula.COS;
+        } else {
+            return Formula.SIN;
+        }
+    }
+
+    private double getFrequency() {
+        Object value = frequencyTextField.getValue();
+        if (value == null ) return 0;
+        return (Double) value;
+    }
+
+    private double getPhase() {
+        Object value = phaseTextField.getValue();
+        if (value == null ) return 0;
+        return (Double) value;
     }
 
     private void drawTable() {
@@ -152,5 +286,34 @@ public class App implements DocumentObserver {
     @Override
     public void update() {
         this.drawList();
+    }
+
+    private void onChangeSelectedHarmonica() {
+        if (!listenChange) return;
+        if (this.selectedHarmonica != null && this.selectedHarmonica.isPresent()) {
+            listenChange = false;
+
+            Harmonica harmonica = this.selectedHarmonica.get();
+            Harmonica newHarmonica = new Harmonica(harmonica.getAmplitude(),harmonica.getFormula(),harmonica.getFrequency(), harmonica.getPhase()) ;
+
+            this.getData(newHarmonica);
+
+            this.controller.changeHarmonica(harmonica, newHarmonica);
+
+            listenChange = true;
+        }
+    }
+
+    private void createUIComponents() {
+        DecimalFormat format = new DecimalFormat("##0.###");
+        NumberFormatter formatter = new NumberFormatter(format);
+        formatter.setAllowsInvalid(false);
+        formatter.setValueClass(Double.class);
+
+        this.frequencyTextField = new JFormattedTextField(formatter);
+        this.amplitudeTextField = new JFormattedTextField(formatter);
+        this.phaseTextField = new JFormattedTextField(formatter);
+
+        this.chartPanel = new Chart(this.controller.getDocument());
     }
 }
