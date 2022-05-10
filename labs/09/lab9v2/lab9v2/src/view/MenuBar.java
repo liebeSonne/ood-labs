@@ -45,6 +45,20 @@ public class MenuBar extends JMenuBar {
 
     private void initMenuInsert() {
         JMenu menuInsert = new JMenu("Insert");
+
+        JMenuItem itemRectangle = new JMenuItem("Rectangle");
+        itemRectangle.setToolTipText("Insert Rectangle");
+
+        JMenuItem itemTriangle = new JMenuItem("Triangle");
+        itemTriangle.setToolTipText("Insert Triangle");
+
+        JMenuItem itemEllipse = new JMenuItem("Ellipse");
+        itemEllipse.setToolTipText("Insert Ellipse");
+
+        menuInsert.add(itemRectangle);
+        menuInsert.add(itemTriangle);
+        menuInsert.add(itemEllipse);
+
         this.add(menuInsert);
     }
 
