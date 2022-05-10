@@ -26,20 +26,7 @@ public class App extends JFrame {
     }
 
     private void initMenu() {
-        JMenuBar menuBar = new JMenuBar();
-
-        JMenu menuFile = new JMenu("File");
-        JMenu menuHome = new JMenu("Home");
-        JMenu menuInsert = new JMenu("Insert");
-        JMenu menuView = new JMenu("View");
-        JMenu menuFormat = new JMenu("Format");
-
-        menuBar.add(menuFile);
-        menuBar.add(menuHome);
-        menuBar.add(menuInsert);
-        menuBar.add(menuView);
-        menuBar.add(menuFormat);
-
+        JMenuBar menuBar = new MenuBar();
         this.setJMenuBar(menuBar);
     }
 }
