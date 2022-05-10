@@ -73,6 +73,8 @@ public class App implements DocumentObserver {
             public void stateChanged(ChangeEvent e) {
                 if (tabbedPane.getSelectedIndex() == 0) {
                     drawChart();
+                } else if (tabbedPane.getSelectedIndex() == 1) {
+                    drawTable();
                 }
             }
         });
@@ -167,6 +169,9 @@ public class App implements DocumentObserver {
      }
 
      private void drawChart() {
+         if (tabbedPane.getSelectedIndex() != 0 )  {
+             return;
+         }
          chartPanel.paintComponents(chartPanel.getGraphics());
      }
 
@@ -275,6 +280,9 @@ public class App implements DocumentObserver {
     }
 
     private void drawTable() {
+        if (tabbedPane.getSelectedIndex() != 1) {
+            return;
+        }
         if (this.selectedHarmonica != null && this.selectedHarmonica.isPresent()) {
             HarmonicaTableModel dataModel = new HarmonicaTableModel((HarmonicaExecutor) this.selectedHarmonica.get(), minX, maxX, delta);
             this.table.setModel(dataModel);
