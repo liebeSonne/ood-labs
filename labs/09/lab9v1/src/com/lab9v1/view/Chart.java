@@ -1,8 +1,6 @@
 package com.lab9v1.view;
 
-import com.lab9v1.model.DocumentObserver;
-import com.lab9v1.model.Harmonica;
-import com.lab9v1.model.ImmutableDocument;
+import com.lab9v1.model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -209,7 +207,7 @@ public class Chart extends JPanel implements DocumentObserver {
         return (double) (this.getChartHeight() / this.pointSizeY / 2);
     }
 
-    private void drawHarmonica(Graphics2D g2, Harmonica harmonica) {
+    private void drawHarmonica(Graphics2D g2, HarmonicaExecutor harmonica) {
         double px0 = this.getMinX();
         double py0 = harmonica.execute(px0);
         for (double px = this.getMinX() +0.1; px <= this.getMaxX(); px += 0.1) {

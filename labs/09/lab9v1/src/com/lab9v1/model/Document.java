@@ -17,13 +17,13 @@ public class Document implements ImmutableDocument {
         this.sendUpdate();
     }
 
-    public void removeHarmonica(Harmonica harmonica) {
-        this.harmonics.remove(harmonica);
+    public void removeHarmonica(ImmutableHarmonica harmonica) {
+        this.harmonics.remove((Harmonica) harmonica);
         this.sendUpdate();
     }
 
-    public void changeHarmonica(Harmonica oldHarmonica, Harmonica newHarmonica) {
-        int index = this.harmonics.indexOf(oldHarmonica);
+    public void changeHarmonica(ImmutableHarmonica oldHarmonica, ImmutableHarmonica newHarmonica) {
+        int index = this.harmonics.indexOf((Harmonica) oldHarmonica);
         if (index >= 0) {
             Harmonica harmonica = this.harmonics.get(index);
             harmonica.setAmplitude(newHarmonica.getAmplitude());
@@ -34,8 +34,8 @@ public class Document implements ImmutableDocument {
         }
     }
 
-    public ArrayList<Harmonica> getHarmonics() {
-        return this.harmonics;
+    public ArrayList<ImmutableHarmonica> getHarmonics() {
+        return new ArrayList<ImmutableHarmonica> (this.harmonics);
     }
 
     public void register(DocumentObserver observer) {
