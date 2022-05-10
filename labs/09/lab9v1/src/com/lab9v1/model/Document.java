@@ -1,9 +1,8 @@
 package com.lab9v1.model;
 
 import java.util.ArrayList;
-import java.util.Observable;
 
-public class Document extends Observable implements ImmutableDocument {
+public class Document implements ImmutableDocument {
     private ArrayList<Harmonica> harmonics;
     private ArrayList<DocumentObserver> observers;
 
