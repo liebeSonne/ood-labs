@@ -5,8 +5,6 @@ import com.lab9v1.model.Formula;
 import com.lab9v1.model.Harmonica;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.NumberFormatter;
@@ -115,7 +113,7 @@ public class AddNewHarmonic extends JDialog {
 
     private void onOK() {
         this.getData(this.harmonica);
-        controller.addHarmonica(this.harmonica.getAmplitude(), this.harmonica.getFormula(), this.harmonica.getFrequency(), this.harmonica.getPhase());
+        this.controller.addHarmonica(this.harmonica.getAmplitude(), this.harmonica.getFormula(), this.harmonica.getFrequency(), this.harmonica.getPhase());
         dispose();
     }
 
