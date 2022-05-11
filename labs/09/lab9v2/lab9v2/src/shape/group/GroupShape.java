@@ -100,4 +100,12 @@ public class GroupShape implements GroupShapeInterface {
     public void draw(CanvasInterface canvas) {
         this.shapes.forEach(shape -> shape.draw(canvas));
     }
+
+    public void addShape(ShapeInterface shape) {
+        this.shapes.add(shape);
+    }
+
+    public void removeShape(ShapeInterface shape) {
+        this.shapes.remove(shape);
+    }
 }
