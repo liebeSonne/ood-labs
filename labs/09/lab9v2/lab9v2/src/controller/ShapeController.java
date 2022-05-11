@@ -22,7 +22,7 @@ public class ShapeController implements ShapeControllerInterface {
     }
 
     public void addTriangle() {
-        Frame frame = new Frame(this.center.x, this.center.y, 150, 150);
+        Frame frame = new Frame(this.center.x - 75, this.center.y - 75, 150, 150);
         Random rand = new Random();
         Color strokeColor = new Color(rand.nextInt(0xFFFFFF));
         Color fillColor = new Color(rand.nextInt(0xFFFFFF));
@@ -31,7 +31,7 @@ public class ShapeController implements ShapeControllerInterface {
     }
 
     public void addRectangle() {
-        Frame frame = new Frame(this.center.x, this.center.y, 150, 150);
+        Frame frame = new Frame(this.center.x - 75, this.center.y - 75, 150, 150);
         Random rand = new Random();
         Color strokeColor = new Color(rand.nextInt(0xFFFFFF));
         Color fillColor = new Color(rand.nextInt(0xFFFFFF));
@@ -40,7 +40,7 @@ public class ShapeController implements ShapeControllerInterface {
     }
 
     public void addEllipse() {
-        Frame frame = new Frame(this.center.x, this.center.y, 150, 150);
+        Frame frame = new Frame(this.center.x - 75, this.center.y - 75, 150, 150);
         Random rand = new Random();
         Color strokeColor = new Color(rand.nextInt(0xFFFFFF));
         Color fillColor = new Color(rand.nextInt(0xFFFFFF));
