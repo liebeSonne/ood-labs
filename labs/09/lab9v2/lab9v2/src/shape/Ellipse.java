@@ -11,6 +11,10 @@ public class Ellipse extends Shape {
 
     @Override
     public void draw(CanvasInterface canvas) {
-        // @TODO
+        Frame frame = this.getFrame();
+        canvas.fillEllipse(frame.getLeft(), frame.getTop(), frame.getWidth(), frame.getHeight(), this.getFillStyle().getColor());
+        canvas.setLineSize(3);
+        canvas.setColor(this.getStrokeStyle().getColor());
+        canvas.drawEllipse(frame.getLeft(), frame.getTop(), frame.getWidth(), frame.getHeight());
     }
 }

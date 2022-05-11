@@ -11,6 +11,15 @@ public class Triangle extends Shape {
 
     @Override
     public void draw(CanvasInterface canvas) {
-        // @TODO
+        Frame frame = this.getFrame();
+        Point[] points = {
+            new Point(frame.getLeft(), frame.getTop()+frame.getHeight()),
+            new Point(frame.getLeft()+frame.getWidth(), frame.getTop()+frame.getHeight()),
+            new Point(frame.getLeft()+frame.getWidth()/2,frame.getTop()),
+        };
+        canvas.fillPolygon(points, this.getFillStyle().getColor());
+        canvas.setColor(this.getStrokeStyle().getColor());
+        canvas.setLineSize(3);
+        canvas.drawPolygon(points);
     }
 }
