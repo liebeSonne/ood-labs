@@ -1,5 +1,7 @@
 package view;
 
+import controller.ShapeControllerInterface;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,8 +9,11 @@ import java.awt.event.KeyEvent;
 
 public class MenuBar extends JMenuBar {
 
-    public MenuBar() {
+    ShapeControllerInterface controller;
+
+    public MenuBar(ShapeControllerInterface controller) {
         super();
+        this.controller = controller;
         this.initComponents();
     }
 
@@ -48,12 +53,30 @@ public class MenuBar extends JMenuBar {
 
         JMenuItem itemRectangle = new JMenuItem("Rectangle");
         itemRectangle.setToolTipText("Insert Rectangle");
+        itemRectangle.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.addRectangle();
+            }
+        });
 
         JMenuItem itemTriangle = new JMenuItem("Triangle");
         itemTriangle.setToolTipText("Insert Triangle");
+        itemTriangle.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.addTriangle();
+            }
+        });
 
         JMenuItem itemEllipse = new JMenuItem("Ellipse");
         itemEllipse.setToolTipText("Insert Ellipse");
+        itemEllipse.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.addEllipse();
+            }
+        });
 
         menuInsert.add(itemRectangle);
         menuInsert.add(itemTriangle);
