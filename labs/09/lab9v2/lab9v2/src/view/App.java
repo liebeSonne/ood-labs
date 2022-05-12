@@ -60,27 +60,34 @@ public class App extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.addRectangle();
+                drawCanvas();
             }
         });
         this.triangleButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.addTriangle();
+                drawCanvas();
             }
         });
         this.ellipseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.addEllipse();
+                drawCanvas();
             }
         });
 
         UPDButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                canvasPanel.paintComponents(canvasPanel.getGraphics());
+                drawCanvas();
             }
         });
+    }
+
+    private void drawCanvas() {
+        canvasPanel.paintComponents(canvasPanel.getGraphics());
     }
 
     private void createUIComponents() {
