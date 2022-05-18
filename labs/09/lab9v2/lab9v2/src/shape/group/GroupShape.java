@@ -102,6 +102,29 @@ public class GroupShape implements GroupShapeInterface {
         this.shapes.forEach(shape -> shape.draw(canvas));
     }
 
+    @Override
+    public void drawFrame(CanvasInterface canvas) {
+        Frame frame = this.getFrame();
+        Point plt = new Point(frame.getLeft(), frame.getTop());
+        Point prt = new Point(frame.getLeft() + frame.getWidth(), frame.getTop());
+        Point prb = new Point(frame.getLeft() + frame.getWidth(), frame.getTop() + frame.getHeight());
+        Point plb = new Point(frame.getLeft(), frame.getTop() + frame.getHeight());
+        Point[] points = {
+                plt, prt, prb, plb
+        };
+        canvas.setLineSize(2);
+        canvas.setColor(Color.blue);
+        canvas.drawPolygon(points);
+
+        int r = 4;
+        for (int i = 0; i < points.length; i++) {
+            int px = points[i].x;
+            int py = points[i].y;
+            canvas.fillEllipse(px-r,py-r,r*2, r*2, new Color(0,0,255, 70));
+            canvas.drawEllipse(px-r,py-r,r*2, r*2);
+        }
+    }
+
     public void addShape(ShapeInterface shape) {
         this.shapes.add(shape);
     }
