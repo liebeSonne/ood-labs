@@ -37,7 +37,7 @@ public class ShapeController implements ShapeControllerInterface {
     }
 
     public void addEllipse() {
-        Frame frame = new Frame(this.center.x - 75, this.center.y - 75, 150, 150);
+        Frame frame = new Frame(this.center.x - 95, this.center.y - 75, 190, 150);
         Random rand = new Random();
         Color strokeColor = new Color(rand.nextInt(0xFFFFFF));
         Color fillColor = new Color(rand.nextInt(0xFFFFFF));
