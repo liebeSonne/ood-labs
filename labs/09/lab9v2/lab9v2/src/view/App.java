@@ -49,7 +49,7 @@ public class App extends JFrame {
     }
 
     private void initMenu() {
-        JMenuBar menuBar = new MenuBar(this.controller);
+        JMenuBar menuBar = new MenuBar(this.controller, (CanvasPanel) this.canvasPanel);
         this.setJMenuBar(menuBar);
     }
 

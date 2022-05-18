@@ -11,9 +11,12 @@ public class MenuBar extends JMenuBar {
 
     ShapeControllerInterface controller;
 
-    public MenuBar(ShapeControllerInterface controller) {
+    CanvasPanel canvasPanel;
+
+    public MenuBar(ShapeControllerInterface controller, CanvasPanel canvasPanel) {
         super();
         this.controller = controller;
+        this.canvasPanel = canvasPanel;
         this.initComponents();
     }
 
@@ -57,6 +60,7 @@ public class MenuBar extends JMenuBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.addRectangle();
+                drawCanvas();
             }
         });
 
@@ -66,6 +70,7 @@ public class MenuBar extends JMenuBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.addTriangle();
+                drawCanvas();
             }
         });
 
@@ -75,6 +80,7 @@ public class MenuBar extends JMenuBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.addEllipse();
+                drawCanvas();
             }
         });
 
@@ -93,5 +99,9 @@ public class MenuBar extends JMenuBar {
     private void initMenuFormat() {
         JMenu menuFormat = new JMenu("Format");
         this.add(menuFormat);
+    }
+
+    private void drawCanvas() {
+        this.canvasPanel.paintComponents(this.canvasPanel.getGraphics());
     }
 }
