@@ -35,7 +35,6 @@ public class App extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
         this.setSize(800, 700);
-        this.setVisible(true);
     }
 
     private void initShapesController(DocumentInterface document) {
