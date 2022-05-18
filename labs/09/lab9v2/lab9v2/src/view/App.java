@@ -2,7 +2,7 @@ package view;
 
 import controller.ShapeController;
 import controller.ShapeControllerInterface;
-import shape.group.GroupShape;
+import document.DocumentInterface;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,13 +19,12 @@ public class App extends JFrame {
     private JButton UPDButton;
 
     ShapeControllerInterface controller;
-    GroupShape group;
 
-    public App() {
+    public App(DocumentInterface document) {
         super();
 
         this.initFrame();
-        this.initShapes();
+        this.initShapesController(document);
         this.initComponents();
         this.initMenu();
     }
@@ -39,11 +38,10 @@ public class App extends JFrame {
         this.setVisible(true);
     }
 
-    private void initShapes() {
+    private void initShapesController(DocumentInterface document) {
         Point center = new Point(this.canvasPanel.getWidth() /2, this.canvasPanel.getHeight() / 2);
-        this.group = new GroupShape();
-        this.controller = new ShapeController(center, group);
-        ((CanvasPanel)this.canvasPanel).setGroup(this.group);
+        this.controller = new ShapeController(center, document);
+        ((CanvasPanel)this.canvasPanel).setDocument(document);
     }
 
     private void initComponents() {

@@ -1,20 +1,20 @@
 package view;
 
-import canvas.DrawableInterface;
 import canvas.GraphicsCanvas;
+import document.DocumentInterface;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class CanvasPanel extends JPanel {
-
-    private DrawableInterface group;
+    private DocumentInterface document;
 
     public CanvasPanel() {
+
     }
 
-    public void setGroup(DrawableInterface group) {
-        this.group = group;
+    public void setDocument(DocumentInterface document) {
+        this.document = document;
     }
 
     @Override
@@ -22,9 +22,11 @@ public class CanvasPanel extends JPanel {
         super.paintComponents(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        if (this.group != null) {
+        if (this.document != null) {
             GraphicsCanvas canvas = new GraphicsCanvas(g2);
-            this.group.draw(canvas);
+            this.document.getShapes().forEach(shape -> {
+                shape.draw(canvas);
+            });
         }
     }
 }
