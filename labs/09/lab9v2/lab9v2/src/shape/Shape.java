@@ -37,4 +37,7 @@ abstract public class Shape implements ShapeInterface{
 
     @Override
     abstract public void draw(CanvasInterface canvas);
+
+    @Override
+    abstract public boolean contains(Point point);
 }

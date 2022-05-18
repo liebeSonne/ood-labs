@@ -8,6 +8,7 @@ import shape.ShapeInterface;
 import style.CompoundStyle;
 import style.StyleInterface;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -107,5 +108,10 @@ public class GroupShape implements GroupShapeInterface {
 
     public void removeShape(ShapeInterface shape) {
         this.shapes.remove(shape);
+    }
+
+    @Override
+    public boolean contains(Point point) {
+        return false;
     }
 }

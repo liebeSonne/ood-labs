@@ -23,4 +23,15 @@ public class Rectangle extends Shape {
         canvas.setColor(this.getStrokeStyle().getColor());
         canvas.drawPolygon(points);
     }
+
+    public boolean contains(Point point) {
+        Frame frame = this.getFrame();
+        int minX = frame.getLeft();
+        int minY = frame.getTop();
+        int maxX = frame.getLeft() + frame.getWidth();
+        int maxY = frame.getTop() + frame.getHeight();
+
+        return point.x >= minX && point.x <= maxX && point.y >= minY && point.y <= maxY;
+    }
+
 }

@@ -1,5 +1,5 @@
 package canvas;
 
-public interface DrawableInterface {
+public interface DrawableInterface extends TransformInterface {
     public void draw(CanvasInterface canvas);
 }
