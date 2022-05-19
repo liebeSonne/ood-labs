@@ -12,10 +12,15 @@ public class ShapeController implements ShapeControllerInterface {
 
     Point center;
     DocumentInterface document;
+    ShapeInterface selectedShape;
 
     public ShapeController(Point center, DocumentInterface document) {
         this.center = new Point(center.x, center.y);
         this.document = document;
+    }
+
+    public DocumentInterface getDocument() {
+        return this.document;
     }
 
     public void addTriangle() {
@@ -43,5 +48,25 @@ public class ShapeController implements ShapeControllerInterface {
         Color fillColor = new Color(rand.nextInt(0xFFFFFF));
         Ellipse shape = new Ellipse(frame, strokeColor, fillColor);
         this.document.addShape(shape);
+    }
+
+    public void setSelectedShape(ShapeInterface shape) {
+        this.selectedShape = shape;
+    }
+
+    public ShapeInterface getSelectedShape() {
+        return this.selectedShape;
+    }
+
+    public void moveSelectedShapeTo(Point point) {
+        if (selectedShape != null) {
+            selectedShape.moveTo(point);
+        }
+    }
+
+    public void removeSelectedShape() {
+        if (this.selectedShape != null) {
+            this.document.removeShape(this.selectedShape);
+        }
     }
 }
