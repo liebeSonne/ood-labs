@@ -40,7 +40,7 @@ public class App extends JFrame {
     private void initShapesController(DocumentInterface document) {
         Point center = new Point(this.canvasPanel.getWidth() /2, this.canvasPanel.getHeight() / 2);
         this.controller = new ShapeController(center, document);
-        ((CanvasPanel)this.canvasPanel).setDocument(document);
+        ((CanvasPanel)this.canvasPanel).setController(this.controller);
     }
 
     private void initComponents() {
