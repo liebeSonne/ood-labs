@@ -1,6 +1,6 @@
 package com.lab9v1.view;
 
-import com.lab9v1.model.HarmonicaExecutor;
+import com.lab9v1.model.UnaryFunction;
 import com.lab9v1.model.ImmutableDocument;
 
 import javax.swing.*;
@@ -75,11 +75,11 @@ public class ChartHarmonica extends JComponent {
         return (double) getChartWidth() / config.pointSizeX;
     }
 
-    private void drawHarmonica(Graphics2D g2, HarmonicaExecutor harmonica) {
+    private void drawHarmonica(Graphics2D g2, UnaryFunction harmonica) {
         double px0 = this.getMinX();
-        double py0 = harmonica.execute(px0);
+        double py0 = harmonica.calculate(px0);
         for (double px = this.getMinX() +0.1; px <= this.getMaxX(); px += 0.1) {
-            double py = harmonica.execute(px);
+            double py = harmonica.calculate(px);
             int x0 = (int) this.getChartX(px0);
             int y0 = (int) this.getChartY(py0);
             int x = (int) this.getChartX(px);

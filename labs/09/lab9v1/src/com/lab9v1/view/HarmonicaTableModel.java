@@ -1,19 +1,19 @@
 package com.lab9v1.view;
 
-import com.lab9v1.model.HarmonicaExecutor;
+import com.lab9v1.model.UnaryFunction;
 
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
 public class HarmonicaTableModel extends AbstractTableModel implements TableModel{
-    private HarmonicaExecutor harmonica;
+    private UnaryFunction harmonica;
     double minX;
     double maxX;
     double delta;
 
     String[] columnNames = {"x", "y"};
 
-    public HarmonicaTableModel(HarmonicaExecutor harmonica, double minX, double maxX, double delta) {
+    public HarmonicaTableModel(UnaryFunction harmonica, double minX, double maxX, double delta) {
         super();
         this.harmonica = harmonica;
         this.minX = minX;
@@ -37,7 +37,7 @@ public class HarmonicaTableModel extends AbstractTableModel implements TableMode
         if (columnIndex == 0) {
             return x;
         } else if (columnIndex == 1) {
-            return this.harmonica.execute(x);
+            return this.harmonica.calculate(x);
         }
         return null;
     }

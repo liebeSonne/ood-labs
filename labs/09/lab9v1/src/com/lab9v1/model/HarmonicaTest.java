@@ -65,10 +65,10 @@ class HarmonicaTest {
         double phase = 3.3;
 
         Harmonica harmonica = new Harmonica(amplitude, formula, frequency, phase);
-        assertEquals(harmonica.execute(0.0), -1.0862277468997514);
-        assertEquals(harmonica.execute(0.5), -0.3380661569762613);
-        assertEquals(harmonica.execute(1.0), 0.7795367517203861);
-        assertEquals(harmonica.execute(1.5), 1.0452558511543826);
-        assertEquals(harmonica.execute(2.0), 0.1687112482416508);
+        assertEquals(harmonica.calculate(0.0), -1.0862277468997514);
+        assertEquals(harmonica.calculate(0.5), -0.3380661569762613);
+        assertEquals(harmonica.calculate(1.0), 0.7795367517203861);
+        assertEquals(harmonica.calculate(1.5), 1.0452558511543826);
+        assertEquals(harmonica.calculate(2.0), 0.1687112482416508);
     }
 }

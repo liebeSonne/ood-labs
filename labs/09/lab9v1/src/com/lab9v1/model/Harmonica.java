@@ -1,6 +1,6 @@
 package com.lab9v1.model;
 
-public class Harmonica implements HarmonicaExecutor, ImmutableHarmonica {
+public class Harmonica implements UnaryFunction, ImmutableHarmonica {
     private double amplitude;
     private Formula formula;
     private double frequency;
@@ -50,7 +50,7 @@ public class Harmonica implements HarmonicaExecutor, ImmutableHarmonica {
         return getAmplitude() + "*" + getFormula() + "(" + getFrequency() + "*x" + (getPhase() >= 0 ? "+" : "") + getPhase() + ")";
     }
 
-    public double execute(double x) {
+    public double calculate(double x) {
         double value = amplitude;
         double a = frequency * x + phase;
         if (formula == Formula.SIN) {

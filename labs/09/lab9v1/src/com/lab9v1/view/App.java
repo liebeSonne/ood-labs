@@ -4,7 +4,7 @@ import com.lab9v1.controller.MainController;
 import com.lab9v1.model.DocumentObserver;
 import com.lab9v1.model.Formula;
 import com.lab9v1.model.Harmonica;
-import com.lab9v1.model.HarmonicaExecutor;
+import com.lab9v1.model.UnaryFunction;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -284,7 +284,7 @@ public class App implements DocumentObserver {
             return;
         }
         if (this.selectedHarmonica != null && this.selectedHarmonica.isPresent()) {
-            HarmonicaTableModel dataModel = new HarmonicaTableModel((HarmonicaExecutor) this.selectedHarmonica.get(), minX, maxX, delta);
+            HarmonicaTableModel dataModel = new HarmonicaTableModel((UnaryFunction) this.selectedHarmonica.get(), minX, maxX, delta);
             this.table.setModel(dataModel);
         } else {
             this.table.setModel(new DefaultTableModel());
