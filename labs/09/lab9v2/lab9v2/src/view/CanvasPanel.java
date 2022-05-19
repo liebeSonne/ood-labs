@@ -29,6 +29,8 @@ public class CanvasPanel extends JPanel {
         super.paintComponents(g);
         Graphics2D g2 = (Graphics2D) g;
 
+        g2.clearRect(0,0,getWidth(), getHeight());
+
         if (this.document != null) {
             GraphicsCanvas canvas = new GraphicsCanvas(g2);
             this.document.getShapes().forEach(shape -> {
