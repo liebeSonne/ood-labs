@@ -1,4 +1,4 @@
-package com.lab9v1.view;
+package com.lab9v1.view.chart;
 
 public class ChartHarmonicaConfig {
     public int pointSizeX = 80; // сколько пикселей в еденице графика на оси X

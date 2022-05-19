@@ -5,6 +5,7 @@ import com.lab9v1.model.DocumentObserver;
 import com.lab9v1.model.Formula;
 import com.lab9v1.model.Harmonica;
 import com.lab9v1.model.UnaryFunction;
+import com.lab9v1.view.chart.Chart;
 
 import javax.swing.*;
 import javax.swing.event.*;

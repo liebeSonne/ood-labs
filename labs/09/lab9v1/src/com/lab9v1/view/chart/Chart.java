@@ -1,4 +1,4 @@
-package com.lab9v1.view;
+package com.lab9v1.view.chart;
 
 import com.lab9v1.model.*;
 
