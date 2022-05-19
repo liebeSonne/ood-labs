@@ -76,107 +76,105 @@ public class ChartBackground extends JComponent {
     }
 
     private void drawBackground(Graphics2D g2) {
-        int xLeft = this.getChartXLeft();
-        int yTop = this.getChartYTop();
-        int width = this.getChartWidth();
-        int height = this.getChartHeight();
+        int x = getChartXLeft();
+        int y = getChartYTop();
+        int width = getChartWidth();
+        int height = getChartHeight();
 
         g2.setColor(config.backgroundColor);
-        g2.fillRect(xLeft, yTop, width, height);
+        g2.fillRect(x, y, width, height);
     }
 
     private void drawAxisX(Graphics2D g2) {
-        int xLeft = this.getChartXLeft();
-        Point point0 = new Point(this.getChartX0(), this.getChartY0());
-        int maxX = this.getChartMaxX();
+        int x1 = getChartXLeft();
+        int x2 = getChartMaxX();
+        int y = getChartY0();
 
         g2.setColor(config.gridColor);
-        g2.drawLine(xLeft, point0.y, maxX , point0.y );
+        g2.drawLine(x1, y, x2 , y);
     }
 
     private void drawAxisY(Graphics2D g2) {
-        int xLeft = this.getChartXLeft();
-        int yTop = this.getChartYTop();
-        int maxY = this.getChartMaxY();
+        int x = getChartXLeft();
+        int y1 = getChartYTop();
+        int y2 = getChartMaxY();
 
         g2.setColor(config.gridColor);
-        g2.drawLine(xLeft, yTop, xLeft , maxY);
+        g2.drawLine(x, y1, x , y2);
     }
 
     private void drawAxisXHatchMark(Graphics2D g2) {
-        int minX = this.getChartMinX();
-        int maxX = this.getChartMaxX();
-        Point point0 = new Point(this.getChartX0(), this.getChartY0());
-        int hatchMarkSize = this.getHatchMarkSizeX();
+        int minX = getChartMinX();
+        int maxX = getChartMaxX();
 
-        g2.setColor(config.gridColor);
-        for (int xi = point0.x; xi <= maxX; xi += config.pointSizeX) {
-            g2.drawLine(xi, point0.y - (int) hatchMarkSize / 2, xi, point0.y + (int) hatchMarkSize / 2);
-        }
-        for (int xi = point0.x; xi >= minX; xi -= config.pointSizeX) {
-            g2.drawLine(xi, point0.y - (int) hatchMarkSize / 2, xi, point0.y + (int) hatchMarkSize / 2);
+        for (int xi = minX; xi <= maxX; xi += config.pointSizeX) {
+            drawAxisXHatchMarkLine(g2, xi);
         }
     }
 
-    private void drawAxisYHatchMark(Graphics2D g2) {
-        int xLeft = this.getChartXLeft();
-        int maxX = this.getChartMaxX();
-        int minY = this.getChartMinY();
-        int maxY = this.getChartMaxY();
-        Point point0 = new Point(this.getChartX0(), this.getChartY0());
+    private void drawAxisXHatchMarkLine(Graphics2D g2, int x) {
+        int hatchMarkSize = this.getHatchMarkSizeX();
+        int y1 = getChartY0() - (int) hatchMarkSize / 2;
+        int y2 = getChartY0() + (int) hatchMarkSize / 2;
 
         g2.setColor(config.gridColor);
-        for (int yi = point0.y; yi <= maxY; yi += config.pointSizeX) {
-            g2.drawLine(xLeft , yi, maxX , yi);
+        g2.drawLine(x, y1, x, y2);
+    }
+
+    private void drawAxisYHatchMark(Graphics2D g2) {
+        int minY = getChartMinY();
+        int maxY = getChartMaxY();
+
+        for (int yi = minY; yi <= maxY; yi += config.pointSizeX) {
+            drawAxisYHatchMarkLine(g2, yi);
         }
-        for (int yi = point0.y; yi >= minY; yi -= config.pointSizeX) {
-            g2.drawLine(xLeft , yi, maxX , yi);
-        }
+    }
+
+    private void drawAxisYHatchMarkLine(Graphics2D g2, int y) {
+        int x1 = getChartXLeft();
+        int x2 = getChartMaxX();
+
+        g2.setColor(config.gridColor);
+        g2.drawLine(x1 , y, x2 , y);
     }
 
     private void drawAxisXText(Graphics2D g2) {
         int minX = this.getChartMinX();
         int maxX = this.getChartMaxX();
-        Point point0 = new Point(this.getChartX0(), this.getChartY0());
-        int hatchMarkSize = this.getHatchMarkSizeX();
 
-        g2.setColor(config.gridColor);
-        double px = 0;
-        for (int xi = point0.x; xi <= maxX; xi += config.pointSizeX / 2, px += config.hatchMarksStepX) {
-            String xLabel = px + "";
-            FontMetrics metrics = g2.getFontMetrics();
-            int labelHeight = metrics.getHeight();
-            g2.drawString(xLabel, xi, point0.y + hatchMarkSize / 2 + labelHeight + 5);
-        }
-        px = 0;
-        for (int xi = point0.x; xi >= minX; xi -= config.pointSizeX / 2, px -= config.hatchMarksStepX) {
-            String xLabel = px + "";
-            FontMetrics metrics = g2.getFontMetrics();
-            int labelHeight = metrics.getHeight();
-            g2.drawString(xLabel, xi, point0.y + hatchMarkSize / 2 + labelHeight + 5);
+        double value = 0;
+        for (int xi = minX; xi <= maxX; xi += config.pointSizeX / 2, value += config.hatchMarksStepX) {
+            drawAxisXTestStr(g2, xi, value);
         }
     }
 
-    private void drawAxisYText(Graphics2D g2) {
-        int xLeft = this.getChartXLeft();
-        int minY = this.getChartMinY();
-        int maxY = this.getChartMaxY();
-        Point point0 = new Point(this.getChartX0(), this.getChartY0());
+    private void drawAxisXTestStr(Graphics2D g2, int x, double value) {
+        String label = value + "";
+        FontMetrics metrics = g2.getFontMetrics();
+        int labelHeight = metrics.getHeight();
+        int y = getChartY0() + getHatchMarkSizeX() / 2 + labelHeight + 5;
 
         g2.setColor(config.gridColor);
-        int py = 0;
-        for (int yi = point0.y; yi <= maxY; yi += config.pointSizeX, py += config.hatchMarksStepY) {
-            String yLabel = py + "";
-            FontMetrics metrics = g2.getFontMetrics();
-            int labelWidth = metrics.stringWidth(yLabel);
-            g2.drawString(yLabel, xLeft - labelWidth - 5, yi);
+        g2.drawString(label, x, y);
+    }
+
+    private void drawAxisYText(Graphics2D g2) {
+        int minY = this.getChartMinY();
+        int maxY = this.getChartMaxY();
+
+        double value = 0;
+        for (int yi = minY; yi <= maxY; yi += config.pointSizeX, value += config.hatchMarksStepY) {
+            drawAxisYTestStr(g2, yi, value);
         }
-        py = 0;
-        for (int yi = point0.y; yi >= minY; yi -= config.pointSizeX, py -= config.hatchMarksStepY) {
-            String yLabel = py + "";
-            FontMetrics metrics = g2.getFontMetrics();
-            int labelWidth = metrics.stringWidth(yLabel);
-            g2.drawString(yLabel, xLeft - labelWidth - 5, yi);
-        }
+    }
+
+    private void drawAxisYTestStr(Graphics2D g2, int y, double value) {
+        String label = value + "";
+        FontMetrics metrics = g2.getFontMetrics();
+        int labelWidth = metrics.stringWidth(label);
+        int x = getChartXLeft() - labelWidth - 5;
+
+        g2.setColor(config.gridColor);
+        g2.drawString(label, x, y);
     }
 }
