@@ -2,6 +2,7 @@ package view;
 
 import canvas.GraphicsCanvas;
 import document.DocumentInterface;
+import shape.Frame;
 import shape.ShapeInterface;
 
 import javax.swing.*;
@@ -14,6 +15,8 @@ public class CanvasPanel extends JPanel {
     private DocumentInterface document;
 
     private ShapeInterface selectedShape;
+
+    private Point selectedPoint;
 
     public CanvasPanel() {
         super();
@@ -57,6 +60,30 @@ public class CanvasPanel extends JPanel {
         this.redraw();
     }
 
+    private void setSelectedPoint(Point point) {
+        if (selectedShape != null && selectedShape.contains(point)) {
+            selectedPoint = point;
+        } else {
+            selectedPoint = null;
+        }
+    }
+
+    private void moveSelectedTo(Point point) {
+        if (selectedShape != null && selectedPoint != null) {
+            if (selectedShape.contains(point)) {
+                Frame frame = selectedShape.getFrame();
+                int diffX = (point.x - selectedPoint.x);
+                int diffY = (point.y - selectedPoint.y);
+                int x = frame.getLeft() + diffX;
+                int y = frame.getTop() + diffY;
+                Point to = new Point(x, y);
+                selectedShape.moveTo(to);
+                System.out.println("moveSelected: on " + point + " From (" + frame.getLeft() + ", " + frame.getTop() + ") to " + to + " diff: [" + diffX + ", " + diffY + "]");
+                redraw();
+            }
+        }
+    }
+
     private void bindMouseListener() {
         this.addMouseListener(new MouseAdapter() {
             @Override
@@ -64,6 +91,8 @@ public class CanvasPanel extends JPanel {
                 super.mousePressed(e);
                 System.out.println("mousePressed: " + e.getPoint());
                 selectShape(e.getPoint());
+                setSelectedPoint(e.getPoint());
+                System.out.println("mousePressed:selectedPoint: " + selectedPoint);
             }
 
             @Override
@@ -71,15 +100,18 @@ public class CanvasPanel extends JPanel {
                 super.mouseReleased(e);
                 System.out.println("mouseReleased: " + e.getPoint());
                 setCursor(Cursor.getPredefinedCursor(Cursor.getDefaultCursor().getType()));
+                selectedPoint = null;
+                System.out.println("mouseReleased:selectedPoint: " + selectedPoint);
             }
         });
 
         this.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
-            super.mouseDragged(e);
-            System.out.println("mouseDragged: " + e.getPoint());
-            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                super.mouseDragged(e);
+//                System.out.println("mouseDragged: " + e.getPoint());
+                setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                moveSelectedTo(e.getPoint());
             }
 //
 //            @Override

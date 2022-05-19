@@ -137,4 +137,10 @@ public class GroupShape implements GroupShapeInterface {
     public boolean contains(Point point) {
         return false;
     }
+
+    @Override
+    public void moveTo(Point point) {
+        Frame frame = this.getFrame();
+        this.setFrame(new Frame(point.x, point.y, frame.getWidth(), frame.getHeight()));
+    }
 }
