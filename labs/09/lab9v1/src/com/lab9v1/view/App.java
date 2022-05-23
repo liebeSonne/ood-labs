@@ -1,10 +1,7 @@
 package com.lab9v1.view;
 
 import com.lab9v1.controller.MainController;
-import com.lab9v1.model.DocumentObserver;
-import com.lab9v1.model.Formula;
-import com.lab9v1.model.Harmonica;
-import com.lab9v1.model.UnaryFunction;
+import com.lab9v1.model.*;
 import com.lab9v1.view.chart.Chart;
 
 import javax.swing.*;
@@ -139,10 +136,11 @@ public class App implements DocumentObserver {
 
     private void onAddNewButton() {
         Harmonica harmonica = new Harmonica(1, Formula.SIN, 1, 0);
-        JDialog dialog = new AddNewHarmonic(controller, harmonica);
+        JDialog dialog = new AddNewHarmonic(harmonica);
         dialog.pack();
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.setVisible(true);
+        this.controller.addNewHarmonica((HarmonicaCreator) dialog);
      }
 
      private void onDeleteSelectedButton() {

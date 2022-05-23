@@ -3,6 +3,8 @@ package com.lab9v1.view;
 import com.lab9v1.controller.MainController;
 import com.lab9v1.model.Formula;
 import com.lab9v1.model.Harmonica;
+import com.lab9v1.model.HarmonicaCreator;
+import com.lab9v1.model.ImmutableHarmonica;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -11,7 +13,7 @@ import javax.swing.text.NumberFormatter;
 import java.awt.event.*;
 import java.text.DecimalFormat;
 
-public class AddNewHarmonic extends JDialog {
+public class AddNewHarmonic extends JDialog implements HarmonicaCreator {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
@@ -23,11 +25,9 @@ public class AddNewHarmonic extends JDialog {
     private JLabel resultHarmonic;
     private ButtonGroup formulaButtonGroup;
 
-    private MainController controller;
     private Harmonica harmonica;
 
-    public AddNewHarmonic(MainController controller, Harmonica harmonica) {
-        this.controller = controller;
+    public AddNewHarmonic(Harmonica harmonica) {
         this.harmonica = harmonica;
 
         setContentPane(contentPane);
@@ -111,14 +111,17 @@ public class AddNewHarmonic extends JDialog {
         resultHarmonic.setText(this.harmonica.toString());
     }
 
+    public ImmutableHarmonica getHarmonica() {
+        return this.harmonica;
+    }
+
     private void onOK() {
         this.getData(this.harmonica);
-        this.controller.addHarmonica(this.harmonica.getAmplitude(), this.harmonica.getFormula(), this.harmonica.getFrequency(), this.harmonica.getPhase());
         dispose();
     }
 
     private void onCancel() {
-        // add your code here if necessary
+        this.harmonica = null;
         dispose();
     }
 
