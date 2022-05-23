@@ -1,8 +1,9 @@
 package com.lab9v1.model;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReference;
 
-public class Document implements ImmutableDocument {
+public class Document implements ImmutableDocument, UnaryFunction {
     private ArrayList<Harmonica> harmonics;
     private ArrayList<DocumentObserver> observers;
 
@@ -44,5 +45,14 @@ public class Document implements ImmutableDocument {
 
     private void sendUpdate() {
         this.observers.forEach(DocumentObserver::update);
+    }
+
+    @Override
+    public double calculate(double x) {
+        AtomicReference<Double> result = new AtomicReference<>((double) 0);
+        this.harmonics.forEach(item -> {
+            result.updateAndGet(v -> new Double((double) (v + item.calculate(x))));
+        });
+        return result.get();
     }
 }

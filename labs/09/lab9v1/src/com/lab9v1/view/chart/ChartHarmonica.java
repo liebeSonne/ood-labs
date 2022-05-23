@@ -5,14 +5,15 @@ import com.lab9v1.model.ImmutableDocument;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class ChartHarmonica extends JComponent {
     private final ChartHarmonicaConfig config;
-    private final ImmutableDocument document;
+    private final ArrayList<UnaryFunction> unaryFunctionList;
 
-    public ChartHarmonica(ChartHarmonicaConfig config, ImmutableDocument document) {
+    public ChartHarmonica(ChartHarmonicaConfig config, ArrayList<UnaryFunction> unaryFunctionList) {
         this.config = config;
-        this.document = document;
+        this.unaryFunctionList = unaryFunctionList;
     }
 
     @Override
@@ -20,7 +21,7 @@ public class ChartHarmonica extends JComponent {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        this.document.getHarmonics().forEach(harmonica -> {
+        this.unaryFunctionList.forEach(harmonica -> {
             Color color = new Color((int)(Math.random() * 0x1000000));
             g2.setColor(color);
             this.drawHarmonica(g2, harmonica);

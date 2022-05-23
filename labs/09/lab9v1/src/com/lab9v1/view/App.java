@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.NumberFormatter;
 import java.awt.event.*;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class App implements DocumentObserver {
@@ -322,6 +323,9 @@ public class App implements DocumentObserver {
         this.amplitudeTextField = new JFormattedTextField(formatter);
         this.phaseTextField = new JFormattedTextField(formatter);
 
-        this.chartPanel = new Chart(this.controller.getDocument());
+        ArrayList<UnaryFunction> unaryFunctionList = new ArrayList<UnaryFunction>();
+        unaryFunctionList.add((UnaryFunction) this.controller.getDocument());
+
+        this.chartPanel = new Chart(unaryFunctionList);
     }
 }

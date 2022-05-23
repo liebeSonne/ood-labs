@@ -4,20 +4,21 @@ import com.lab9v1.model.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Chart extends JPanel implements DocumentObserver {
 
     ChartBackground background;
     ChartHarmonica harmonica;
 
-    public Chart(ImmutableDocument document) {
+    public Chart(ArrayList<UnaryFunction> unaryFunctionList) {
         super();
 
         ChartBackgroundConfig backgroundConfig = new ChartBackgroundConfig();
         background = new ChartBackground(backgroundConfig);
 
         ChartHarmonicaConfig harmonicaConfig = new ChartHarmonicaConfig();
-        harmonica = new ChartHarmonica(harmonicaConfig, document);
+        harmonica = new ChartHarmonica(harmonicaConfig, unaryFunctionList);
 
         this.add(harmonica);
         this.add(background);
