@@ -11,8 +11,8 @@ public class ChartBackground extends JComponent {
     }
 
     @Override
-    public void paintComponents(Graphics g) {
-        super.paintComponents(g);
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
         // рисуем фон

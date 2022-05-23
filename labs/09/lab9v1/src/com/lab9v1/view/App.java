@@ -173,7 +173,6 @@ public class App implements DocumentObserver {
          if (tabbedPane.getSelectedIndex() != 0 )  {
              return;
          }
-         chartPanel.paintComponents(chartPanel.getGraphics());
      }
 
      private void drawList() {
