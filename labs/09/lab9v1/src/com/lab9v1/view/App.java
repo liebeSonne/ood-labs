@@ -65,16 +65,9 @@ public class App implements DocumentObserver {
     }
 
     private void bindForRedrawChart() {
-        this.chartPanel.addComponentListener(new ComponentAdapter() {
-            public void componentResized(ComponentEvent componentEvent) {
-                drawChart();
-            }
-        });
-
         tabbedPane.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 if (tabbedPane.getSelectedIndex() == 0) {
-                    drawChart();
                 } else if (tabbedPane.getSelectedIndex() == 1) {
                     drawTable();
                 }
@@ -101,7 +94,6 @@ public class App implements DocumentObserver {
             public void actionPerformed(ActionEvent e) {
                 drawList();
                 drawTable();
-                drawChart();
             }
         });
     }
@@ -168,12 +160,6 @@ public class App implements DocumentObserver {
         if (this.selectedHarmonica != null && this.selectedHarmonica.isPresent()) {
             this.controller.removeHarmonica(this.selectedHarmonica.get());
         }
-     }
-
-     private void drawChart() {
-         if (tabbedPane.getSelectedIndex() != 0 )  {
-             return;
-         }
      }
 
      private void drawList() {
