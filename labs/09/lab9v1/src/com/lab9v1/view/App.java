@@ -50,29 +50,19 @@ public class App implements DocumentObserver {
         this.controller.getDocument().register(this);
         this.controller.getDocument().register((DocumentObserver) this.chartPanel);
 
+        HarmonicaTableModel dataModel = new HarmonicaTableModel((UnaryFunction) this.controller.getDocument(), minX, maxX, delta);
+        this.table.setModel(dataModel);
+
         this.drawList();
         this.drawSelectedHarmonica();
-        this.drawTable();
 
         this.bindBtnEvents();
         this.bindListEvents();
         this.bindChangeSelectedEvents();
-        this.bindForRedrawChart();
     }
 
     public JPanel getMainPanel() {
         return mainPanel;
-    }
-
-    private void bindForRedrawChart() {
-        tabbedPane.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                if (tabbedPane.getSelectedIndex() == 0) {
-                } else if (tabbedPane.getSelectedIndex() == 1) {
-                    drawTable();
-                }
-            }
-        });
     }
 
     private void bindBtnEvents() {
@@ -93,7 +83,6 @@ public class App implements DocumentObserver {
             @Override
             public void actionPerformed(ActionEvent e) {
                 drawList();
-                drawTable();
             }
         });
     }
@@ -176,7 +165,6 @@ public class App implements DocumentObserver {
         Harmonica selected = (Harmonica) this.harmonicsList.getSelectedValue();
         this.selectedHarmonica = Optional.ofNullable(selected);
         drawSelectedHarmonica();
-        drawTable();
         this.listenChange = true;
      }
 
@@ -264,18 +252,6 @@ public class App implements DocumentObserver {
         Object value = phaseTextField.getValue();
         if (value == null ) return 0;
         return (Double) value;
-    }
-
-    private void drawTable() {
-        if (tabbedPane.getSelectedIndex() != 1) {
-            return;
-        }
-        if (this.selectedHarmonica != null && this.selectedHarmonica.isPresent()) {
-            HarmonicaTableModel dataModel = new HarmonicaTableModel((UnaryFunction) this.selectedHarmonica.get(), minX, maxX, delta);
-            this.table.setModel(dataModel);
-        } else {
-            this.table.setModel(new DefaultTableModel());
-        }
     }
 
     @Override
