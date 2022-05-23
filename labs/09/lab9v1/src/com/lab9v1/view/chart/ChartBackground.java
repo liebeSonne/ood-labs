@@ -125,8 +125,11 @@ public class ChartBackground extends JComponent {
         int minY = getChartMinY();
         int maxY = getChartMaxY();
 
-        for (int yi = minY; yi <= maxY; yi += config.pointSizeX) {
-            drawAxisYHatchMarkLine(g2, yi);
+        int yi2 = getChartY0();
+        int yi1 = getChartY0();
+        for ( ; yi1 >= minY && yi2 <= maxY; yi1 -= config.pointSizeX, yi2 += config.pointSizeX) {
+            drawAxisYHatchMarkLine(g2, yi1);
+            drawAxisYHatchMarkLine(g2, yi2);
         }
     }
 
@@ -163,8 +166,11 @@ public class ChartBackground extends JComponent {
         int maxY = this.getChartMaxY();
 
         double value = 0;
-        for (int yi = minY; yi <= maxY; yi += config.pointSizeX, value += config.hatchMarksStepY) {
-            drawAxisYTestStr(g2, yi, value);
+        int yi2 = getChartY0();
+        int yi1 = getChartY0();
+        for ( ; yi1 >= minY && yi2 <= maxY; yi1 -= config.pointSizeX, yi2 += config.pointSizeX, value += config.hatchMarksStepY) {
+            drawAxisYTestStr(g2, yi1,  value);
+            drawAxisYTestStr(g2, yi2, -1 * value);
         }
     }
 
