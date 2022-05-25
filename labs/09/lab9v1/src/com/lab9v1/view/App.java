@@ -26,7 +26,6 @@ public class App implements DocumentObserver {
     private JPanel selectedHarmonicaPanel;
     private JPanel listPanel;
     private JPanel chartPanel;
-    private JButton updButton;
     private ButtonGroup formulaButtonGroup;
 
     private final MainController controller;
@@ -73,12 +72,6 @@ public class App implements DocumentObserver {
             }
         });
 
-        updButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                drawList();
-            }
-        });
     }
 
     private void bindListEvents () {
