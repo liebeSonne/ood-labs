@@ -43,11 +43,9 @@ public class App implements DocumentObserver {
         this.controller.getDocument().register(this);
         this.controller.getDocument().register((DocumentObserver) this.chartPanel);
 
-        HarmonicaTableModel dataModel = new HarmonicaTableModel((UnaryFunction) this.controller.getDocument(), minX, maxX, delta);
-        this.table.setModel(dataModel);
-
         this.drawList();
         this.drawSelectedHarmonica();
+        this.drawTable();
 
         this.bindBtnEvents();
         this.bindListEvents();
@@ -135,6 +133,11 @@ public class App implements DocumentObserver {
 
      private void onDeleteSelectedButton() {
         this.controller.removeSelectedHarmonica();
+     }
+
+     private void drawTable() {
+         HarmonicaTableModel dataModel = new HarmonicaTableModel((UnaryFunction) this.controller.getDocument(), minX, maxX, delta);
+         this.table.setModel(dataModel);
      }
 
      private void drawList() {
@@ -238,6 +241,7 @@ public class App implements DocumentObserver {
     public void update() {
         this.drawList();
         this.drawSelectedHarmonica();
+        this.drawTable();
     }
 
     private void onEditSelectedHarmonica() {
