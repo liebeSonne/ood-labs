@@ -17,12 +17,10 @@ public class MainController {
     }
 
     public void addNewHarmonica(HarmonicaCreator creator) {
-        System.out.println("controller::addNewHarmonica()--begin");
         ImmutableHarmonica harmonica = creator.getHarmonica();
         if (harmonica != null) {
             this.document.addHarmonica(harmonica.getAmplitude(), harmonica.getFormula(), harmonica.getFrequency(), harmonica.getPhase());
         }
-        System.out.println("controller::addNewHarmonica()--end");
     }
 
     public void removeSelectedHarmonica() {
