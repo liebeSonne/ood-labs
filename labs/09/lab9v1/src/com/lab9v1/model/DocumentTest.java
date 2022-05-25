@@ -75,4 +75,36 @@ class DocumentTest {
 //        document.addHarmonica(1.1, Formula.SIN, 2.2, 3.3);
 //        document.addHarmonica(1.1, Formula.SIN, 2.2, 3.3);
     }
+
+    @org.junit.jupiter.api.Test
+    void setSelectedHarmonica() {
+        Document document = new Document();
+        document.addHarmonica(1.1, Formula.SIN, 2.2, 3.3);
+        document.addHarmonica(4.4, Formula.COS, 5.5, 6.6);
+        document.addHarmonica(7.7, Formula.COS, 8.8, 9.9);
+
+        ArrayList<ImmutableHarmonica> harmonics = document.getHarmonics();
+        assertEquals(harmonics.size(), 3);
+
+        ImmutableHarmonica harmonica = harmonics.get(1);
+
+        document.setSelectedHarmonica(harmonica);
+
+        assertEquals(harmonica, document.getSelectedHarmonica());
+    }
+
+    @org.junit.jupiter.api.Test
+    void setSelectedHarmonicaSetSelectedNull() {
+        Document document = new Document();
+        document.addHarmonica(1.1, Formula.SIN, 2.2, 3.3);
+        document.addHarmonica(4.4, Formula.COS, 5.5, 6.6);
+        document.addHarmonica(7.7, Formula.COS, 8.8, 9.9);
+
+        ArrayList<ImmutableHarmonica> harmonics = document.getHarmonics();
+        assertEquals(harmonics.size(), 3);
+
+        document.setSelectedHarmonica(null);
+
+        assertNull(document.getSelectedHarmonica());
+    }
 }

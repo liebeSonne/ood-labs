@@ -25,15 +25,23 @@ public class MainController {
         System.out.println("controller::addNewHarmonica()--end");
     }
 
-    public void removeHarmonica(ImmutableHarmonica harmonica) {
-        this.document.removeHarmonica(harmonica);
+    public void removeSelectedHarmonica() {
+        this.document.removeHarmonica(this.document.getSelectedHarmonica());
     }
 
     public ImmutableDocument getDocument() {
         return (ImmutableDocument) this.document;
     }
 
-    public void changeHarmonica(ImmutableHarmonica oldHarmonica, ImmutableHarmonica newHarmonica) {
-        this.document.changeHarmonica(oldHarmonica, newHarmonica);
+    public void changeSelectedHarmonica(ImmutableHarmonica newHarmonica) {
+        this.document.changeHarmonica(this.getSelectedHarmonica(), newHarmonica);
+    }
+
+    public void setSelectedHarmonica(ImmutableHarmonica harmonica) {
+        this.document.setSelectedHarmonica(harmonica);
+    }
+
+    public ImmutableHarmonica getSelectedHarmonica() {
+        return this.document.getSelectedHarmonica();
     }
 }

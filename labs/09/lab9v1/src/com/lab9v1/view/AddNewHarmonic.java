@@ -200,7 +200,7 @@ public class AddNewHarmonic extends JDialog implements HarmonicaCreator {
     }
 
     private void createUIComponents() {
-        DecimalFormat format = new DecimalFormat("##0.###");
+        DecimalFormat format = new DecimalFormat("##0.0##");
         NumberFormatter formatter = new NumberFormatter(format);
         formatter.setAllowsInvalid(false);
         formatter.setValueClass(Double.class);

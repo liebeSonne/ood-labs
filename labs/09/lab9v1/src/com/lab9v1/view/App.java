@@ -6,12 +6,10 @@ import com.lab9v1.view.chart.Chart;
 
 import javax.swing.*;
 import javax.swing.event.*;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.text.NumberFormatter;
 import java.awt.event.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Optional;
 
 public class App implements DocumentObserver {
     private JButton addNewButton;
@@ -32,7 +30,6 @@ public class App implements DocumentObserver {
     private ButtonGroup formulaButtonGroup;
 
     private final MainController controller;
-    private Optional<Harmonica> selectedHarmonica;
 
     private int selectedHarmonicaIndex = -1;
 
@@ -40,7 +37,7 @@ public class App implements DocumentObserver {
     private double maxX = 8;
     private double delta = 0.5;
 
-    private boolean listenChange = true;
+    private boolean listenChange = false;
 
     public App(MainController controller) {
         this.controller = controller;
@@ -102,12 +99,12 @@ public class App implements DocumentObserver {
         DocumentListener listener = new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                onChangeSelectedHarmonica();
+                onEditSelectedHarmonica();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                onChangeSelectedHarmonica();
+                onEditSelectedHarmonica();
             }
 
             @Override
@@ -123,13 +120,13 @@ public class App implements DocumentObserver {
         sinRadioButton.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent event) {
-                onChangeSelectedHarmonica();
+                onEditSelectedHarmonica();
             }
         });
         cosRadioButton.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent event) {
-                onChangeSelectedHarmonica();
+                onEditSelectedHarmonica();
             }
         });
     }
@@ -144,9 +141,7 @@ public class App implements DocumentObserver {
      }
 
      private void onDeleteSelectedButton() {
-        if (this.selectedHarmonica != null && this.selectedHarmonica.isPresent()) {
-            this.controller.removeHarmonica(this.selectedHarmonica.get());
-        }
+        this.controller.removeSelectedHarmonica();
      }
 
      private void drawList() {
@@ -160,21 +155,21 @@ public class App implements DocumentObserver {
      private void onSelectHarmonica() {
         if (!this.listenChange) return;
         this.listenChange = false;
-        Harmonica selected = (Harmonica) this.harmonicsList.getSelectedValue();
-        this.selectedHarmonica = Optional.ofNullable(selected);
-        drawSelectedHarmonica();
+        ImmutableHarmonica selected = (ImmutableHarmonica) this.harmonicsList.getSelectedValue();
+        this.controller.setSelectedHarmonica(selected);
         this.listenChange = true;
      }
 
     private void drawSelectedHarmonica() {
-        if (this.selectedHarmonica != null && this.selectedHarmonica.isPresent()) {
-            setData(this.selectedHarmonica.get());
+        ImmutableHarmonica selected = this.controller.getSelectedHarmonica();
+        if (selected != null) {
+            setData(selected);
         } else {
-            this.setDataNull();
+            setDataNull();
         }
     }
 
-    private void setData(Harmonica data) {
+    private void setData(ImmutableHarmonica data) {
         this.listenChange = false;
         if (this.isModified(data)) {
             amplitudeTextField.setValue(data.getAmplitude());
@@ -191,30 +186,32 @@ public class App implements DocumentObserver {
 
     private void setDataNull() {
         this.listenChange = false;
-        amplitudeTextField.setValue(0);
-        frequencyTextField.setValue(0);
-        phaseTextField.setValue(0);
+        amplitudeTextField.setValue(0.0);
+        frequencyTextField.setValue(0.0);
+        phaseTextField.setValue(0.0);
         formulaButtonGroup.clearSelection();
         sinRadioButton.setSelected(true);
         this.listenChange = true;
     }
 
-    private void getData(Harmonica data) {
-        data.setAmplitude(getAmplitude());
-        data.setFrequency(getFrequency());
-        data.setPhase(getPhase());
-        data.setFormula(this.getFormula());
+    private ImmutableHarmonica getData() {
+        ImmutableHarmonica harmonica = new Harmonica(getAmplitude(), getFormula(), getFrequency(), getPhase());
+        return harmonica;
     }
 
-    public boolean isModified(Harmonica data) {
-        if (amplitudeTextField.getText() == null || !amplitudeTextField.getText().equals(Double.toString(data.getAmplitude())))
+    public boolean isModified(ImmutableHarmonica data) {
+        if (getAmplitude() != data.getAmplitude()) {
             return true;
-        if (frequencyTextField.getText() == null || !frequencyTextField.getText().equals(Double.toString(data.getFrequency())))
+        }
+        if (getFrequency() != data.getFrequency()) {
             return true;
-        if (phaseTextField.getText() == null || !phaseTextField.getText().equals(Double.toString(data.getPhase())))
+        }
+        if (getPhase() != data.getPhase()) {
             return true;
-        if (formulaButtonGroup.getSelection() != null ? formulaButtonGroup.getSelection().equals(this.convertFromFormula(data.getFormula())) : data.getFormula() != null)
+        }
+        if (getFormula() != data.getFormula()) {
             return true;
+        }
         return false;
     }
 
@@ -255,26 +252,22 @@ public class App implements DocumentObserver {
     @Override
     public void update() {
         this.drawList();
+        this.drawSelectedHarmonica();
     }
 
-    private void onChangeSelectedHarmonica() {
+    private void onEditSelectedHarmonica() {
         if (!listenChange) return;
-        if (this.selectedHarmonica != null && this.selectedHarmonica.isPresent()) {
-            listenChange = false;
-
-            Harmonica harmonica = this.selectedHarmonica.get();
-            Harmonica newHarmonica = new Harmonica(harmonica.getAmplitude(),harmonica.getFormula(),harmonica.getFrequency(), harmonica.getPhase()) ;
-
-            this.getData(newHarmonica);
-
-            this.controller.changeHarmonica(harmonica, newHarmonica);
-
-            listenChange = true;
+        listenChange = false;
+        ImmutableHarmonica selected = this.controller.getSelectedHarmonica();
+        if (selected != null && isModified(selected)) {
+            ImmutableHarmonica newHarmonica = this.getData();
+            this.controller.changeSelectedHarmonica(newHarmonica);
         }
+        listenChange = true;
     }
 
     private void createUIComponents() {
-        DecimalFormat format = new DecimalFormat("##0.###");
+        DecimalFormat format = new DecimalFormat("##0.0##");
         NumberFormatter formatter = new NumberFormatter(format);
         formatter.setAllowsInvalid(false);
         formatter.setValueClass(Double.class);

@@ -1,11 +1,14 @@
 package com.lab9v1.model;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class Document implements ImmutableDocument, UnaryFunction {
     private ArrayList<Harmonica> harmonics;
     private ArrayList<DocumentObserver> observers;
+
+    private Harmonica selectedHarmonica;
 
     public Document() {
         this.harmonics = new ArrayList<Harmonica>();
@@ -35,8 +38,31 @@ public class Document implements ImmutableDocument, UnaryFunction {
         }
     }
 
+    public void setSelectedHarmonica(ImmutableHarmonica harmonica) {
+        if (harmonica == null) {
+            selectedHarmonica = null;
+            sendUpdate();
+            return;
+        }
+        AtomicBoolean hasSelected = new AtomicBoolean(false);
+        this.harmonics.forEach(item -> {
+            if (item == harmonica) {
+                selectedHarmonica = item;
+                hasSelected.set(true);
+            }
+        });
+        if (!hasSelected.get()) {
+            selectedHarmonica = null;
+        }
+        sendUpdate();
+    }
+
     public ArrayList<ImmutableHarmonica> getHarmonics() {
         return new ArrayList<ImmutableHarmonica> (this.harmonics);
+    }
+
+    public ImmutableHarmonica getSelectedHarmonica() {
+        return selectedHarmonica;
     }
 
     public void register(DocumentObserver observer) {

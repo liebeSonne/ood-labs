@@ -44,9 +44,11 @@ class MainControllerTest {
 
         ImmutableHarmonica harmonica = document.getHarmonics().get(0);
 
+        controller.setSelectedHarmonica(harmonica);
+
 //        verify(document, times(1)).removeHarmonica(harmonica);
 
-        controller.removeHarmonica(harmonica);
+        controller.removeSelectedHarmonica();
 
         assertEquals(1, controller.getDocument().getHarmonics().size());
     }
