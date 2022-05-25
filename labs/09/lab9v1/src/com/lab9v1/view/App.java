@@ -215,14 +215,6 @@ public class App implements DocumentObserver {
         return false;
     }
 
-    private JRadioButton convertFromFormula(Formula formula){
-        switch (formula) {
-            case COS -> {return cosRadioButton;}
-            case SIN -> {return sinRadioButton;}
-        }
-        return null;
-    }
-
     private double getAmplitude() {
         Object value = amplitudeTextField.getValue();
         if (value == null ) return 0;
