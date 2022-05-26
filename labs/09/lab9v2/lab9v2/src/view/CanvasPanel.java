@@ -105,7 +105,6 @@ public class CanvasPanel extends JPanel {
                 int x = frame.getLeft() + diffX;
                 int y = frame.getTop() + diffY;
                 Point to = new Point(x, y);
-//                selectedShape.moveTo(to);
                 System.out.println("moveSelected: on " + point + " From (" + frame.getLeft() + ", " + frame.getTop() + ") to " + to + " diff: [" + diffX + ", " + diffY + "]");
                 controller.moveSelectedShapeTo(to);
                 redraw();
