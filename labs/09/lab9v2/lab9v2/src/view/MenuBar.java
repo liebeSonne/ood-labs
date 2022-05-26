@@ -101,7 +101,8 @@ public class MenuBar extends JMenuBar {
         this.add(menuFormat);
     }
 
+    // @TODO - remove this method
     private void drawCanvas() {
-        this.canvasPanel.paintComponents(this.canvasPanel.getGraphics());
+        this.canvasPanel.redraw();
     }
 }

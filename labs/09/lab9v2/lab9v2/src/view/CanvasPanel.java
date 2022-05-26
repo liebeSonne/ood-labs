@@ -32,9 +32,14 @@ public class CanvasPanel extends JPanel {
         }
     }
 
+    // @TODO - remove this method
+    public void redraw() {
+        this.paintComponent(this.getGraphics());
+    }
+
     @Override
-    public void paintComponents(Graphics g) {
-        super.paintComponents(g);
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
         g2.clearRect(0,0,getWidth(), getHeight());
@@ -63,10 +68,6 @@ public class CanvasPanel extends JPanel {
             return this.controller.getSelectedShape();
         }
         return null;
-    }
-
-    private void redraw() {
-        this.paintComponents(this.getGraphics());
     }
 
     private void selectShape(Point point) {

@@ -83,8 +83,9 @@ public class App extends JFrame {
         });
     }
 
+    // @TODO - remove this method
     private void drawCanvas() {
-        canvasPanel.paintComponents(canvasPanel.getGraphics());
+        ((CanvasPanel)this.canvasPanel).redraw();
     }
 
     private void createUIComponents() {
