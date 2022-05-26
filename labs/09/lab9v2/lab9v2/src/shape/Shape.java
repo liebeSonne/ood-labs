@@ -1,7 +1,6 @@
 package shape;
 
 import canvas.CanvasInterface;
-import shape.group.GroupShapeInterface;
 import style.Style;
 import style.StyleInterface;
 
@@ -32,8 +31,6 @@ abstract public class Shape implements ShapeInterface{
     public StyleInterface getStrokeStyle() {
         return this.strokeStyle;
     }
-
-    public GroupShapeInterface getGroup() { return null; }
 
     @Override
     abstract public void draw(CanvasInterface canvas);
