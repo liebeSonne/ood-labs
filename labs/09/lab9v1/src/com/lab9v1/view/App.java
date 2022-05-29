@@ -123,7 +123,7 @@ public class App implements DocumentObserver {
     }
 
      private void onDeleteSelectedButton() {
-        this.controller.removeSelectedHarmonica();
+        this.controller.onRemoveHarmonica();
      }
 
      private void drawTable() {

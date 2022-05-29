@@ -20,7 +20,7 @@ public class MainController {
         }
     }
 
-    public void removeSelectedHarmonica() {
+    public void onRemoveHarmonica() {
         this.document.removeHarmonica(this.document.getSelectedHarmonica());
     }
 

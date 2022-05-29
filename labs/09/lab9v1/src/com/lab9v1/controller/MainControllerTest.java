@@ -108,7 +108,7 @@ class MainControllerTest {
 
 //        verify(document, times(1)).removeHarmonica(harmonica);
 
-        controller.removeSelectedHarmonica();
+        controller.onRemoveHarmonica();
 
         assertEquals(1, controller.getDocument().getHarmonics().size());
     }
