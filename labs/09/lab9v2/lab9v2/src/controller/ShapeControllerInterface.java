@@ -14,4 +14,6 @@ public interface ShapeControllerInterface {
     public ShapeInterface getSelectedShape();
     public void moveSelectedShapeTo(Point point);
     public void removeSelectedShape();
+
+    public ShapeInterface getShapeAt(Point point);
 }

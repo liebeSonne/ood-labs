@@ -1,10 +1,7 @@
 package com.lab9v1.view;
 
-import com.lab9v1.controller.MainController;
 import com.lab9v1.model.Formula;
 import com.lab9v1.model.Harmonica;
-import com.lab9v1.model.HarmonicaCreator;
-import com.lab9v1.model.ImmutableHarmonica;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -13,7 +10,7 @@ import javax.swing.text.NumberFormatter;
 import java.awt.event.*;
 import java.text.DecimalFormat;
 
-public class AddNewHarmonic extends JDialog implements HarmonicaCreator {
+public class AddNewHarmonic extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
@@ -25,11 +22,9 @@ public class AddNewHarmonic extends JDialog implements HarmonicaCreator {
     private JLabel resultHarmonic;
     private ButtonGroup formulaButtonGroup;
 
-    private Harmonica harmonica;
+    private HarmonicaDTO harmonica;
 
-    public AddNewHarmonic(Harmonica harmonica) {
-        this.harmonica = harmonica;
-
+    public AddNewHarmonic() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -104,14 +99,15 @@ public class AddNewHarmonic extends JDialog implements HarmonicaCreator {
     }
 
     private void redrawHarmonica() {
-        this.harmonica.setFrequency(getFrequency());
-        this.harmonica.setAmplitude(getAmplitude());
-        this.harmonica.setPhase(getPhase());
-        this.harmonica.setFormula(getFormula());
-        resultHarmonic.setText(this.harmonica.toString());
+        Harmonica harmonica = new Harmonica(getAmplitude(), getFormula(), getFrequency(), getPhase());
+        this.harmonica.frequency = getFrequency();
+        this.harmonica.amplitude = getAmplitude();
+        this.harmonica.phase = getPhase();
+        this.harmonica.formula = getFormula();
+        resultHarmonic.setText(harmonica.toString());
     }
 
-    public ImmutableHarmonica getHarmonica() {
+    public HarmonicaDTO getHarmonica() {
         return this.harmonica;
     }
 
@@ -151,23 +147,23 @@ public class AddNewHarmonic extends JDialog implements HarmonicaCreator {
         return (Double) value;
     }
 
-    public void setData(Harmonica data) {
-        amplitudeTextField.setText(Double.toString(data.getAmplitude()));
-        frequencyTextField.setText(Double.toString(data.getFrequency()));
-        phaseTextField.setText(Double.toString(data.getPhase()));
+    public void setData(HarmonicaDTO data) {
+        amplitudeTextField.setText(Double.toString(data.amplitude));
+        frequencyTextField.setText(Double.toString(data.frequency));
+        phaseTextField.setText(Double.toString(data.phase));
 
         formulaButtonGroup.clearSelection();
-        switch (data.getFormula()) {
+        switch (data.formula) {
             case COS -> cosRadioButton.setSelected(true);
             case SIN -> sinRadioButton.setSelected(true);
         }
     }
 
-    public void getData(Harmonica data) {
-        data.setAmplitude(getAmplitude());
-        data.setFrequency(getFrequency());
-        data.setPhase(getPhase());
-        data.setFormula(this.getFormula());
+    public void getData(HarmonicaDTO data) {
+        data.amplitude = getAmplitude();
+        data.frequency = getFrequency();
+        data.phase = getPhase();
+        data.formula = this.getFormula();
     }
 
     public boolean isModified(Harmonica data) {

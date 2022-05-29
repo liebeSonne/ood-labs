@@ -60,7 +60,7 @@ public class App implements DocumentObserver {
         addNewButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                onAddNewButton();
+                controller.onAddNewHarmonica();
             }
         });
         deleteSelectedButton.addActionListener(new ActionListener() {
@@ -121,15 +121,6 @@ public class App implements DocumentObserver {
             }
         });
     }
-
-    private void onAddNewButton() {
-        Harmonica harmonica = new Harmonica(1, Formula.SIN, 1, 0);
-        JDialog dialog = new AddNewHarmonic(harmonica);
-        dialog.pack();
-        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        dialog.setVisible(true);
-        this.controller.addNewHarmonica((HarmonicaCreator) dialog);
-     }
 
      private void onDeleteSelectedButton() {
         this.controller.removeSelectedHarmonica();

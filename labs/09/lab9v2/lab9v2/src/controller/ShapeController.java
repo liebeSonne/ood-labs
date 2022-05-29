@@ -69,4 +69,19 @@ public class ShapeController implements ShapeControllerInterface {
             this.document.removeShape(this.selectedShape);
         }
     }
+
+    @Override
+    public ShapeInterface getShapeAt(Point point) {
+        // @TODO
+//
+//        setSelectedShape(null);
+//        document.getShapes().forEach(shape -> {
+//            if (shape.contains(point)) {
+//                return shape;
+//                setSelectedShape(shape);
+//            }
+//        });
+
+        return null;
+    }
 }

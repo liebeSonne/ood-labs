@@ -1,25 +1,22 @@
 package com.lab9v1.controller;
 
 import com.lab9v1.model.*;
-import com.lab9v1.view.AddNewHarmonic;
-
-import javax.swing.*;
+import com.lab9v1.view.HarmonicaDTO;
+import com.lab9v1.view.HarmonicaView;
 
 public class MainController {
     private Document document;
+    private HarmonicaView view;
 
-    public MainController(Document document) {
+    public MainController(Document document, HarmonicaView $view) {
         this.document = document;
+        this.view = $view;
     }
 
-    public void addHarmonica(double amplitude, Formula formula, double frequency, double phase) {
-        this.document.addHarmonica(amplitude, formula, frequency, phase);
-    }
-
-    public void addNewHarmonica(HarmonicaCreator creator) {
-        ImmutableHarmonica harmonica = creator.getHarmonica();
+    public void onAddNewHarmonica() {
+        HarmonicaDTO harmonica = this.view.getHarmonica();
         if (harmonica != null) {
-            this.document.addHarmonica(harmonica.getAmplitude(), harmonica.getFormula(), harmonica.getFrequency(), harmonica.getPhase());
+            this.document.addHarmonica(harmonica.amplitude, harmonica.formula, harmonica.frequency, harmonica.phase);
         }
     }
 
