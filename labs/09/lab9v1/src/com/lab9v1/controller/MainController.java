@@ -1,7 +1,7 @@
 package com.lab9v1.controller;
 
 import com.lab9v1.model.*;
-import com.lab9v1.view.HarmonicaDTO;
+import com.lab9v1.view.HarmonicaData;
 import com.lab9v1.view.HarmonicaView;
 
 public class MainController {
@@ -14,7 +14,7 @@ public class MainController {
     }
 
     public void onAddNewHarmonica() {
-        HarmonicaDTO harmonica = this.view.getHarmonica();
+        HarmonicaData harmonica = this.view.getHarmonica();
         if (harmonica != null) {
             this.document.addHarmonica(harmonica.amplitude, harmonica.formula, harmonica.frequency, harmonica.phase);
         }

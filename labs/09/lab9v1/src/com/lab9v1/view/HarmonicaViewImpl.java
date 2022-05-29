@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class HarmonicaViewImpl implements HarmonicaView{
     @Override
-    public HarmonicaDTO getHarmonica() {
+    public HarmonicaData getHarmonica() {
         AddNewHarmonic dialog = new AddNewHarmonic();
         dialog.pack();
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);

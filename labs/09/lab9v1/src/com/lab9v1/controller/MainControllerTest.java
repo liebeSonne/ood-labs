@@ -3,7 +3,7 @@ package com.lab9v1.controller;
 import com.lab9v1.model.Document;
 import com.lab9v1.model.Formula;
 import com.lab9v1.model.ImmutableHarmonica;
-import com.lab9v1.view.HarmonicaDTO;
+import com.lab9v1.view.HarmonicaData;
 import com.lab9v1.view.HarmonicaView;
 import org.junit.jupiter.api.Test;
 
@@ -11,14 +11,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MockView implements HarmonicaView {
 
-    private HarmonicaDTO data;
+    private HarmonicaData data;
 
-    public MockView(HarmonicaDTO data) {
+    public MockView(HarmonicaData data) {
         this.data = data;
     }
 
     @Override
-    public HarmonicaDTO getHarmonica() {
+    public HarmonicaData getHarmonica() {
         return data;
     }
 }
@@ -32,7 +32,7 @@ class MainControllerTest {
         double frequency = 2.2;
         double phase = 3.3;
 
-        HarmonicaDTO data = new HarmonicaDTO();
+        HarmonicaData data = new HarmonicaData();
         data.amplitude = amplitude;
         data.formula = formula;
         data.frequency = frequency;
@@ -62,7 +62,7 @@ class MainControllerTest {
         double frequency = 2.2;
         double phase = 3.3;
 
-        HarmonicaDTO data = new HarmonicaDTO();
+        HarmonicaData data = new HarmonicaData();
         data.amplitude = amplitude;
         data.formula = formula;
         data.frequency = frequency;
@@ -87,7 +87,7 @@ class MainControllerTest {
         double frequency = 2.2;
         double phase = 3.3;
 
-        HarmonicaDTO data = new HarmonicaDTO();
+        HarmonicaData data = new HarmonicaData();
         data.amplitude = amplitude;
         data.formula = formula;
         data.frequency = frequency;

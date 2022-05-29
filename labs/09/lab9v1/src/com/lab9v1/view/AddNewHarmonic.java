@@ -22,7 +22,7 @@ public class AddNewHarmonic extends JDialog {
     private JLabel resultHarmonic;
     private ButtonGroup formulaButtonGroup;
 
-    private HarmonicaDTO harmonica;
+    private HarmonicaData harmonica;
 
     public AddNewHarmonic() {
         setContentPane(contentPane);
@@ -107,7 +107,7 @@ public class AddNewHarmonic extends JDialog {
         resultHarmonic.setText(harmonica.toString());
     }
 
-    public HarmonicaDTO getHarmonica() {
+    public HarmonicaData getHarmonica() {
         return this.harmonica;
     }
 
@@ -147,7 +147,7 @@ public class AddNewHarmonic extends JDialog {
         return (Double) value;
     }
 
-    public void setData(HarmonicaDTO data) {
+    public void setData(HarmonicaData data) {
         amplitudeTextField.setText(Double.toString(data.amplitude));
         frequencyTextField.setText(Double.toString(data.frequency));
         phaseTextField.setText(Double.toString(data.phase));
@@ -159,7 +159,7 @@ public class AddNewHarmonic extends JDialog {
         }
     }
 
-    public void getData(HarmonicaDTO data) {
+    public void getData(HarmonicaData data) {
         data.amplitude = getAmplitude();
         data.frequency = getFrequency();
         data.phase = getPhase();
