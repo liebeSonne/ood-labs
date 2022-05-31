@@ -15,4 +15,6 @@ public interface ShapeInterface extends DrawableInterface {
     public void setSelected(boolean selected);
 
     public boolean contains(Point point);
+    public void moveTo(Point point);
+    public void translate(int x, int y);
 }

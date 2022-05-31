@@ -73,4 +73,9 @@ abstract public class Shape implements ShapeInterface{
         Frame frame = this.getFrame();
         this.setFrame(new Frame(point.x, point.y, frame.getWidth(), frame.getHeight()));
     }
+
+    public void translate(int x, int y) {
+        Frame frame = this.getFrame();
+        this.setFrame(new Frame(frame.getLeft() + x, frame.getTop() + y, frame.getWidth(), frame.getHeight()));
+    }
 }
