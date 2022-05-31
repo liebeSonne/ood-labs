@@ -10,4 +10,9 @@ public interface ShapeInterface extends DrawableInterface {
     public void setFrame(Frame frame);
     public StyleInterface getFillStyle();
     public StyleInterface getStrokeStyle();
+
+    public boolean isSelected();
+    public void setSelected(boolean selected);
+
+    public boolean contains(Point point);
 }

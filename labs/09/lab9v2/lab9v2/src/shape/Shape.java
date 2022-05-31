@@ -10,6 +10,8 @@ abstract public class Shape implements ShapeInterface{
     private Frame frame;
     private Style fillStyle;
     private Style strokeStyle;
+    private boolean isSelected = false;
+
     public Shape (Frame frame, Color strokeColor, Color fillColor) {
         this.setFrame(frame);
         this.fillStyle = new Style(fillColor);
@@ -55,6 +57,13 @@ abstract public class Shape implements ShapeInterface{
             canvas.fillEllipse(px-r,py-r,r*2, r*2, new Color(0,0,255, 70));
             canvas.drawEllipse(px-r,py-r,r*2, r*2);
         }
+    }
+
+    public boolean isSelected() {
+        return this.isSelected;
+    }
+    public void setSelected(boolean selected) {
+        this.isSelected = selected;
     }
 
     @Override
