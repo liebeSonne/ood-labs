@@ -1,15 +1,15 @@
 package view;
 
-import canvas.DrawableInterface;
 import canvas.GraphicsCanvas;
+import shape.ShapeInterface;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class ShapeComponent extends JComponent {
-    DrawableInterface shape;
+    ShapeInterface shape;
 
-    public ShapeComponent(DrawableInterface shape) {
+    public ShapeComponent(ShapeInterface shape) {
         super();
         this.shape = shape;
     }

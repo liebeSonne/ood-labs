@@ -1,7 +1,7 @@
 package view;
 
-import canvas.DrawableInterface;
 import controller.MainControllerInterface;
+import shape.ShapeInterface;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent;
 public class DragMouseAdapter extends MouseAdapter {
 
     Point selectedPoint;
-    DrawableInterface shape;
+    ShapeInterface shape;
     MainControllerInterface controller;
 
     public DragMouseAdapter(MainControllerInterface controller) {
