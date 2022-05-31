@@ -7,12 +7,9 @@ import java.util.ArrayList;
 public class Document implements DocumentInterface {
     private ArrayList<ShapeInterface> shapes;
 
-    private ArrayList<ShapeInterface> selectedShapes;
-
     public Document()
     {
         this.shapes = new ArrayList<ShapeInterface>();
-        this.selectedShapes = new ArrayList<ShapeInterface>();
     }
 
     public ArrayList<ShapeInterface> getShapes()
@@ -31,15 +28,22 @@ public class Document implements DocumentInterface {
     }
 
     public ArrayList<ShapeInterface> getSelectedShapes() {
-        return this.selectedShapes;
+        ArrayList<ShapeInterface> selectedShapes = new ArrayList<ShapeInterface>();
+        this.shapes.forEach(shape -> {
+            if (shape.isSelected()) {
+                selectedShapes.add(shape);
+            }
+        });
+        return selectedShapes;
     }
 
     public void setSelectedShapes(ArrayList<ShapeInterface> selectedShapes) {
-        this.selectedShapes.clear();
         selectedShapes.forEach(selectShape -> {
             this.shapes.forEach(shape -> {
                 if (shape == selectShape) {
-                    this.selectedShapes.add(shape);
+                    shape.setSelected(true);
+                } else {
+                    shape.setSelected(false);
                 }
             });
         });
