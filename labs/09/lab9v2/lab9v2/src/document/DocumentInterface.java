@@ -10,4 +10,8 @@ public interface DocumentInterface {
     public void addShape(ShapeInterface shape);
 
     public void removeShape(ShapeInterface shape);
+
+    public ArrayList<ShapeInterface> getSelectedShapes();
+
+    public void setSelectedShapes(ArrayList<ShapeInterface> selectedShapes);
 }
