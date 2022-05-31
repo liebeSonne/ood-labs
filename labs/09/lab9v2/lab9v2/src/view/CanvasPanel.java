@@ -1,7 +1,7 @@
 package view;
 
 import canvas.GraphicsCanvas;
-import controller.ShapeControllerInterface;
+import controller.MainControllerInterface;
 import document.DocumentInterface;
 import shape.Frame;
 import shape.ShapeInterface;
@@ -17,14 +17,14 @@ public class CanvasPanel extends JPanel {
 
     private Point selectedPoint;
 
-    private ShapeControllerInterface controller;
+    private MainControllerInterface controller;
 
     public CanvasPanel() {
         super();
         this.bindMouseListener();
     }
 
-    public void setController(ShapeControllerInterface controller) {
+    public void setController(MainControllerInterface controller) {
         this.controller = controller;
         this.document = null;
         if (this.controller != null) {

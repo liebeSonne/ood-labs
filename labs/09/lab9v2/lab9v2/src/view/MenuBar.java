@@ -1,6 +1,6 @@
 package view;
 
-import controller.ShapeControllerInterface;
+import controller.MainControllerInterface;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -9,11 +9,11 @@ import java.awt.event.KeyEvent;
 
 public class MenuBar extends JMenuBar {
 
-    ShapeControllerInterface controller;
+    MainControllerInterface controller;
 
     CanvasPanel canvasPanel;
 
-    public MenuBar(ShapeControllerInterface controller, CanvasPanel canvasPanel) {
+    public MenuBar(MainControllerInterface controller, CanvasPanel canvasPanel) {
         super();
         this.controller = controller;
         this.canvasPanel = canvasPanel;

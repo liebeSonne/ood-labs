@@ -5,7 +5,7 @@ import shape.ShapeInterface;
 
 import java.awt.*;
 
-public interface ShapeControllerInterface {
+public interface MainControllerInterface {
     public DocumentInterface getDocument();
     public void addTriangle();
     public void addRectangle();

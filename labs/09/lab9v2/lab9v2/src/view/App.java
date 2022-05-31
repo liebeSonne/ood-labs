@@ -1,7 +1,7 @@
 package view;
 
-import controller.ShapeController;
-import controller.ShapeControllerInterface;
+import controller.MainController;
+import controller.MainControllerInterface;
 import document.DocumentInterface;
 
 import javax.swing.*;
@@ -18,7 +18,7 @@ public class App extends JFrame {
     private JButton ellipseButton;
     private JButton UPDButton;
 
-    ShapeControllerInterface controller;
+    MainControllerInterface controller;
 
     public App(DocumentInterface document) {
         super();
@@ -39,7 +39,7 @@ public class App extends JFrame {
 
     private void initShapesController(DocumentInterface document) {
         Point center = new Point(this.canvasPanel.getWidth() /2, this.canvasPanel.getHeight() / 2);
-        this.controller = new ShapeController(center, document);
+        this.controller = new MainController(center, document);
         ((CanvasPanel)this.canvasPanel).setController(this.controller);
     }
 

@@ -8,13 +8,13 @@ import java.util.Random;
 
 import java.awt.*;
 
-public class ShapeController implements ShapeControllerInterface {
+public class MainController implements MainControllerInterface {
 
     Point center;
     DocumentInterface document;
     ShapeInterface selectedShape;
 
-    public ShapeController(Point center, DocumentInterface document) {
+    public MainController(Point center, DocumentInterface document) {
         this.center = new Point(center.x, center.y);
         this.document = document;
     }
