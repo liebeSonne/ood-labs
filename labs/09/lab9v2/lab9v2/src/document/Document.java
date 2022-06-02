@@ -69,4 +69,13 @@ public class Document implements DocumentInterface, ObservedInterface {
     private void sendUpdate() {
         this.observers.forEach(ObserverInterface::update);
     }
+
+    public void translateShape(ShapeInterface shape, int x, int y) {
+        this.shapes.forEach(curShape ->{
+            if (curShape == shape) {
+                curShape.translate(x, y);
+                this.sendUpdate();
+            }
+        });
+    }
 }

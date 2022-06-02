@@ -14,7 +14,7 @@ public class MainController {
     }
 
     public void onAddNewHarmonica() {
-        HarmonicaData harmonica = this.view.getHarmonica();
+        HarmonicaData harmonica = this.view.getNewHarmonica();
         if (harmonica != null) {
             this.document.addHarmonica(harmonica.amplitude, harmonica.formula, harmonica.frequency, harmonica.phase);
         }

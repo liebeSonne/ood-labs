@@ -18,7 +18,7 @@ class MockView implements HarmonicaView {
     }
 
     @Override
-    public HarmonicaData getHarmonica() {
+    public HarmonicaData getNewHarmonica() {
         return data;
     }
 }

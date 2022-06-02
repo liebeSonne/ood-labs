@@ -14,4 +14,6 @@ public interface DocumentInterface {
     public ArrayList<ShapeInterface> getSelectedShapes();
 
     public void setSelectedShapes(ArrayList<ShapeInterface> selectedShapes);
+
+    public void translateShape(ShapeInterface shape, int x, int y);
 }
