@@ -47,11 +47,15 @@ public class Document implements DocumentInterface, ObservedInterface {
         selectedShapes.forEach(selectShape -> {
             this.shapes.forEach(shape -> {
                 if (shape == selectShape) {
-                    shape.setSelected(true);
-                    this.sendUpdate();
+                    if (!shape.isSelected()) {
+                        shape.setSelected(true);
+                        this.sendUpdate();
+                    }
                 } else {
-                    shape.setSelected(false);
-                    this.sendUpdate();
+                    if (shape.isSelected()) {
+                        shape.setSelected(false);
+                        this.sendUpdate();
+                    }
                 }
             });
         });
