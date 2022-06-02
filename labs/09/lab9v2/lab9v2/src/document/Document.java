@@ -1,15 +1,19 @@
 package document;
 
+import observer.ObservedInterface;
+import observer.ObserverInterface;
 import shape.ShapeInterface;
 
 import java.util.ArrayList;
 
-public class Document implements DocumentInterface {
+public class Document implements DocumentInterface, ObservedInterface {
     private ArrayList<ShapeInterface> shapes;
+    private ArrayList<ObserverInterface> observers;
 
     public Document()
     {
         this.shapes = new ArrayList<ShapeInterface>();
+        this.observers = new ArrayList<ObserverInterface>();
     }
 
     public ArrayList<ShapeInterface> getShapes()
@@ -20,11 +24,13 @@ public class Document implements DocumentInterface {
     public void addShape(ShapeInterface shape)
     {
         this.shapes.add(shape);
+        this.sendUpdate();
     }
 
     public void removeShape(ShapeInterface shape)
     {
         this.shapes.remove(shape);
+        this.sendUpdate();
     }
 
     public ArrayList<ShapeInterface> getSelectedShapes() {
@@ -42,10 +48,21 @@ public class Document implements DocumentInterface {
             this.shapes.forEach(shape -> {
                 if (shape == selectShape) {
                     shape.setSelected(true);
+                    this.sendUpdate();
                 } else {
                     shape.setSelected(false);
+                    this.sendUpdate();
                 }
             });
         });
+    }
+
+    @Override
+    public void register(ObserverInterface observer) {
+        this.observers.add(observer);
+    }
+
+    private void sendUpdate() {
+        this.observers.forEach(ObserverInterface::update);
     }
 }
