@@ -21,6 +21,10 @@ public class Triangle extends Shape {
         canvas.setColor(this.getStrokeStyle().getColor());
         canvas.setLineSize(3);
         canvas.drawPolygon(points);
+
+        if (this.isSelected()) {
+            this.drawFrame(canvas);
+        }
     }
 
     @Override

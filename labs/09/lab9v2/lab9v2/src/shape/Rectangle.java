@@ -22,6 +22,10 @@ public class Rectangle extends Shape {
         canvas.setLineSize(3);
         canvas.setColor(this.getStrokeStyle().getColor());
         canvas.drawPolygon(points);
+
+        if (this.isSelected()) {
+            this.drawFrame(canvas);
+        }
     }
 
     public boolean contains(Point point) {
