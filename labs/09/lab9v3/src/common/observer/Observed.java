@@ -1,5 +1,6 @@
 package common.observer;
 
 public interface Observed {
-    public void register(Observer observer);
+    public void registerObserver(Observer observer);
+    public void notifyObservers();
 }
