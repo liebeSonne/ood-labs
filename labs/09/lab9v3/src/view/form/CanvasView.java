@@ -1,5 +1,6 @@
 package view.form;
 
+import common.observer.Observer;
 import controller.CanvasController;
 import model.Document;
 import view.data.ShapeDataViewInterface;
@@ -9,7 +10,7 @@ import view.shape.ShapeViewInterface;
 import javax.swing.*;
 import java.awt.*;
 
-public class CanvasView extends JPanel implements ShapeDataViewInterface {
+public class CanvasView extends JPanel implements ShapeDataViewInterface, Observer {
     private Document document;
     private CanvasController controller;
 
@@ -19,6 +20,7 @@ public class CanvasView extends JPanel implements ShapeDataViewInterface {
         this.document = document;
         this.controller = new CanvasController(document);
         this.factory = new ShapeViewFactory();
+        this.document.registerObserver(this);
     }
 
     @Override
@@ -37,5 +39,10 @@ public class CanvasView extends JPanel implements ShapeDataViewInterface {
                 view.draw(g2);
             }
         });
+    }
+
+    @Override
+    public void update() {
+        repaint();
     }
 }
