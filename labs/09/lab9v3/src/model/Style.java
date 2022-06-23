@@ -7,7 +7,7 @@ import common.observer.Observer;
 import java.awt.*;
 
 public class Style implements Observed {
-    Observable observable;
+    private Observable observable;
     private Color fillColor;
     private Color strokeColor;
 

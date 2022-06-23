@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 public class MenuView extends JMenuBar {
-    MenuController controller;
+    private MenuController controller;
 
     public MenuView(Document document, ShapeDataViewInterface dataView) {
         super();

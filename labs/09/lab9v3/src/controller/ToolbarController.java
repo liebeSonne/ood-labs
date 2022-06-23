@@ -7,9 +7,9 @@ import model.ShapeType;
 import view.data.ShapeDataViewInterface;
 
 public class ToolbarController {
-    Document document;
-    ShapeDataViewInterface view;
-    ShapeFactory factory;
+    private Document document;
+    private ShapeDataViewInterface view;
+    private ShapeFactory factory;
 
     public ToolbarController(Document document, ShapeDataViewInterface view) {
         this.document = document;

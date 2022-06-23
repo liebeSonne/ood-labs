@@ -3,7 +3,7 @@ package controller;
 import model.Document;
 
 public class MainController {
-    Document document;
+    private Document document;
     public MainController(Document document) {
         this.document = document;
     }

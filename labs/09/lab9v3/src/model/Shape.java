@@ -5,7 +5,7 @@ import common.observer.Observed;
 import common.observer.Observer;
 
 public class Shape implements Observed, Observer {
-    Observable observable;
+    private Observable observable;
     private final ShapeType type;
     private Frame frame;
     private final Style style;

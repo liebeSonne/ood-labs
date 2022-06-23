@@ -3,7 +3,7 @@ package common.observer;
 import java.util.ArrayList;
 
 public class Observable implements Observed {
-    ArrayList<Observer> observers;
+    private ArrayList<Observer> observers;
 
     public Observable() {
         observers = new ArrayList<Observer>();

@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.function.Consumer;
 
 public class Document implements Observed, Observer {
-    Observable observable;
-    ArrayList<Shape> shapes;
+    private Observable observable;
+    private ArrayList<Shape> shapes;
 
     public Document() {
         observable = new Observable();
