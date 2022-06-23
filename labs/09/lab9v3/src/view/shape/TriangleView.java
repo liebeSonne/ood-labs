@@ -35,7 +35,7 @@ public class TriangleView extends ShapeView {
 
         int lineSize = 3;
 
-        g2.setColor(this.shape.getStyle().getFillColor());
+        g2.setColor(this.shape.getStyle().getStrokeColor());
         g2.setStroke(new BasicStroke(lineSize));
         g2.draw(polygon);
 
