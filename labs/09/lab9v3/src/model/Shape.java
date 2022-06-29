@@ -3,9 +3,14 @@ package model;
 import common.observer.Observable;
 import common.observer.Observed;
 import common.observer.Observer;
+import model.observer.ShapeObserved;
+import model.observer.ShapeObserver;
 
-public class Shape implements Observed, Observer {
+import java.util.ArrayList;
+
+public class Shape implements Observed, Observer, ShapeObserved {
     private Observable observable;
+    private ArrayList<ShapeObserver> shapeObservables = new ArrayList<ShapeObserver>();
     private final ShapeType type;
     private Frame frame;
     private final Style style;
@@ -53,5 +58,10 @@ public class Shape implements Observed, Observer {
     @Override
     public void notifyObservers() {
         observable.notifyObservers();
+    }
+
+    @Override
+    public void registerShapeObserver(ShapeObserver observer) {
+        shapeObservables.add(observer);
     }
 }
