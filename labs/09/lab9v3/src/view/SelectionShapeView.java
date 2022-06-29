@@ -1,24 +1,23 @@
 package view;
 
 import model.Frame;
-import model.Shape;
+import model.Style;
+import model.observer.ShapeObserver;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class SelectionShapeView extends JComponent {
-    private final Shape model;
+public class SelectionShapeView extends JComponent implements ShapeObserver {
+    private Frame frame;
 
-    public SelectionShapeView(Shape shape) {
-        this.model = shape;
+    public SelectionShapeView(Frame frame) {
+        this.frame = frame;
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-
-        Frame frame = model.getFrame();
 
         g2.setColor(Color.blue);
         g2.setStroke(new BasicStroke(3));
@@ -27,5 +26,16 @@ public class SelectionShapeView extends JComponent {
 
     public void draw(Graphics2D g2) {
         paintComponent(g2);
+    }
+
+    @Override
+    public void onUpdateStyle(Style style) {
+
+    }
+
+    @Override
+    public void onUpdateFrame(Frame frame) {
+        this.frame = new Frame(frame.getLeft(), frame.getTop(), frame.getWidth(), frame.getHeight());
+        repaint();
     }
 }
