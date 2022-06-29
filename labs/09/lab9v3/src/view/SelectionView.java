@@ -4,10 +4,12 @@ import common.observer.Observer;
 import controller.SelectionController;
 import model.Shape;
 import view.model.SelectionModel;
+import view.shape.ShapeViewInterface;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class SelectionView extends JComponent implements Observer {
     private final SelectionModel model;
@@ -27,11 +29,9 @@ public class SelectionView extends JComponent implements Observer {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        model.forEach(shape -> {
-            SelectionShapeView view = new SelectionShapeView(shape.getFrame());
-            shape.registerShapeObserver(view);
-            view.draw(g2);
-        });
+        for(Map.Entry<Shape, SelectionShapeView> entry : shapeMap.entrySet()) {
+            entry.getValue().draw(g2);
+        }
     }
 
     public void draw(Graphics2D g2) {
