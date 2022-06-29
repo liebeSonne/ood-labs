@@ -5,18 +5,22 @@ import controller.ShapeController;
 import model.Frame;
 import model.Shape;
 import model.Style;
+import model.observer.ShapeObserved;
 import model.observer.ShapeObserver;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 
-public abstract class ShapeView extends JComponent implements ShapeViewInterface, ShapeObserver {
+public abstract class ShapeView extends JComponent implements ShapeViewInterface, ShapeObserver, ShapeObserved {
     protected ShapeController controller;
     protected Shape shape;
     protected Frame frame;
+
+    private final ArrayList<ShapeObserver> shapeObservers = new ArrayList<ShapeObserver>();
 
     public ShapeView(Shape shape, ShapeController controller) {
         super();
@@ -51,11 +55,13 @@ public abstract class ShapeView extends JComponent implements ShapeViewInterface
     }
 
     public void onUpdateStyle(Style style) {
+        this.shapeObservers.forEach(observer -> observer.onUpdateStyle(style));
         repaint();
     }
 
     public void onUpdateFrame(Frame frame) {
         this.frame = new Frame(frame.getLeft(), frame.getTop(), frame.getWidth(), frame.getHeight());
+        this.shapeObservers.forEach(observer -> observer.onUpdateFrame(frame));
         repaint();
     }
 
@@ -74,5 +80,9 @@ public abstract class ShapeView extends JComponent implements ShapeViewInterface
                 controller.onSelect();
             }
         });
+    }
+
+    public void registerShapeObserver(ShapeObserver observer) {
+        shapeObservers.add(observer);
     }
 }
