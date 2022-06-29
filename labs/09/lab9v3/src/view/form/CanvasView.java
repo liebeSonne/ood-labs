@@ -57,6 +57,7 @@ public class CanvasView extends JPanel implements ShapeDataViewInterface, Observ
             if (shapeMap.get(item) == null) {
                 ShapeViewInterface view = factory.createShapeView(item);
                 shapeMap.put(item, view);
+                add((JComponent)view);
                 repaint();
             }
         });
@@ -75,6 +76,7 @@ public class CanvasView extends JPanel implements ShapeDataViewInterface, Observ
         ShapeViewInterface view = shapeMap.get(shape);
         if (view != null) {
             shapeMap.remove(shape);
+            remove((JComponent)view);
             repaint();
         }
     }
