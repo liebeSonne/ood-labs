@@ -1,5 +1,6 @@
 package view.shape;
 
+import controller.ShapeController;
 import model.Frame;
 import model.Shape;
 
@@ -7,8 +8,8 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
 public class EllipseView extends ShapeView {
-    public EllipseView(Shape shape) {
-        super(shape);
+    public EllipseView(Shape shape, ShapeController controller) {
+        super(shape, controller);
     }
 
     @Override

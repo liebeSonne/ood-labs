@@ -1,13 +1,14 @@
 package view.shape;
 
+import controller.ShapeController;
 import model.Frame;
 import model.Shape;
 
 import java.awt.*;
 
 public class RectangleVIew extends ShapeView {
-    public RectangleVIew(Shape shape) {
-        super(shape);
+    public RectangleVIew(Shape shape, ShapeController controller) {
+        super(shape, controller);
     }
 
     @Override

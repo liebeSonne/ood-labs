@@ -9,19 +9,24 @@ import model.observer.ShapeObserver;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 
 public abstract class ShapeView extends JComponent implements ShapeViewInterface, ShapeObserver {
     protected ShapeController controller;
     protected Shape shape;
     protected Frame frame;
 
-    public ShapeView(Shape shape) {
+    public ShapeView(Shape shape, ShapeController controller) {
         super();
         this.shape = shape;
-        this.controller = new ShapeController(shape);
+        this.controller = controller;
         Frame frame = shape.getFrame();
         this.frame = new Frame(frame.getLeft(), frame.getTop(), frame.getWidth(), frame.getHeight());
         this.shape.registerShapeObserver(this);
+
+        this.bindMouseListener();
     }
 
     public Shape getShape() {
@@ -56,5 +61,18 @@ public abstract class ShapeView extends JComponent implements ShapeViewInterface
 
     public Frame getFrame() {
         return this.frame;
+    }
+
+
+    private void bindMouseListener() {
+        System.out.println("ShapeView::bindMouseListener");
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                System.out.println("ShapeView::mousePressed - " + e.getPoint());
+                controller.onSelect();
+            }
+        });
     }
 }

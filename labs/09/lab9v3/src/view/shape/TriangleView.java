@@ -1,13 +1,14 @@
 package view.shape;
 
+import controller.ShapeController;
 import model.Frame;
 import model.Shape;
 
 import java.awt.*;
 
 public class TriangleView extends ShapeView {
-    public TriangleView(Shape shape) {
-        super(shape);
+    public TriangleView(Shape shape, ShapeController controller) {
+        super(shape, controller);
     }
 
     @Override

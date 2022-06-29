@@ -27,17 +27,19 @@ public class CanvasView extends JPanel implements ShapeDataViewInterface, Observ
 
     public CanvasView(Document document) {
         super();
+        this.selectionModel = new SelectionModel();
+        this.shapeMap = new LinkedHashMap<Shape, ShapeViewInterface>();
+
         this.document = document;
         this.controller = new CanvasController(document);
-        this.factory = new ShapeViewFactory();
+        this.factory = new ShapeViewFactory(this.selectionModel);
         // this.document.registerObserver(this);
         this.document.registerDocumentObserver(this);
 
-        this.shapeMap = new LinkedHashMap<Shape, ShapeViewInterface>();
-
-        this.selectionModel = new SelectionModel();
         this.document.registerDocumentObserver(this.selectionModel);
         this.selectionView = new SelectionView(this.selectionModel);
+
+        this.selectionModel.registerObserver(this);
 
         updateDocumentShapesView();
     }
