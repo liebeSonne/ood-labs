@@ -44,6 +44,10 @@ public class Document implements Observed, Observer, DocumentObserved {
         shapes.forEach(action);
     }
 
+    public int getIndex(Shape shape) {
+        return shapes.indexOf(shape);
+    }
+
     @Override
     public void registerObserver(Observer observer) {
         observable.registerObserver(observer);
