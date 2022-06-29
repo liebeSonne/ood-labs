@@ -5,7 +5,9 @@ import controller.CanvasController;
 import model.Document;
 import model.Shape;
 import model.observer.DocumentObserver;
+import view.SelectionView;
 import view.data.ShapeDataViewInterface;
+import view.model.SelectionModel;
 import view.shape.ShapeViewFactory;
 import view.shape.ShapeViewInterface;
 
@@ -20,6 +22,9 @@ public class CanvasView extends JPanel implements ShapeDataViewInterface, Observ
 
     private LinkedHashMap<Shape, ShapeViewInterface> shapeMap;
 
+    private SelectionView selectionView;
+    private SelectionModel selectionModel;
+
     public CanvasView(Document document) {
         super();
         this.document = document;
@@ -29,6 +34,11 @@ public class CanvasView extends JPanel implements ShapeDataViewInterface, Observ
         this.document.registerDocumentObserver(this);
 
         this.shapeMap = new LinkedHashMap<Shape, ShapeViewInterface>();
+
+        this.selectionModel = new SelectionModel();
+        this.document.registerDocumentObserver(this.selectionModel);
+        this.selectionView = new SelectionView(this.selectionModel);
+
         updateDocumentShapesView();
     }
 
@@ -45,6 +55,8 @@ public class CanvasView extends JPanel implements ShapeDataViewInterface, Observ
         for(Map.Entry<Shape, ShapeViewInterface> entry : shapeMap.entrySet()) {
             entry.getValue().draw(g2);
         }
+
+        selectionView.draw(g2);
     }
 
     @Override
