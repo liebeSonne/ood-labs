@@ -13,11 +13,14 @@ import java.awt.*;
 public abstract class ShapeView extends JComponent implements ShapeViewInterface, ShapeObserver {
     protected ShapeController controller;
     protected Shape shape;
+    protected Frame frame;
 
     public ShapeView(Shape shape) {
         super();
         this.shape = shape;
         this.controller = new ShapeController(shape);
+        Frame frame = shape.getFrame();
+        this.frame = new Frame(frame.getLeft(), frame.getTop(), frame.getWidth(), frame.getHeight());
         this.shape.registerShapeObserver(this);
     }
 
@@ -47,6 +50,11 @@ public abstract class ShapeView extends JComponent implements ShapeViewInterface
     }
 
     public void onUpdateFrame(Frame frame) {
+        this.frame = new Frame(frame.getLeft(), frame.getTop(), frame.getWidth(), frame.getHeight());
         repaint();
+    }
+
+    public Frame getFrame() {
+        return this.frame;
     }
 }

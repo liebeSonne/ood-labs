@@ -12,7 +12,8 @@ public class TriangleView extends ShapeView {
 
     @Override
     public boolean contains(Point point) {
-        Frame frame = this.shape.getFrame();
+//        Frame frame = this.shape.getFrame();
+        Frame frame = this.frame;
         Point p1 = new Point(frame.getLeft(), frame.getTop()+frame.getHeight());
         Point p2 = new Point(frame.getLeft()+frame.getWidth(), frame.getTop()+frame.getHeight());
         Point p3 = new Point(frame.getLeft()+frame.getWidth()/2,frame.getTop());
@@ -26,7 +27,6 @@ public class TriangleView extends ShapeView {
 
     @Override
     public void draw(Graphics2D g2) {
-        Frame frame = this.shape.getFrame();
         Point[] points = this.createPoints();
         Polygon polygon = this.createPolygon(points);
 
@@ -43,7 +43,8 @@ public class TriangleView extends ShapeView {
     }
 
     private Point[] createPoints() {
-        Frame frame = this.shape.getFrame();
+//        Frame frame = this.shape.getFrame();
+        Frame frame = this.frame;
         Point[] points = {
                 new Point(frame.getLeft(), frame.getTop()+frame.getHeight()),
                 new Point(frame.getLeft()+frame.getWidth(), frame.getTop()+frame.getHeight()),
