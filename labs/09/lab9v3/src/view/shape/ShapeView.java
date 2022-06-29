@@ -33,10 +33,6 @@ public abstract class ShapeView extends JComponent implements ShapeViewInterface
         this.bindMouseListener();
     }
 
-    public Shape getShape() {
-        return shape;
-    }
-
     @Override
     public abstract boolean contains(Point point);
 
