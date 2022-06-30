@@ -4,7 +4,6 @@ import common.observer.Observer;
 import controller.SelectionController;
 import model.Shape;
 import view.model.SelectionModel;
-import view.shape.ShapeViewInterface;
 
 import javax.swing.*;
 import java.awt.*;
@@ -52,5 +51,11 @@ public class SelectionView extends JComponent implements Observer {
                 repaint();
             }
         });
+
+        for(Map.Entry<Shape, SelectionShapeView> entry : shapeMap.entrySet()) {
+            if (!model.isSelected(entry.getKey())) {
+                shapeMap.remove(entry.getKey());
+            }
+        }
     }
 }
