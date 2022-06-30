@@ -1,4 +1,4 @@
-package view.model;
+package model;
 
 import common.observer.Observed;
 import common.observer.Observer;

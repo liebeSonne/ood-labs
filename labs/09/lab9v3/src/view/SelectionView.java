@@ -3,7 +3,7 @@ package view;
 import common.observer.Observer;
 import controller.SelectionController;
 import model.Shape;
-import view.model.SelectionModel;
+import model.SelectionModel;
 
 import javax.swing.*;
 import java.awt.*;

@@ -2,7 +2,7 @@ package controller;
 
 import controller.transfer.*;
 import model.Shape;
-import view.model.SelectionModel;
+import model.SelectionModel;
 
 import java.util.ArrayList;
 

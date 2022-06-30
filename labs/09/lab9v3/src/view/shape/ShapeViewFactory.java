@@ -2,7 +2,7 @@ package view.shape;
 
 import controller.ShapeController;
 import model.Shape;
-import view.model.SelectionModel;
+import model.SelectionModel;
 
 public class ShapeViewFactory {
 

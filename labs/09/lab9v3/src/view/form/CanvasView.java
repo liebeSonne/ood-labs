@@ -7,7 +7,7 @@ import model.Shape;
 import model.observer.DocumentObserver;
 import view.SelectionView;
 import view.data.ShapeDataViewInterface;
-import view.model.SelectionModel;
+import model.SelectionModel;
 import view.shape.ShapeViewFactory;
 import view.shape.ShapeViewInterface;
 

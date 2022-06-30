@@ -1,7 +1,7 @@
 package controller;
 
 import view.SelectionView;
-import view.model.SelectionModel;
+import model.SelectionModel;
 
 public class SelectionController {
     private final SelectionModel model;
