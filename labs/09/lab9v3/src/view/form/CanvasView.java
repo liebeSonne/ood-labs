@@ -13,6 +13,8 @@ import view.shape.ShapeViewInterface;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.*;
 
 public class CanvasView extends JPanel implements ShapeDataViewInterface, Observer, DocumentObserver {
@@ -31,9 +33,9 @@ public class CanvasView extends JPanel implements ShapeDataViewInterface, Observ
         this.shapeMap = new LinkedHashMap<Shape, ShapeViewInterface>();
 
         this.document = document;
-        this.controller = new CanvasController(document);
+        this.controller = new CanvasController(document, this.selectionModel);
         this.factory = new ShapeViewFactory(this.selectionModel);
-        // this.document.registerObserver(this);
+        this.document.registerObserver(this);
         this.document.registerDocumentObserver(this);
 
         this.document.registerDocumentObserver(this.selectionModel);
@@ -42,6 +44,7 @@ public class CanvasView extends JPanel implements ShapeDataViewInterface, Observ
         this.selectionModel.registerObserver(this);
 
         updateDocumentShapesView();
+        bindMouseListener();
     }
 
     @Override
@@ -97,10 +100,18 @@ public class CanvasView extends JPanel implements ShapeDataViewInterface, Observ
 
     @Override
     public void onUpdateShape(Shape shape) {
-        System.out.println("CanvasView::onUpdateShape");
-        ShapeViewInterface view = shapeMap.get(shape);
-        if (view != null) {
-            repaint();
-        }
+        repaint();
+    }
+
+    private void bindMouseListener() {
+        System.out.println("ShapeView::bindMouseListener");
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                System.out.println("ShapeView::mousePressed - " + e.getPoint());
+                controller.onUnSelectAll();
+            }
+        });
     }
 }
