@@ -13,8 +13,7 @@ public class TriangleView extends ShapeView {
 
     @Override
     public boolean contains(Point point) {
-//        Frame frame = this.shape.getFrame();
-        Frame frame = this.frame;
+        Frame frame = this.getFrame();
         Point p1 = new Point(frame.getLeft(), frame.getTop()+frame.getHeight());
         Point p2 = new Point(frame.getLeft()+frame.getWidth(), frame.getTop()+frame.getHeight());
         Point p3 = new Point(frame.getLeft()+frame.getWidth()/2,frame.getTop());
@@ -44,8 +43,7 @@ public class TriangleView extends ShapeView {
     }
 
     private Point[] createPoints() {
-//        Frame frame = this.shape.getFrame();
-        Frame frame = this.frame;
+        Frame frame = this.getFrame();
         Point[] points = {
                 new Point(frame.getLeft(), frame.getTop()+frame.getHeight()),
                 new Point(frame.getLeft()+frame.getWidth(), frame.getTop()+frame.getHeight()),

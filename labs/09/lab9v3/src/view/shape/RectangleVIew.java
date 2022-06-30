@@ -13,8 +13,7 @@ public class RectangleVIew extends ShapeView {
 
     @Override
     public boolean contains(Point point) {
-//        Frame frame = this.shape.getFrame();
-        Frame frame = this.frame;
+        Frame frame = this.getFrame();
         int minX = frame.getLeft();
         int minY = frame.getTop();
         int maxX = frame.getLeft() + frame.getWidth();
@@ -42,8 +41,7 @@ public class RectangleVIew extends ShapeView {
 
 
     private Point[] createPoints() {
-//        Frame frame = this.shape.getFrame();
-        Frame frame = this.frame;
+        Frame frame = this.getFrame();
         Point[] points = {
                 new Point(frame.getLeft(), frame.getTop()),
                 new Point(frame.getLeft() + frame.getWidth(), frame.getTop()),

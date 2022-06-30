@@ -14,8 +14,7 @@ public class EllipseView extends ShapeView {
 
     @Override
     public boolean contains(Point point) {
-//        Frame frame = this.shape.getFrame();
-        Frame frame = this.frame;
+        Frame frame = this.getFrame();
         Point center = new Point(frame.getLeft() + frame.getWidth() / 2, frame.getTop() + frame.getHeight() / 2);
         double x2 = Math.pow(point.x - center.x, 2);
         double y2 = Math.pow(point.y - center.y, 2);
@@ -27,8 +26,7 @@ public class EllipseView extends ShapeView {
 
     @Override
     public void draw(Graphics2D g2) {
-//        Frame frame = this.shape.getFrame();
-        Frame frame = this.frame;
+        Frame frame = this.getFrame();
 
         Ellipse2D ellipse = new Ellipse2D.Double(frame.getLeft(), frame.getTop(), frame.getWidth(), frame.getHeight());
         g2.setColor(this.shape.getStyle().getFillColor());
