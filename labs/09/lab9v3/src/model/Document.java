@@ -10,18 +10,18 @@ import java.util.ArrayList;
 import java.util.function.Consumer;
 
 public class Document implements Observed, Observer, DocumentObserved {
-    private Observable observable;
-    private ArrayList<Shape> shapes;
-    private ArrayList<DocumentObserver> documentObservers;
+    private ArrayList<Shape> shapes = new ArrayList<Shape>();
+
+    private ArrayList<Observer> observers = new ArrayList<Observer>();
+    private ArrayList<DocumentObserver> documentObservers = new ArrayList<DocumentObserver>();
 
     public Document() {
-        observable = new Observable();
-        shapes = new ArrayList<Shape>();
-        documentObservers = new ArrayList<DocumentObserver>();
+
     }
 
     @Override
     public void update() {
+        System.out.println("Document::update");
         notifyObservers();
     }
 
@@ -50,12 +50,12 @@ public class Document implements Observed, Observer, DocumentObserved {
 
     @Override
     public void registerObserver(Observer observer) {
-        observable.registerObserver(observer);
+        observers.add(observer);
     }
 
     @Override
     public void notifyObservers() {
-        observable.notifyObservers();
+        observers.forEach(Observer::update);
     }
 
     @Override
