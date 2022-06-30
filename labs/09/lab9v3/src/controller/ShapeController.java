@@ -1,5 +1,6 @@
 package controller;
 
+import controller.transfer.*;
 import model.Shape;
 import view.model.SelectionModel;
 
@@ -33,7 +34,24 @@ public class ShapeController {
 
     public void onMove() {
         // @TODO
-        System.out.println("ShapeController::onMove");
+        //System.out.println("ShapeController::onMove");
+    }
+
+    public void onDraggable(int offsetX, int offsetY) {
+        System.out.println("ShapeController::onDraggable");
+        if (selectionModel.isSelected(shape)) {
+            System.out.println("ShapeController::onDraggable: oX=" + offsetX + ", oY=" + offsetY);
+
+            Movable movable = new MovableShape(shape);
+            ArrayList<Movable> movables = new ArrayList<Movable>();
+            selectionModel.forEach(selected -> {
+                movables.add(new MovableShape(selected));
+            });
+            Movables movablesShape = new MovablesShape(movables);
+
+            MoveUseCase useCase = new MoveUseCase(movablesShape);
+            useCase.move(movable, offsetX, offsetY);
+        }
     }
 
     public void onResize() {
