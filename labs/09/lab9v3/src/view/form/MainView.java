@@ -2,6 +2,7 @@ package view.form;
 
 import controller.MainController;
 import model.Document;
+import model.SelectionModel;
 
 import javax.swing.*;
 
@@ -13,6 +14,8 @@ public class MainView extends JFrame {
 
     private MainController controller;
 
+    private SelectionModel selectionModel;
+
     public MainView(Document document) {
         super();
         this.document = document;
@@ -20,12 +23,13 @@ public class MainView extends JFrame {
 
         this.setContentPane(mainPanel);
 
-        JMenuBar menuBar = new MenuView(document, (CanvasView)canvasPanel);
+        JMenuBar menuBar = new MenuView(document, (CanvasView)canvasPanel, selectionModel);
         setJMenuBar(menuBar);
     }
 
     private void createUIComponents() {
-        canvasPanel = new CanvasView(document);
+        this.selectionModel = new SelectionModel();
+        canvasPanel = new CanvasView(document, selectionModel);
         toolbarPanel = new ToolbarView(document, (CanvasView)canvasPanel);
     }
 }

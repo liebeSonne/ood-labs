@@ -2,6 +2,7 @@ package view.form;
 
 import controller.MenuController;
 import model.Document;
+import model.SelectionModel;
 import model.ShapeType;
 import view.data.ShapeDataViewInterface;
 
@@ -13,15 +14,16 @@ import java.awt.event.KeyEvent;
 public class MenuView extends JMenuBar {
     private MenuController controller;
 
-    public MenuView(Document document, ShapeDataViewInterface dataView) {
+    public MenuView(Document document, ShapeDataViewInterface dataView, SelectionModel selectionModel) {
         super();
-        controller = new MenuController(document, dataView);
+        controller = new MenuController(document, dataView, selectionModel);
 
         initComponents();
     }
 
     private void initComponents() {
         this.initMenuFile();
+        this.initMenuEdit();
         this.initMenuHome();
         this.initMenuInsert();
         this.initMenuView();
@@ -44,6 +46,24 @@ public class MenuView extends JMenuBar {
         menuFile.add(itemExit);
 
         this.add(menuFile);
+    }
+
+    private void initMenuEdit() {
+        JMenu menuEdit = new JMenu("Edit");
+
+        JMenuItem itemDel = new JMenuItem("Del");
+        itemDel.setMnemonic(KeyEvent.VK_DELETE);
+        itemDel.setAccelerator(KeyStroke.getKeyStroke((char) KeyEvent.VK_DELETE));
+        itemDel.setToolTipText("Delete selected shapes");
+        itemDel.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                controller.onDelete();
+            }
+        });
+
+        menuEdit.add(itemDel);
+
+        this.add(menuEdit);
     }
 
     private void initMenuHome() {
